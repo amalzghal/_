@@ -1,0 +1,70 @@
+﻿@model IEnumerable<RentCar.Models.CR_Mas_Sup_City>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_City_Ar_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_City_En_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_City_Fr_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_City_Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_City_Reasons)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Regions.CR_Mas_Sup_Regions_Ar_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_City_Ar_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_City_En_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_City_Fr_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_City_Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_City_Reasons)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Regions.CR_Mas_Sup_Regions_Ar_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CR_Mas_Sup_City_Code }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CR_Mas_Sup_City_Code }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CR_Mas_Sup_City_Code })
+        </td>
+    </tr>
+}
+
+</table>

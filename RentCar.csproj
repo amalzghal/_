@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E231292A-1E89-4E27-912E-54A4F09D81BB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RentCar</RootNamespace>
+    <AssemblyName>RentCar</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44388</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\FeaturesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\SpecificationsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BrandMD.cs" />
+    <Compile Include="Models\CR_Mas_Sup_Brand.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Car_Features.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Car_Specifications.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_City.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Group.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Model.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Regions.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sys_System_Name.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sys_Tasks.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_User_Information.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_User_Main_Validation.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_User_Sub_Validation.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FeaturesMD.cs" />
+    <Compile Include="Models\ModelMD.cs" />
+    <Compile Include="Models\RentCarModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentCarModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentCarModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RentCarModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RentCarModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SpecificationsMD.cs" />
+    <Compile Include="Models\UserInfMD.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap_Arabic\bootstrap-big-grid.min.css" />
+    <Content Include="Bootstrap_Arabic\bootstrap.min.css" />
+    <Content Include="Bootstrap_Arabic\bootstrap.min.js" />
+    <Content Include="Bootstrap_Arabic\font.css" />
+    <Content Include="Bootstrap_Arabic\font\bootstrap-big-grid.min.css" />
+    <Content Include="Bootstrap_Arabic\font\bootstrap.min.css" />
+    <Content Include="Bootstrap_Arabic\font\bootstrap.min.js" />
+    <Content Include="Bootstrap_Arabic\font\font-awesome.css" />
+    <Content Include="Bootstrap_Arabic\font\font-awesome.min.css" />
+    <Content Include="Bootstrap_Arabic\font\fontawesome-webfont.svg" />
+    <Content Include="Bootstrap_Arabic\font\glyphicons-halflings-regular.svg" />
+    <Content Include="Bootstrap_Arabic\font\index.html" />
+    <Content Include="Bootstrap_Arabic\font\jquery-v1.11.2.js" />
+    <Content Include="Bootstrap_Arabic\jquery-v1.11.2.js" />
+    <Content Include="Bootstrap_Arabic\jquery.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\common\error-page-style.css" />
+    <Content Include="css\min\richfaces.css" />
+    <Content Include="css\min\richfaces1814.css" />
+    <Content Include="css\min\style.ar.css" />
+    <Content Include="css\min\style.ar1814.css" />
+    <Content Include="css\min\style.css" />
+    <Content Include="css\min\style1814.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="images\ajax-loader1814.gif" />
+    <Content Include="images\alinma-express-icon1814.png" />
+    <Content Include="images\ar\btn-index.png" />
+    <Content Include="images\barmenu.png" />
+    <Content Include="images\bg1.png" />
+    <Content Include="images\blockquote.png" />
+    <Content Include="images\btn-menu.png" />
+    <Content Include="images\cards\icons\blue-virtual1814.png" />
+    <Content Include="images\changeAccess\changeAccess_ar1814.png" />
+    <Content Include="images\changeAccess\changeAccess_en1814.png" />
+    <Content Include="images\common\bannerar1814.jpg" />
+    <Content Include="images\common\banneren1814.jpg" />
+    <Content Include="images\common\banneren1814.png" />
+    <Content Include="images\common\loading11814.gif" />
+    <Content Include="images\common\LogoutBanenrar1814.jpg" />
+    <Content Include="images\common\LogoutBanenren1814.jpg" />
+    <Content Include="images\common\Timeout-Ar.jpg" />
+    <Content Include="images\common\Timeout-En.jpg" />
+    <Content Include="images\digital-card-icon1814.png" />
+    <Content Include="images\droparrow.png" />
+    <Content Include="images\emergency-cash-icon1814.png" />
+    <Content Include="images\en\btn-index.png" />
+    <Content Include="images\error\error-404-msg.png" />
+    <Content Include="images\error\error-404.png" />
+    <Content Include="images\error\error-500-msg.png" />
+    <Content Include="images\error\error-500.png" />
+    <Content Include="images\expanded.png" />
+    <Content Include="images\expanded2.png" />
+    <Content Include="images\family-account-icon1814.png" />
+    <Content Include="images\file.gif" />
+    <Content Include="images\filter1814.gif" />
+    <Content Include="images\float-calc\close1814.gif" />
+    <Content Include="images\glyphicons-halflings-white.png" />
+    <Content Include="images\glyphicons-halflings.png" />
+    <Content Include="images\glyph_remove.png" />
+    <Content Include="images\icon-event.png" />
+    <Content Include="images\iconsweets-icons.png" />
+    <Content Include="images\leftpanelbg.png" />
+    <Content Include="images\menuarrow.jpg" />
+    <Content Include="images\Nama-icon1814.png" />
+    <Content Include="images\next.png" />
+    <Content Include="images\photos\thumb1.png" />
+    <Content Include="images\prev.png" />
+    <Content Include="images\ratingar.css" />
+    <Content Include="images\reports.png" />
+    <Content Include="images\site_banner.png" />
+    <Content Include="images\sortable1814.gif" />
+    <Content Include="images\sorted_down1814.gif" />
+    <Content Include="images\sorted_up1814.gif" />
+    <Content Include="images\sprite\error-page-buttons1814.png" />
+    <Content Include="images\sprite\financing1814.png" />
+    <Content Include="images\sprite\HMenue_ar.png" />
+    <Content Include="images\sprite\HMenue_en1814.png" />
+    <Content Include="images\sprite\logout_en1814.png" />
+    <Content Include="images\sprite\main.png" />
+    <Content Include="images\sprite\main1814.png" />
+    <Content Include="images\sprite\main9896.png" />
+    <Content Include="images\sprite\nama1814.png" />
+    <Content Include="images\sprite\SecImg1814.jpg" />
+    <Content Include="images\sprite\StoreLinks_en1814.jpg" />
+    <Content Include="images\sp_menu.png" />
+    <Content Include="images\textEditorIcons\jHtmlArea1814.png" />
+    <Content Include="images\textEditorIcons\jHtmlArea_Toolbar_Group_BG1814.png" />
+    <Content Include="images\textEditorIcons\jHtmlArea_Toolbar_Group__Btn_Select_BG1814.png" />
+    <Content Include="images\thumb1.png" />
+    <Content Include="images\transwhite.png" />
+    <Content Include="images\transwhite2.png" />
+    <Content Include="images\upload.gif" />
+    <Content Include="images\western-union-icon1814.png" />
+    <Content Include="main_files\ajax-loader.gif" />
+    <Content Include="main_files\closelabelar.gif" />
+    <Content Include="main_files\logo.png" />
+    <Content Include="main_files\quesar.gif" />
+    <Content Include="main_files\ratingar.css" />
+    <Content Include="main_files\richfaces.css" />
+    <Content Include="main_files\select2-customized.css" />
+    <Content Include="main_files\select2.min.css" />
+    <Content Include="main_files\style.ar.css" />
+    <Content Include="main_files\style.css" />
+    <Content Include="Models\RentCarModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RentCarModel.edmx</DependentUpon>
+      <LastGenOutput>RentCarModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RentCarModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RentCarModel.edmx</DependentUpon>
+      <LastGenOutput>RentCarModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Bootstrap_Arabic\font\CHANGA-SEMIBOLD.TTF" />
+    <Content Include="Bootstrap_Arabic\font\DroidKufi-Regular.ttf" />
+    <Content Include="Bootstrap_Arabic\font\DroidNaskh-Bold.ttf" />
+    <Content Include="Bootstrap_Arabic\font\DroidNaskh-Regular.ttf" />
+    <Content Include="Bootstrap_Arabic\font\fontawesome-webfont.eot" />
+    <Content Include="Bootstrap_Arabic\font\fontawesome-webfont.ttf" />
+    <Content Include="Bootstrap_Arabic\font\fontawesome-webfont.woff" />
+    <Content Include="Bootstrap_Arabic\font\fontawesome-webfont.woff2" />
+    <Content Include="Bootstrap_Arabic\font\FontAwesome.otf" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Bold.eot" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Bold.otf" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Bold.woff" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Light.eot" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Light.otf" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Light.woff" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Medium.eot" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Medium.otf" />
+    <Content Include="Bootstrap_Arabic\font\GE_SS_Two_Medium.woff" />
+    <Content Include="Bootstrap_Arabic\font\glyphicons-halflings-regular.eot" />
+    <Content Include="Bootstrap_Arabic\font\glyphicons-halflings-regular.ttf" />
+    <Content Include="Bootstrap_Arabic\font\glyphicons-halflings-regular.woff" />
+    <Content Include="Bootstrap_Arabic\font\glyphicons-halflings-regular.woff2" />
+    <Content Include="Bootstrap_Arabic\font\HelveticaNeueW23-Reg.ttf" />
+    <Content Include="Bootstrap_Arabic\font\iconic_stroke.eot" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic-Bold1.eot" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic-Bold2.woff" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic-Bold3.ttf" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic1.eot" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic2.woff" />
+    <Content Include="Bootstrap_Arabic\font\TanseekModernProArabic3.ttf" />
+    <Content Include="Bootstrap_Arabic\font\trado.ttf" />
+    <Content Include="images\sprite\HMenue_ar.psd" />
+    <Content Include="main_files\08f8ea49d0ab20004c4976af170bc1b6e8ba84dd852cf82e43ea744f1ab9d761b154989fbe67bfdd" />
+    <Content Include="main_files\alinma.rating-RIC.js.download" />
+    <Content Include="main_files\debug.log" />
+    <Content Include="main_files\fusioncharts.js.download" />
+    <Content Include="main_files\fusioncharts.theme.fint.js.download" />
+    <Content Include="main_files\jquery-2.1.4.min.js.download" />
+    <Content Include="main_files\jquery-ui.min.js.download" />
+    <Content Include="main_files\json3.min.js.download" />
+    <Content Include="main_files\richfaces.js.download" />
+    <Content Include="main_files\ruxitagentjs_ICA2SVfjoqru_10201200909073022.js.download" />
+    <Content Include="main_files\script.ar.js.download" />
+    <Content Include="main_files\script.js.download" />
+    <Content Include="main_files\select2.min.js.download" />
+    <EntityDeploy Include="Models\RentCarModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RentCarModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RentCarModel.edmx.diagram">
+      <DependentUpon>RentCarModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Regions\Create.cshtml" />
+    <Content Include="Views\Regions\Delete.cshtml" />
+    <Content Include="Views\Regions\Details.cshtml" />
+    <Content Include="Views\Regions\Edit.cshtml" />
+    <Content Include="Views\Regions\ListRegion.cshtml" />
+    <Content Include="Views\Brand\Create.cshtml" />
+    <Content Include="Views\Brand\Delete.cshtml" />
+    <Content Include="Views\Brand\Details.cshtml" />
+    <Content Include="Views\Brand\Edit.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
+    <Content Include="Views\Model\Create.cshtml" />
+    <Content Include="Views\Model\Delete.cshtml" />
+    <Content Include="Views\Model\Details.cshtml" />
+    <Content Include="Views\Model\Edit.cshtml" />
+    <Content Include="Views\Model\Index.cshtml" />
+    <Content Include="Views\City\Create.cshtml" />
+    <Content Include="Views\City\Delete.cshtml" />
+    <Content Include="Views\City\Details.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Features\Delete.cshtml" />
+    <Content Include="Views\Features\Details.cshtml" />
+    <Content Include="Views\Features\Edit.cshtml" />
+    <Content Include="Views\Features\Index.cshtml" />
+    <Content Include="Views\Specifications\Delete.cshtml" />
+    <Content Include="Views\Specifications\Details.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Features\Create.cshtml" />
+    <Content Include="Views\Specifications\Create.cshtml" />
+    <Content Include="Views\Specifications\Index.cshtml" />
+    <Content Include="Views\Specifications\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="images\login\" />
+    <Folder Include="images\modalPanel\" />
+    <Folder Include="Views\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50938</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44388/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

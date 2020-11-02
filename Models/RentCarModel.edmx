@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RentCarDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CR_Mas_Sup_Brand">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Brand_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Brand_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Brand_Ar_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Brand_En_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Brand_Fr_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Brand_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Brand_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Car_Features">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Car_Features_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Car_Features_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Car_Features_Ar" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Features_En" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Features_Fr" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Features_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Car_Features_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Car_Specifications">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Car_Specifications_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Car_Specifications_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Ar" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_En" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Fr" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_City">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_City_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_City_Code" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CR_Mas_Sup_City_Group_Code" Type="char" MaxLength="2" />
+          <Property Name="CR_Mas_Sup_City_Regions_Code" Type="char" MaxLength="2" />
+          <Property Name="CR_Mas_Sup_City_Ar_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_City_En_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_City_Fr_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_City_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_City_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Group">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Group_Code" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Group_Ar_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Group_En_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Group_Fr_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_Sup_Group_Classified_Data" Type="bit" />
+          <Property Name="CR_Mas_Sup_Group_Independent_Data" Type="bit" />
+          <Property Name="CR_Mas_Sup_Group_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Group_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Model">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Model_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Model_Code" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Model_Group_Code" Type="char" MaxLength="2" />
+          <Property Name="CR_Mas_Sup_Model_Brand_Code" Type="char" MaxLength="4" />
+          <Property Name="CR_Mas_Sup_Model_Ar_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Model_En_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Model_Fr_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Model_Counter" Type="int" />
+          <Property Name="CR_Mas_Sup_Model_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Model_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Regions">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Regions_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Regions_Code" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Regions_Ar_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Regions_En_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Regions_Fr_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Regions_L1_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Regions_L2_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sup_Regions_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sup_Regions_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sys_System_Name">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sys_System_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sys_System_Code" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="CR_Mas_Sys_System_Ar_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sys_System_En_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sys_System_Fn_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CR_Mas_Sys_System_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sys_System_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sys_Tasks">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sys_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sys_Tasks_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_Sys_System_Code" Type="char" MaxLength="5" />
+          <Property Name="CR_Mas_Sys_Tasks_Ar_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CR_Mas_Sys_Tasks_En_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CR_Mas_Sys_Tasks_Fr_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CR_Mas_Sys_Tasks_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_Sys_Tasks_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Information">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Information_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Information_Code" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CR_Mas_User_Information_PassWord" Type="char" MaxLength="10" />
+          <Property Name="CR_Mas_User_Information_Ar_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_User_Information_En_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_User_Information_Fr_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="CR_Mas_User_Information_Mobile_No" Type="char" MaxLength="15" />
+          <Property Name="CR_Mas_User_Information_Status" Type="char" MaxLength="1" />
+          <Property Name="CR_Mas_User_Information_Reasons" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Main_Validation">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Main_Validation_Code" />
+            <PropertyRef Name="CR_Mas_User_Main_Validation_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Main_Validation_Code" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CR_Mas_User_Main_Validation_Tasks_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_User_Main_Validation" Type="bit" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Sub_Validation">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Sub_Validation_Code" />
+            <PropertyRef Name="CR_Mas_User_Sub_Validation_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Sub_Validation_Code" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="CR_Mas_User_Sub_Validation_Tasks_Code" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="CR_Mas_User_Sub_Validation_Insert" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_UpDate" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_Delete" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_UnDelete" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_Hold" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_UnHold" Type="bit" />
+          <Property Name="CR_Mas_User_Sub_Validation_Print" Type="bit" />
+        </EntityType>
+        <Association Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Group">
+          <End Role="CR_Mas_Sup_Group" Type="Self.CR_Mas_Sup_Group" Multiplicity="0..1" />
+          <End Role="CR_Mas_Sup_City" Type="Self.CR_Mas_Sup_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Group">
+              <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_City">
+              <PropertyRef Name="CR_Mas_Sup_City_Group_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions">
+          <End Role="CR_Mas_Sup_Regions" Type="Self.CR_Mas_Sup_Regions" Multiplicity="0..1" />
+          <End Role="CR_Mas_Sup_City" Type="Self.CR_Mas_Sup_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Regions">
+              <PropertyRef Name="CR_Mas_Sup_Regions_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_City">
+              <PropertyRef Name="CR_Mas_Sup_City_Regions_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand">
+          <End Role="CR_Mas_Sup_Brand" Type="Self.CR_Mas_Sup_Brand" Multiplicity="0..1" />
+          <End Role="CR_Mas_Sup_Model" Type="Self.CR_Mas_Sup_Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Brand">
+              <PropertyRef Name="CR_Mas_Sup_Brand_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_Model">
+              <PropertyRef Name="CR_Mas_Sup_Model_Brand_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group">
+          <End Role="CR_Mas_Sup_Group" Type="Self.CR_Mas_Sup_Group" Multiplicity="0..1" />
+          <End Role="CR_Mas_Sup_Model" Type="Self.CR_Mas_Sup_Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Group">
+              <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_Model">
+              <PropertyRef Name="CR_Mas_Sup_Model_Group_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name">
+          <End Role="CR_Mas_Sys_System_Name" Type="Self.CR_Mas_Sys_System_Name" Multiplicity="0..1" />
+          <End Role="CR_Mas_Sys_Tasks" Type="Self.CR_Mas_Sys_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sys_System_Name">
+              <PropertyRef Name="CR_Mas_Sys_System_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sys_Tasks">
+              <PropertyRef Name="CR_Mas_Sys_System_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks">
+          <End Role="CR_Mas_Sys_Tasks" Type="Self.CR_Mas_Sys_Tasks" Multiplicity="1" />
+          <End Role="CR_Mas_User_Main_Validation" Type="Self.CR_Mas_User_Main_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sys_Tasks">
+              <PropertyRef Name="CR_Mas_Sys_Tasks_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Main_Validation">
+              <PropertyRef Name="CR_Mas_User_Main_Validation_Tasks_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information">
+          <End Role="CR_Mas_User_Information" Type="Self.CR_Mas_User_Information" Multiplicity="1" />
+          <End Role="CR_Mas_User_Main_Validation" Type="Self.CR_Mas_User_Main_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_User_Information">
+              <PropertyRef Name="CR_Mas_User_Information_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Main_Validation">
+              <PropertyRef Name="CR_Mas_User_Main_Validation_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information">
+          <End Role="CR_Mas_User_Information" Type="Self.CR_Mas_User_Information" Multiplicity="1" />
+          <End Role="CR_Mas_User_Sub_Validation" Type="Self.CR_Mas_User_Sub_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_User_Information">
+              <PropertyRef Name="CR_Mas_User_Information_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Sub_Validation">
+              <PropertyRef Name="CR_Mas_User_Sub_Validation_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentCarDBModelStoreContainer">
+          <EntitySet Name="CR_Mas_Sup_Brand" EntityType="Self.CR_Mas_Sup_Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_Car_Features" EntityType="Self.CR_Mas_Sup_Car_Features" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_Car_Specifications" EntityType="Self.CR_Mas_Sup_Car_Specifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_City" EntityType="Self.CR_Mas_Sup_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_Group" EntityType="Self.CR_Mas_Sup_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_Model" EntityType="Self.CR_Mas_Sup_Model" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sup_Regions" EntityType="Self.CR_Mas_Sup_Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sys_System_Name" EntityType="Self.CR_Mas_Sys_System_Name" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_Sys_Tasks" EntityType="Self.CR_Mas_Sys_Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_User_Information" EntityType="Self.CR_Mas_User_Information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_User_Main_Validation" EntityType="Self.CR_Mas_User_Main_Validation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CR_Mas_User_Sub_Validation" EntityType="Self.CR_Mas_User_Sub_Validation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Group" Association="Self.FK_CR_Mas_Sup_City_CR_Mas_Sup_Group">
+            <End Role="CR_Mas_Sup_Group" EntitySet="CR_Mas_Sup_Group" />
+            <End Role="CR_Mas_Sup_City" EntitySet="CR_Mas_Sup_City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions" Association="Self.FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions">
+            <End Role="CR_Mas_Sup_Regions" EntitySet="CR_Mas_Sup_Regions" />
+            <End Role="CR_Mas_Sup_City" EntitySet="CR_Mas_Sup_City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand" Association="Self.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand">
+            <End Role="CR_Mas_Sup_Brand" EntitySet="CR_Mas_Sup_Brand" />
+            <End Role="CR_Mas_Sup_Model" EntitySet="CR_Mas_Sup_Model" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group" Association="Self.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group">
+            <End Role="CR_Mas_Sup_Group" EntitySet="CR_Mas_Sup_Group" />
+            <End Role="CR_Mas_Sup_Model" EntitySet="CR_Mas_Sup_Model" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name" Association="Self.FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name">
+            <End Role="CR_Mas_Sys_System_Name" EntitySet="CR_Mas_Sys_System_Name" />
+            <End Role="CR_Mas_Sys_Tasks" EntitySet="CR_Mas_Sys_Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" Association="Self.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks">
+            <End Role="CR_Mas_Sys_Tasks" EntitySet="CR_Mas_Sys_Tasks" />
+            <End Role="CR_Mas_User_Main_Validation" EntitySet="CR_Mas_User_Main_Validation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" Association="Self.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information">
+            <End Role="CR_Mas_User_Information" EntitySet="CR_Mas_User_Information" />
+            <End Role="CR_Mas_User_Main_Validation" EntitySet="CR_Mas_User_Main_Validation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" Association="Self.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information">
+            <End Role="CR_Mas_User_Information" EntitySet="CR_Mas_User_Information" />
+            <End Role="CR_Mas_User_Sub_Validation" EntitySet="CR_Mas_User_Sub_Validation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentCarDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CR_Mas_Sup_City">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_City_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_City_Code" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CR_Mas_Sup_City_Group_Code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_City_Ar_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_City_En_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_City_Fr_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_City_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_City_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_City_Regions_Code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="CR_Mas_Sup_Regions" Relationship="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions" FromRole="CR_Mas_Sup_City" ToRole="CR_Mas_Sup_Regions" />
+          <NavigationProperty Name="CR_Mas_Sup_Group" Relationship="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Group" FromRole="CR_Mas_Sup_City" ToRole="CR_Mas_Sup_Group" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Regions">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Regions_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Regions_Code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CR_Mas_Sup_Regions_Ar_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Regions_En_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Regions_Fr_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Regions_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Regions_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sup_City" Relationship="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions" FromRole="CR_Mas_Sup_Regions" ToRole="CR_Mas_Sup_City" />
+        </EntityType>
+        <EntityContainer Name="RentCarDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CR_Mas_Sup_City" EntityType="Self.CR_Mas_Sup_City" />
+          <EntitySet Name="CR_Mas_Sup_Regions" EntityType="Self.CR_Mas_Sup_Regions" />
+          <AssociationSet Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions" Association="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions">
+            <End Role="CR_Mas_Sup_Regions" EntitySet="CR_Mas_Sup_Regions" />
+            <End Role="CR_Mas_Sup_City" EntitySet="CR_Mas_Sup_City" />
+          </AssociationSet>
+          <EntitySet Name="CR_Mas_Sup_Brand" EntityType="RentCarDBModel.CR_Mas_Sup_Brand" />
+          <EntitySet Name="CR_Mas_Sup_Group" EntityType="RentCarDBModel.CR_Mas_Sup_Group" />
+          <EntitySet Name="CR_Mas_Sup_Model" EntityType="RentCarDBModel.CR_Mas_Sup_Model" />
+          <AssociationSet Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand" Association="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand">
+            <End Role="CR_Mas_Sup_Brand" EntitySet="CR_Mas_Sup_Brand" />
+            <End Role="CR_Mas_Sup_Model" EntitySet="CR_Mas_Sup_Model" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Group" Association="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Group">
+            <End Role="CR_Mas_Sup_Group" EntitySet="CR_Mas_Sup_Group" />
+            <End Role="CR_Mas_Sup_City" EntitySet="CR_Mas_Sup_City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group" Association="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group">
+            <End Role="CR_Mas_Sup_Group" EntitySet="CR_Mas_Sup_Group" />
+            <End Role="CR_Mas_Sup_Model" EntitySet="CR_Mas_Sup_Model" />
+          </AssociationSet>
+          <EntitySet Name="CR_Mas_Sys_System_Name" EntityType="RentCarDBModel.CR_Mas_Sys_System_Name" />
+          <EntitySet Name="CR_Mas_Sys_Tasks" EntityType="RentCarDBModel.CR_Mas_Sys_Tasks" />
+          <EntitySet Name="CR_Mas_User_Information" EntityType="RentCarDBModel.CR_Mas_User_Information" />
+          <AssociationSet Name="FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name" Association="RentCarDBModel.FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name">
+            <End Role="CR_Mas_Sys_System_Name" EntitySet="CR_Mas_Sys_System_Name" />
+            <End Role="CR_Mas_Sys_Tasks" EntitySet="CR_Mas_Sys_Tasks" />
+          </AssociationSet>
+          <EntitySet Name="CR_Mas_Sup_Car_Features" EntityType="RentCarDBModel.CR_Mas_Sup_Car_Features" />
+          <EntitySet Name="CR_Mas_Sup_Car_Specifications" EntityType="RentCarDBModel.CR_Mas_Sup_Car_Specifications" />
+          <EntitySet Name="CR_Mas_User_Main_Validation" EntityType="RentCarDBModel.CR_Mas_User_Main_Validation" />
+          <EntitySet Name="CR_Mas_User_Sub_Validation" EntityType="RentCarDBModel.CR_Mas_User_Sub_Validation" />
+          <AssociationSet Name="FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks">
+            <End Role="CR_Mas_Sys_Tasks" EntitySet="CR_Mas_Sys_Tasks" />
+            <End Role="CR_Mas_User_Main_Validation" EntitySet="CR_Mas_User_Main_Validation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information">
+            <End Role="CR_Mas_User_Information" EntitySet="CR_Mas_User_Information" />
+            <End Role="CR_Mas_User_Main_Validation" EntitySet="CR_Mas_User_Main_Validation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" Association="RentCarDBModel.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information">
+            <End Role="CR_Mas_User_Information" EntitySet="CR_Mas_User_Information" />
+            <End Role="CR_Mas_User_Sub_Validation" EntitySet="CR_Mas_User_Sub_Validation" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions">
+          <End Type="RentCarDBModel.CR_Mas_Sup_Regions" Role="CR_Mas_Sup_Regions" Multiplicity="0..1" />
+          <End Type="RentCarDBModel.CR_Mas_Sup_City" Role="CR_Mas_Sup_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Regions">
+              <PropertyRef Name="CR_Mas_Sup_Regions_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_City">
+              <PropertyRef Name="CR_Mas_Sup_City_Regions_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CR_Mas_Sup_Brand">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Brand_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Brand_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Brand_Ar_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Brand_En_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Brand_Fr_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Brand_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Brand_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sup_Model" Relationship="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand" FromRole="CR_Mas_Sup_Brand" ToRole="CR_Mas_Sup_Model" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Group">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Group_Code" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Group_Ar_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Group_En_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Group_Fr_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Group_Classified_Data" Type="Boolean" />
+          <Property Name="CR_Mas_Sup_Group_Independent_Data" Type="Boolean" />
+          <Property Name="CR_Mas_Sup_Group_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Group_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sup_City" Relationship="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Group" FromRole="CR_Mas_Sup_Group" ToRole="CR_Mas_Sup_City" />
+          <NavigationProperty Name="CR_Mas_Sup_Model" Relationship="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group" FromRole="CR_Mas_Sup_Group" ToRole="CR_Mas_Sup_Model" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Model">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Model_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Model_Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Model_Group_Code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Model_Brand_Code" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Model_Ar_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="CR_Mas_Sup_Model_En_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Model_Fr_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Model_Counter" Type="Int32" />
+          <Property Name="CR_Mas_Sup_Model_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Model_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sup_Brand" Relationship="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand" FromRole="CR_Mas_Sup_Model" ToRole="CR_Mas_Sup_Brand" />
+          <NavigationProperty Name="CR_Mas_Sup_Group" Relationship="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group" FromRole="CR_Mas_Sup_Model" ToRole="CR_Mas_Sup_Group" />
+        </EntityType>
+        <Association Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand">
+          <End Type="RentCarDBModel.CR_Mas_Sup_Brand" Role="CR_Mas_Sup_Brand" Multiplicity="0..1" />
+          <End Type="RentCarDBModel.CR_Mas_Sup_Model" Role="CR_Mas_Sup_Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Brand">
+              <PropertyRef Name="CR_Mas_Sup_Brand_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_Model">
+              <PropertyRef Name="CR_Mas_Sup_Model_Brand_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sup_City_CR_Mas_Sup_Group">
+          <End Type="RentCarDBModel.CR_Mas_Sup_Group" Role="CR_Mas_Sup_Group" Multiplicity="0..1" />
+          <End Type="RentCarDBModel.CR_Mas_Sup_City" Role="CR_Mas_Sup_City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Group">
+              <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_City">
+              <PropertyRef Name="CR_Mas_Sup_City_Group_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group">
+          <End Type="RentCarDBModel.CR_Mas_Sup_Group" Role="CR_Mas_Sup_Group" Multiplicity="0..1" />
+          <End Type="RentCarDBModel.CR_Mas_Sup_Model" Role="CR_Mas_Sup_Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sup_Group">
+              <PropertyRef Name="CR_Mas_Sup_Group_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sup_Model">
+              <PropertyRef Name="CR_Mas_Sup_Model_Group_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CR_Mas_Sys_System_Name">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sys_System_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sys_System_Code" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sys_System_Ar_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_System_En_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_System_Fn_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_System_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sys_System_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sys_Tasks" Relationship="RentCarDBModel.FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name" FromRole="CR_Mas_Sys_System_Name" ToRole="CR_Mas_Sys_Tasks" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sys_Tasks">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sys_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sys_Tasks_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sys_System_Code" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sys_Tasks_Ar_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_Tasks_En_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_Tasks_Fr_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sys_Tasks_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sys_Tasks_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_Sys_System_Name" Relationship="RentCarDBModel.FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name" FromRole="CR_Mas_Sys_Tasks" ToRole="CR_Mas_Sys_System_Name" />
+          <NavigationProperty Name="CR_Mas_User_Main_Validation" Relationship="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" FromRole="CR_Mas_Sys_Tasks" ToRole="CR_Mas_User_Main_Validation" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Information">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Information_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Information_Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Information_PassWord" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Information_Ar_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_User_Information_En_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_User_Information_Fr_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_User_Information_Mobile_No" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Information_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Information_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CR_Mas_User_Main_Validation" Relationship="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" FromRole="CR_Mas_User_Information" ToRole="CR_Mas_User_Main_Validation" />
+          <NavigationProperty Name="CR_Mas_User_Sub_Validation" Relationship="RentCarDBModel.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" FromRole="CR_Mas_User_Information" ToRole="CR_Mas_User_Sub_Validation" />
+        </EntityType>
+        <Association Name="FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name">
+          <End Type="RentCarDBModel.CR_Mas_Sys_System_Name" Role="CR_Mas_Sys_System_Name" Multiplicity="0..1" />
+          <End Type="RentCarDBModel.CR_Mas_Sys_Tasks" Role="CR_Mas_Sys_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sys_System_Name">
+              <PropertyRef Name="CR_Mas_Sys_System_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_Sys_Tasks">
+              <PropertyRef Name="CR_Mas_Sys_System_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CR_Mas_Sup_Car_Features">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Car_Features_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Car_Features_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Car_Features_Ar" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Features_En" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Features_Fr" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Features_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Car_Features_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CR_Mas_Sup_Car_Specifications">
+          <Key>
+            <PropertyRef Name="CR_Mas_Sup_Car_Specifications_Code" />
+          </Key>
+          <Property Name="CR_Mas_Sup_Car_Specifications_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Ar" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_En" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Fr" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_Sup_Car_Specifications_Reasons" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Main_Validation">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Main_Validation_Code" />
+            <PropertyRef Name="CR_Mas_User_Main_Validation_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Main_Validation_Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Main_Validation_Tasks_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Main_Validation1" Type="Boolean" />
+          <NavigationProperty Name="CR_Mas_Sys_Tasks" Relationship="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" FromRole="CR_Mas_User_Main_Validation" ToRole="CR_Mas_Sys_Tasks" />
+          <NavigationProperty Name="CR_Mas_User_Information" Relationship="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" FromRole="CR_Mas_User_Main_Validation" ToRole="CR_Mas_User_Information" />
+        </EntityType>
+        <EntityType Name="CR_Mas_User_Sub_Validation">
+          <Key>
+            <PropertyRef Name="CR_Mas_User_Sub_Validation_Code" />
+            <PropertyRef Name="CR_Mas_User_Sub_Validation_Tasks_Code" />
+          </Key>
+          <Property Name="CR_Mas_User_Sub_Validation_Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Sub_Validation_Tasks_Code" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="CR_Mas_User_Sub_Validation_Insert" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_UpDate" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_Delete" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_UnDelete" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_Hold" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_UnHold" Type="Boolean" />
+          <Property Name="CR_Mas_User_Sub_Validation_Print" Type="Boolean" />
+          <NavigationProperty Name="CR_Mas_User_Information" Relationship="RentCarDBModel.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" FromRole="CR_Mas_User_Sub_Validation" ToRole="CR_Mas_User_Information" />
+        </EntityType>
+        <Association Name="FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks">
+          <End Type="RentCarDBModel.CR_Mas_Sys_Tasks" Role="CR_Mas_Sys_Tasks" Multiplicity="1" />
+          <End Type="RentCarDBModel.CR_Mas_User_Main_Validation" Role="CR_Mas_User_Main_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_Sys_Tasks">
+              <PropertyRef Name="CR_Mas_Sys_Tasks_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Main_Validation">
+              <PropertyRef Name="CR_Mas_User_Main_Validation_Tasks_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information">
+          <End Type="RentCarDBModel.CR_Mas_User_Information" Role="CR_Mas_User_Information" Multiplicity="1" />
+          <End Type="RentCarDBModel.CR_Mas_User_Main_Validation" Role="CR_Mas_User_Main_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_User_Information">
+              <PropertyRef Name="CR_Mas_User_Information_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Main_Validation">
+              <PropertyRef Name="CR_Mas_User_Main_Validation_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information">
+          <End Type="RentCarDBModel.CR_Mas_User_Information" Role="CR_Mas_User_Information" Multiplicity="1" />
+          <End Type="RentCarDBModel.CR_Mas_User_Sub_Validation" Role="CR_Mas_User_Sub_Validation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CR_Mas_User_Information">
+              <PropertyRef Name="CR_Mas_User_Information_Code" />
+            </Principal>
+            <Dependent Role="CR_Mas_User_Sub_Validation">
+              <PropertyRef Name="CR_Mas_User_Sub_Validation_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentCarDBModelStoreContainer" CdmEntityContainer="RentCarDBEntities">
+          <EntitySetMapping Name="CR_Mas_Sup_City">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_City">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_City">
+                <ScalarProperty Name="CR_Mas_Sup_City_Code" ColumnName="CR_Mas_Sup_City_Code" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Group_Code" ColumnName="CR_Mas_Sup_City_Group_Code" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Ar_Name" ColumnName="CR_Mas_Sup_City_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_City_En_Name" ColumnName="CR_Mas_Sup_City_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Fr_Name" ColumnName="CR_Mas_Sup_City_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Status" ColumnName="CR_Mas_Sup_City_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Reasons" ColumnName="CR_Mas_Sup_City_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_City_Regions_Code" ColumnName="CR_Mas_Sup_City_Regions_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Regions">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Regions">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Regions">
+                <ScalarProperty Name="CR_Mas_Sup_Regions_Code" ColumnName="CR_Mas_Sup_Regions_Code" />
+                <ScalarProperty Name="CR_Mas_Sup_Regions_Ar_Name" ColumnName="CR_Mas_Sup_Regions_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Regions_En_Name" ColumnName="CR_Mas_Sup_Regions_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Regions_Fr_Name" ColumnName="CR_Mas_Sup_Regions_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Regions_Status" ColumnName="CR_Mas_Sup_Regions_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Regions_Reasons" ColumnName="CR_Mas_Sup_Regions_Reasons" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Brand">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Brand">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Brand">
+                <ScalarProperty Name="CR_Mas_Sup_Brand_Reasons" ColumnName="CR_Mas_Sup_Brand_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_Brand_Status" ColumnName="CR_Mas_Sup_Brand_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Brand_Fr_Name" ColumnName="CR_Mas_Sup_Brand_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Brand_En_Name" ColumnName="CR_Mas_Sup_Brand_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Brand_Ar_Name" ColumnName="CR_Mas_Sup_Brand_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Brand_Code" ColumnName="CR_Mas_Sup_Brand_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Group">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Group">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Group">
+                <ScalarProperty Name="CR_Mas_Sup_Group_Reasons" ColumnName="CR_Mas_Sup_Group_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Status" ColumnName="CR_Mas_Sup_Group_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Independent_Data" ColumnName="CR_Mas_Sup_Group_Independent_Data" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Classified_Data" ColumnName="CR_Mas_Sup_Group_Classified_Data" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Fr_Name" ColumnName="CR_Mas_Sup_Group_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_En_Name" ColumnName="CR_Mas_Sup_Group_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Ar_Name" ColumnName="CR_Mas_Sup_Group_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Group_Code" ColumnName="CR_Mas_Sup_Group_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Model">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Model">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Model">
+                <ScalarProperty Name="CR_Mas_Sup_Model_Reasons" ColumnName="CR_Mas_Sup_Model_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Status" ColumnName="CR_Mas_Sup_Model_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Counter" ColumnName="CR_Mas_Sup_Model_Counter" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Fr_Name" ColumnName="CR_Mas_Sup_Model_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_En_Name" ColumnName="CR_Mas_Sup_Model_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Ar_Name" ColumnName="CR_Mas_Sup_Model_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Brand_Code" ColumnName="CR_Mas_Sup_Model_Brand_Code" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Group_Code" ColumnName="CR_Mas_Sup_Model_Group_Code" />
+                <ScalarProperty Name="CR_Mas_Sup_Model_Code" ColumnName="CR_Mas_Sup_Model_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sys_System_Name">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sys_System_Name">
+              <MappingFragment StoreEntitySet="CR_Mas_Sys_System_Name">
+                <ScalarProperty Name="CR_Mas_Sys_System_Reasons" ColumnName="CR_Mas_Sys_System_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sys_System_Status" ColumnName="CR_Mas_Sys_System_Status" />
+                <ScalarProperty Name="CR_Mas_Sys_System_Fn_Name" ColumnName="CR_Mas_Sys_System_Fn_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_System_En_Name" ColumnName="CR_Mas_Sys_System_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_System_Ar_Name" ColumnName="CR_Mas_Sys_System_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_System_Code" ColumnName="CR_Mas_Sys_System_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sys_Tasks">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sys_Tasks">
+              <MappingFragment StoreEntitySet="CR_Mas_Sys_Tasks">
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_Reasons" ColumnName="CR_Mas_Sys_Tasks_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_Status" ColumnName="CR_Mas_Sys_Tasks_Status" />
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_Fr_Name" ColumnName="CR_Mas_Sys_Tasks_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_En_Name" ColumnName="CR_Mas_Sys_Tasks_En_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_Ar_Name" ColumnName="CR_Mas_Sys_Tasks_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_Sys_System_Code" ColumnName="CR_Mas_Sys_System_Code" />
+                <ScalarProperty Name="CR_Mas_Sys_Tasks_Code" ColumnName="CR_Mas_Sys_Tasks_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_User_Information">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_User_Information">
+              <MappingFragment StoreEntitySet="CR_Mas_User_Information">
+                <ScalarProperty Name="CR_Mas_User_Information_Reasons" ColumnName="CR_Mas_User_Information_Reasons" />
+                <ScalarProperty Name="CR_Mas_User_Information_Status" ColumnName="CR_Mas_User_Information_Status" />
+                <ScalarProperty Name="CR_Mas_User_Information_Mobile_No" ColumnName="CR_Mas_User_Information_Mobile_No" />
+                <ScalarProperty Name="CR_Mas_User_Information_Fr_Name" ColumnName="CR_Mas_User_Information_Fr_Name" />
+                <ScalarProperty Name="CR_Mas_User_Information_En_Name" ColumnName="CR_Mas_User_Information_En_Name" />
+                <ScalarProperty Name="CR_Mas_User_Information_Ar_Name" ColumnName="CR_Mas_User_Information_Ar_Name" />
+                <ScalarProperty Name="CR_Mas_User_Information_PassWord" ColumnName="CR_Mas_User_Information_PassWord" />
+                <ScalarProperty Name="CR_Mas_User_Information_Code" ColumnName="CR_Mas_User_Information_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Car_Features">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Car_Features">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Car_Features">
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_Reasons" ColumnName="CR_Mas_Sup_Car_Features_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_Status" ColumnName="CR_Mas_Sup_Car_Features_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_Fr" ColumnName="CR_Mas_Sup_Car_Features_Fr" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_En" ColumnName="CR_Mas_Sup_Car_Features_En" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_Ar" ColumnName="CR_Mas_Sup_Car_Features_Ar" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Features_Code" ColumnName="CR_Mas_Sup_Car_Features_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_Sup_Car_Specifications">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_Sup_Car_Specifications">
+              <MappingFragment StoreEntitySet="CR_Mas_Sup_Car_Specifications">
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_Reasons" ColumnName="CR_Mas_Sup_Car_Specifications_Reasons" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_Status" ColumnName="CR_Mas_Sup_Car_Specifications_Status" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_Fr" ColumnName="CR_Mas_Sup_Car_Specifications_Fr" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_En" ColumnName="CR_Mas_Sup_Car_Specifications_En" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_Ar" ColumnName="CR_Mas_Sup_Car_Specifications_Ar" />
+                <ScalarProperty Name="CR_Mas_Sup_Car_Specifications_Code" ColumnName="CR_Mas_Sup_Car_Specifications_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_User_Main_Validation">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_User_Main_Validation">
+              <MappingFragment StoreEntitySet="CR_Mas_User_Main_Validation">
+                <ScalarProperty Name="CR_Mas_User_Main_Validation1" ColumnName="CR_Mas_User_Main_Validation" />
+                <ScalarProperty Name="CR_Mas_User_Main_Validation_Tasks_Code" ColumnName="CR_Mas_User_Main_Validation_Tasks_Code" />
+                <ScalarProperty Name="CR_Mas_User_Main_Validation_Code" ColumnName="CR_Mas_User_Main_Validation_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CR_Mas_User_Sub_Validation">
+            <EntityTypeMapping TypeName="RentCarDBModel.CR_Mas_User_Sub_Validation">
+              <MappingFragment StoreEntitySet="CR_Mas_User_Sub_Validation">
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Print" ColumnName="CR_Mas_User_Sub_Validation_Print" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_UnHold" ColumnName="CR_Mas_User_Sub_Validation_UnHold" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Hold" ColumnName="CR_Mas_User_Sub_Validation_Hold" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_UnDelete" ColumnName="CR_Mas_User_Sub_Validation_UnDelete" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Delete" ColumnName="CR_Mas_User_Sub_Validation_Delete" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_UpDate" ColumnName="CR_Mas_User_Sub_Validation_UpDate" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Insert" ColumnName="CR_Mas_User_Sub_Validation_Insert" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Tasks_Code" ColumnName="CR_Mas_User_Sub_Validation_Tasks_Code" />
+                <ScalarProperty Name="CR_Mas_User_Sub_Validation_Code" ColumnName="CR_Mas_User_Sub_Validation_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

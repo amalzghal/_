@@ -1,0 +1,153 @@
+﻿@model IEnumerable<RentCar.Models.CR_Mas_Sup_Car_Specifications>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div>
+    <h4 style="margin-right:10px;">المواصفات</h4>
+    <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات المواصفات و تمكن البحث عن مواصفة أو إظافة مواصفة جديدة</h6>
+</div>
+<style>
+    #inputtext {
+        width: 250px;
+        height: 30px;
+        margin-right: 5px;
+        margin-left: -5px;
+        float: left;
+    }
+    #SrchImg {
+        float: left;
+        margin-top: -10px;
+        margin-left: 0px;
+        margin-right: -35px;
+    }
+    #Btn {
+        width: 60px;
+        height: 30px;
+        margin-right: 10px;
+        float: left;
+        color: #fff;
+        background-color: #5bc0de;
+        border-color: #5bc0de;
+        font: bold 15px Simplified Arabic;
+    }
+    .table thead {
+        background: #9898988c;
+    }
+    .table thead th {
+            color: #124f77;
+     }
+    .table tr a {
+        text-decoration: none;
+        color: black;
+    }
+    .table td {
+        border-color: #000;
+    }
+    .table thead th {
+        border-color: #000;
+        border-bottom: 2px solid #000;
+        text-align: center;
+    }
+    .btn-info {
+        margin-right: 10px;
+    }
+</style>
+<form method="post">
+    <div class="form_bg">
+        <p style="margin-top:20px">
+
+            @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إنهاء", style = "margin-right:10px;" })
+            @Html.ActionLink(" ", "Create", "Specifications", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة مواصفة" })
+            <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 100px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
+            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-print", title = "طباعة" })
+            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search", title = "بحث" })
+
+            <img src="~/images/srch.png" id="SrchImg" />
+            <input class="form-control" type="text" id="inputtext" name="TxtSearch" placeholder="بحث..." />
+            <script>
+                $(document).ready(function () {
+                    $("#inputtext").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#tbl tr").filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                });
+            </script>
+        </p>
+        <div class="table-responsive" style="width:697px; height:250px; overflow:auto;border: 1px solid #1c11114a;">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Code)</th>
+                        @if (RentCar.Controllers.HomeController.Language == "1")
+                        {
+                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Ar)</th>
+                        }
+                        @if (RentCar.Controllers.HomeController.Language == "2")
+                        {
+                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_En)</th>
+                        }
+                        @if (RentCar.Controllers.HomeController.Language == "3")
+                        {
+                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Fr)</th>
+                        }
+                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Status)</th>
+                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons)</th>
+                    </tr>
+                </thead>
+                <tbody id="tbl">
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td align="center">
+                            <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)
+                            </a>
+                        </td>
+                        @if (RentCar.Controllers.HomeController.Language == "1")
+                        {
+                            <td>
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Ar)
+                                </a>
+                            </td>
+                        }
+                        @if (RentCar.Controllers.HomeController.Language == "2")
+                        {
+                            <td>
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_En)
+                                </a>
+                            </td>
+                        }
+                        @if (RentCar.Controllers.HomeController.Language == "3")
+                        {
+                            <td>
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Fr)
+                                </a>
+                            </td>
+                        }
+                        <td align="center">
+                            <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Status)
+                            </a>
+                        </td>
+                        <td>
+                            <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Reasons)
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

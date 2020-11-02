@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d99a03de6d14d5aa48d84b7df148bac" Name="Diagram1">
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_City" Width="3" PointX="1.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Regions" Width="3.125" PointX="9.375" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Regions" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Brand" Width="2.625" PointX="9.75" PointY="3.25" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Group" Width="3.25" PointX="1" PointY="4.125" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Model" Width="2.75" PointX="5.5" PointY="1" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Brand" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_City_CR_Mas_Sup_Group" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_Model_CR_Mas_Sup_Group" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sys_System_Name" Width="2.5" PointX="1.25" PointY="8.25" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sys_Tasks" Width="2.625" PointX="4.75" PointY="6.5" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_User_Information" Width="3" PointX="8.125" PointY="7.25" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sys_Tasks_CR_Mas_Sys_System_Name" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Car_Features" Width="2.75" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Car_Specifications" Width="3.125" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_User_Main_Validation" Width="3.25" PointX="12.625" PointY="6.125" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_User_Sub_Validation" Width="3.125" PointX="11.875" PointY="10.5" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

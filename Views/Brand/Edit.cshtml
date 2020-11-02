@@ -1,0 +1,156 @@
+﻿@model RentCar.Models.CR_Mas_Sup_Brand
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span>
+    <h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">تعديل</h4>
+</span>
+
+<style>
+    #save-btn {
+        margin-right: 10px;
+        background-color: #5bc0de !important;
+        width: 80px;
+        margin-left:20px;
+        margin-bottom:10px;
+    }
+
+    #bttn {
+        width: 80px;
+        background-color: #5bc0de !important;
+        margin-left:20px;
+    }
+
+
+    .lbl {
+        margin-right: 30px;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    .txt {
+        margin-right: 20px;
+        margin-top: 30px;
+    }
+
+    .text-danger {
+        font-size: 12px;
+        margin-right: 160px;
+        font-family: 'Times New Roman';
+    }
+
+
+</style>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>
+        <span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على الماركة </span>
+    </h4>
+    <hr style="border-top: 1px solid #1c11114a;" />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CR_Mas_Sup_Brand_Code)
+
+
+    <div style="margin-top:25px;">
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px;width:30%;" })
+        <div>
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Ar_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20.5px;width:30%;" })
+        <div>
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_En_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:27.5px;width:30%;" })
+        <div>
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Fr_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
+        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden", @readonly = "readonly", style = "margin-right:71px" } })
+        <div>
+            @*@Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })*@
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Status, "", new { @class = "hidden" })
+
+        </div>
+    </div>
+
+
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Reasons, new { @class = "txt", style = "margin-right:64px;width:70%;" })
+        <div>
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Reasons, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div style="margin-top:50px;">
+        <div>
+            @* appel de l"action depuis bouton<input type="submit" name="delete" class="btn btn-danger" value="حذف" style="float: left;background-color: #d9534f;width:80px;" onclick="location.href='@Url.Action("Delete", "Brand", new {id=Model.CR_Mas_Sup_Brand_Code})'" />*@
+
+
+
+            <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
+
+            <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
+
+
+            @*@switch (ViewBag.delete)
+        {
+            case "Deleted":
+                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+                break;
+            case "D":
+                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+                break;
+            default:
+                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
+                break;
+        }*@
+
+            @if (ViewBag.delete == "D")
+            {
+                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+            }
+            else
+            {
+                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
+            }
+
+            <a class="btn btn-info" title="عودة لقائمة الماركات" href="/Brand/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+            @*<button type="button" class="btn btn-info" value="حفظ" aria-label="Left Align" style="width:70px">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        </button>*@
+
+        </div>
+    </div>
+</div>
+}
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
