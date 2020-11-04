@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RentCar.Models.CR_Mas_Sup_Brand>
+﻿@model IEnumerable<RentCar.Models.CR_Mas_Sup_Category_Car>
 @{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,13 +6,10 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-@*<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">*@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div>
-    @*<input type="button" name="GoHome" value="الرئيسية" id="Btn" style="width:120px;margin-left:10px" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />*@
-    <h4 style="margin-right:10px;">الماركات</h4>
-    <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الماركات و تمكن المسنخدم من البحث عن ماركات أو إظافة ماركات جديدة</h6>
+    <h4 style="margin-right:10px;">الفئات</h4>
+    <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الفئات و تمكن المسنخدم من البحث عن لون أو إضافة فئة جديد</h6>
 </div>
 <style>
     #inputtext {
@@ -41,6 +38,10 @@
     .table thead {
         background: #9898988c;
     }
+
+    .table thead th {
+        color: #124f77;
+    }
     .table tr a {
         text-decoration: none;
         color: black;
@@ -49,12 +50,10 @@
         border-color: #000;
     }
     .table thead th {
-        color: #124f77;
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
     }
-
     .btn-info {
         margin-right: 10px;
     }
@@ -62,15 +61,11 @@
 <form method="post">
     <div class="form_bg">
         <p style="margin-top:20px">
-
-            @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إغلاق",style="margin-right:10px;" })
-            @Html.ActionLink(" ", "Create", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة سجل جديد" })
-            @*@Html.ActionLink(" ", "Index", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-print",name= "excelCall" })*@
-
-            <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 45px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
+            @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "غلق", style = "margin-right:10px;" })
+            @Html.ActionLink(" ", "Create", "CategoryCar", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة فئة" })
+            <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 100px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-print", title = "طباعة" })
-            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search",title="بحث" })
-
+            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search", title = "بحث" })
             <img src="~/images/srch.png" id="SrchImg" />
             <input class="form-control" type="text" id="inputtext" name="TxtSearch" placeholder="بحث..." />
             <script>
@@ -83,79 +78,84 @@
                     });
                 });
             </script>
-            @*<input type="submit" id="btn" name="BtnSearch" value="بحث" />*@
         </p>
         <div class="table-responsive" style="width:697px; height:250px; overflow:auto;border: 1px solid #1c11114a;">
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
+                        <th style="min-width:7%;width:10%;">
+                            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Code)
+                        </th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th>إسم الماركة</th>
+                            <th style="min-width:15%;width:25%;">
+                                الإسم
+                            </th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
+                            <th>Name</th>
                         }
 
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
+                            <th>Nom</th>
                         }
-                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
-                        <th>المرجع</th>
+                        <th style="min-width:7%;width:10%;">
+                            المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@
+                        </th>
+                        <th style="min-width:7%;width:7%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Status)</th>
+                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">
-
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td align="center">
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)
+                            <td style="text-align:center">
+                                <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)
                                 </a>
                             </td>
-
                             @if (RentCar.Controllers.HomeController.Language == "1")
                             {
                                 <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Ar_Name)
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Ar_Name)
                                     </a>
                                 </td>
                             }
-
                             @if (RentCar.Controllers.HomeController.Language == "2")
                             {
                                 <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_En_Name)
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_En_Name)
                                     </a>
                                 </td>
                             }
                             @if (RentCar.Controllers.HomeController.Language == "3")
                             {
                                 <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Fr_Name)
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Fr_Name)
                                     </a>
                                 </td>
                             }
-
-                            <td align="center">
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)
+                            <td style="text-align:center">
+                                <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)
+                                </a>
+                            </td>
+                            <td style="text-align:center">
+                                <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Status)
                                 </a>
                             </td>
                             <td>
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Reasons)
+                                <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Reasons)
                                 </a>
                             </td>
-                            @*@Html.ActionLink("Edit", "Edit", new { id = item.CR_Mas_Sup_Brand_Code })
-                              @Html.ActionLink("Delete", "Delete", new { id = item.CR_Mas_Sup_Brand_Code })*@
                         </tr>
                     }
                 </tbody>

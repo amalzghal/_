@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using RentCar.Models;
@@ -206,9 +203,9 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-
             if (delete == "Activate" || delete == "تفعيل")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "A";
@@ -216,9 +213,9 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "H";
@@ -226,9 +223,9 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "A";
@@ -236,18 +233,49 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
                     db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-            return RedirectToAction("Index");          
+            if (cR_Mas_User_Information.CR_Mas_User_Information_Status == "A" ||
+            cR_Mas_User_Information.CR_Mas_User_Information_Status == "Activated" ||
+            cR_Mas_User_Information.CR_Mas_User_Information_Status == "1" ||
+            cR_Mas_User_Information.CR_Mas_User_Information_Status == "Undeleted")
+            {
+                ViewBag.stat = "حذف";
+                ViewBag.h = "تعطيل";
+            }
+
+            if ((cR_Mas_User_Information.CR_Mas_User_Information_Status == "D" ||
+                 cR_Mas_User_Information.CR_Mas_User_Information_Status == "Deleted" ||
+                 cR_Mas_User_Information.CR_Mas_User_Information_Status == "0"))
+            {
+                ViewBag.stat = "تفعيل";
+                ViewBag.h = "تعطيل";
+            }
+
+            if (cR_Mas_User_Information.CR_Mas_User_Information_Status == "H" ||
+                cR_Mas_User_Information.CR_Mas_User_Information_Status == "Hold" ||
+                cR_Mas_User_Information.CR_Mas_User_Information_Status == "2")
+            {
+                ViewBag.h = "تنشيط";
+                ViewBag.stat = "حذف";
+            }
+
+            if (cR_Mas_User_Information.CR_Mas_User_Information_Status == null)
+            {
+                ViewBag.h = "تعطيل";
+                ViewBag.stat = "حذف";
+            }
+            return View(cR_Mas_User_Information);
         }
 
         //////// GET: User_Information/Delete/5

@@ -8,13 +8,13 @@
         margin-right: 10px;
         background-color: #5bc0de !important;
         width: 80px;
-        margin-left:20px;
-        margin-bottom:10px;
+        margin-left: 20px;
+        margin-bottom: 10px;
     }
     #bttn {
         width: 80px;
         background-color: #5bc0de !important;
-        margin-left:20px;
+        margin-left: 20px;
     }
     .lbl {
         margin-right: 30px;
@@ -23,7 +23,7 @@
     }
     .txt {
         margin-right: 20px;
-        margin-top: 30px;
+        margin-top: 10px;
     }
     .text-danger {
         font-size: 12px;
@@ -34,61 +34,64 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <h4>
-        <span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على المستخدم </span>
-    </h4>
-    <hr style="border-top: 1px solid #1c11114a;" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.CR_Mas_User_Information_Code)
-    <div style="margin-top:25px;">
-        @Html.LabelFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-right:40px;width:30%;" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Ar_Name, "", new { @class = "text-danger" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:27px;width:30%;" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_En_Name, "", new { @class = "text-danger" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:33px;width:30%;" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Fr_Name, "", new { @class = "text-danger" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:10px;width:30%;" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Mobile_No, "", new { @class = "text-danger" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_User_Information_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Reasons, new { @class = "txt", style = "margin-right:30px;width:30%;" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Reasons, "", new { @class = "text-danger" })
-    </div>
-
-    @Html.LabelFor(model => model.CR_Mas_User_Information_PassWord, htmlAttributes: new { @class = "hidden" })
-    @Html.EditorFor(model => model.CR_Mas_User_Information_PassWord, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-    @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_PassWord, "", new { @class = "hidden" })
-
-    @Html.LabelFor(model => model.CR_Mas_User_Information_Status, htmlAttributes: new { @class = "hidden" })
-    @Html.EditorFor(model => model.CR_Mas_User_Information_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden", @readonly = "readonly", style = "margin-right:71px" } })
-    @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Status, "", new { @class = "hidden" })
-    
-    <div style="margin-top:50px;">
+    <div class="form-horizontal">
+        <h4>
+            <span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على المستخدم </span>
+        </h4>
+        <hr style="border-top: 1px solid #1c11114a;" />
+        <div style="margin-top:25px;">
+            @Html.LabelFor(model => model.CR_Mas_User_Information_Code, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Code, new { @class = "txt", style = "margin-right:65px;width:30%", @readonly = "readonly" })
+            <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
         <div>
-            <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
-            <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
-            @if (ViewBag.delete == "D")
-            {
-                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
-            }
-            else
-            {
-                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
-            }
-            <a class="btn btn-info" title="عودة لقائمة المستخدمين" href="/User/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+            @Html.LabelFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-right:24px;width:30%;" })
+            <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Ar_Name, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:10px;width:30%;" })
+            <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_En_Name, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:17px;width:30%;" })
+            <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Fr_Name, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:40px;width:30%;" })
+            <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Mobile_No, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_User_Information_Reasons, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Reasons, new { @class = "txt", style = "margin-right:60px;width:70%;" })
+            <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Reasons, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.LabelFor(model => model.CR_Mas_User_Information_PassWord, htmlAttributes: new { @class = "hidden" })
+        @Html.EditorFor(model => model.CR_Mas_User_Information_PassWord, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_PassWord, "", new { @class = "hidden" })
+
+        @Html.LabelFor(model => model.CR_Mas_User_Information_Status, htmlAttributes: new { @class = "hidden" })
+        @Html.EditorFor(model => model.CR_Mas_User_Information_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Status, "", new { @class = "hidden" })
+
+        <div style="margin-top:50px;">
+            <div>
+                <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
+                <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
+                @if (ViewBag.delete == "D")
+                {
+                    <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+                }
+                else
+                {
+                    <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
+                }
+                <a class="btn btn-info" title="عودة لقائمة المستخدمين" href="/User/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+            </div>
         </div>
     </div>
-</div>
 }

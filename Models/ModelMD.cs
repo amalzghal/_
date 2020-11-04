@@ -21,37 +21,33 @@ namespace RentCar.Models
         [StringLength(10, ErrorMessage = "must be 10 char")]
         public string CR_Mas_Sup_Model_Code { get; set; }
 
-
-
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_Model_Group_Code { get; set; }
-
 
         [Required(ErrorMessage = "عفوا إسم الماركة إجباري")]
         [Display(Name = "الماركة")]
         public string CR_Mas_Sup_Model_Brand_Code { get; set; }
 
-
-
-        [Required(ErrorMessage = "عفوا إسم الطراز عربي إجباري")]
-        [Display(Name = "الإسم العربي")]
+        [Required(ErrorMessage = "عفوا إسم الطراز بالعربي إجباري")]
+        [Display(Name = "الإسم بالعربي")]
         public string CR_Mas_Sup_Model_Ar_Name { get; set; }
 
-
-
-        [Required(ErrorMessage = "عفوا إسم الطراز إنجليزي إجباري")]
-        [Display(Name = "الإسم الإنجليزي")]
+        [Required(ErrorMessage = "عفوا إسم الطراز بالإنجليزي إجباري")]
+        [Display(Name = "الإسم بالإنجليزي")]
         public string CR_Mas_Sup_Model_En_Name { get; set; }
-        [Required(ErrorMessage = "عفوا إسم الطراز فرنسي إجباري")]
-        [Display(Name = "الإسم الفرنسي")]
+
+        [Required(ErrorMessage = "عفوا إسم الطراز بالفرنسي إجباري")]
+        [Display(Name = "الإسم بالفرنسي")]
         public string CR_Mas_Sup_Model_Fr_Name { get; set; }
+
         [Display(Name = "رقم العداد")]
         public Nullable<int> CR_Mas_Sup_Model_Counter { get; set; }
+
         [Display(Name = "الحالة")]
         public string CR_Mas_Sup_Model_Status { get; set; }
+
         [Display(Name = "المرجع")]
         public string CR_Mas_Sup_Model_Reasons { get; set; }
-
         
         public virtual CR_Mas_Sup_Brand CR_Mas_Sup_Brand { get; set; }
         

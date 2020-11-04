@@ -25,6 +25,10 @@
         <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_Sys_Tasks" />
         <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Main_Validation_CR_Mas_User_Information" />
         <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_User_Sub_Validation_CR_Mas_User_Information" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Category_Car" Width="4.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RentCarDBModel.CR_Mas_Sup_Color" Width="2.375" PointX="4.375" PointY="13.75" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_Category_Car_CR_Mas_Sup_Group" />
+        <AssociationConnector Association="RentCarDBModel.FK_CR_Mas_Sup_Color_CR_Mas_Sup_Group" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

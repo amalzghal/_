@@ -8,13 +8,13 @@
         margin-right: 10px;
         background-color: #5bc0de !important;
         width: 80px;
-        margin-left:20px;
-        margin-bottom:10px;
+        margin-left: 20px;
+        margin-bottom: 10px;
     }
     #bttn {
         width: 80px;
         background-color: #5bc0de !important;
-        margin-left:20px;
+        margin-left: 20px;
     }
     .lbl {
         margin-right: 30px;
@@ -23,7 +23,7 @@
     }
     .txt {
         margin-right: 20px;
-        margin-top: 30px;
+        margin-top: 10px;
     }
     .text-danger {
         font-size: 12px;
@@ -38,10 +38,12 @@
     <div class="form-horizontal">
     <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على المواصفة </span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.CR_Mas_Sup_Car_Specifications_Code)
-
-    <div style="margin-top:25px;">
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Code, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Code, new { @class = "txt", style = "margin-right:72px;width:30%", @readonly = "readonly" })
+        <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+    <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, new { @class = "lbl" })
         @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, new { @class = "txt", style = "margin-right:35px;width:30%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, "", new { @class = "text-danger" })
@@ -58,7 +60,7 @@
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "txt", style = "margin-right:68px;width:30%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, "", new { @class = "text-danger" })
     </div>
 

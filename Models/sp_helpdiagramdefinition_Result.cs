@@ -10,15 +10,10 @@
 namespace RentCar.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class CR_Mas_Sup_Car_Specifications
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string CR_Mas_Sup_Car_Specifications_Code { get; set; }
-        public string CR_Mas_Sup_Car_Specifications_Ar { get; set; }
-        public string CR_Mas_Sup_Car_Specifications_En { get; set; }
-        public string CR_Mas_Sup_Car_Specifications_Fr { get; set; }
-        public string CR_Mas_Sup_Car_Specifications_Status { get; set; }
-        public string CR_Mas_Sup_Car_Specifications_Reasons { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

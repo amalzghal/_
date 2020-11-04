@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using System.Web.WebPages;
 using RentCar.Models;
 
 namespace RentCar.Controllers
@@ -54,16 +50,14 @@ namespace RentCar.Controllers
                 brandTable.Columns.Add("الإسم العربي", typeof(string));
                 brandTable.Columns.Add("الرمز", typeof(string));
                 var Lrecord = db.CR_Mas_Sup_Brand.ToList();
-
-
                 if (Lrecord != null)
                 {
                     foreach (var i in Lrecord)
                     {
-                        brandTable.Rows.Add(i.CR_Mas_Sup_Brand_Reasons,i.CR_Mas_Sup_Brand_Status,i.CR_Mas_Sup_Brand_Ar_Name,i.CR_Mas_Sup_Brand_Code);
+                        brandTable.Rows.Add(i.CR_Mas_Sup_Brand_Reasons, i.CR_Mas_Sup_Brand_Status, i.CR_Mas_Sup_Brand_Ar_Name, 
+                                            i.CR_Mas_Sup_Brand_Code);
                     }
                 }
-
                 var grid = new System.Web.UI.WebControls.GridView();
                 grid.DataSource = brandTable;
                 grid.DataBind();
@@ -82,9 +76,7 @@ namespace RentCar.Controllers
                 Response.Output.Write(sw.ToString());
                 Response.Flush();
                 Response.End();
-
             }
-
             return View(db.CR_Mas_Sup_Brand.ToList());
         }
 
@@ -126,7 +118,8 @@ namespace RentCar.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Brand_Code,CR_Mas_Sup_Brand_Ar_Name,CR_Mas_Sup_Brand_En_Name,CR_Mas_Sup_Brand_Fr_Name,CR_Mas_Sup_Brand_Status,CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand)
+        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Brand_Code, CR_Mas_Sup_Brand_Ar_Name, CR_Mas_Sup_Brand_En_Name, " +
+        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +127,6 @@ namespace RentCar.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(cR_Mas_Sup_Brand);
         }
 
@@ -151,32 +143,34 @@ namespace RentCar.Controllers
                 return HttpNotFound();
             }else
             {
-                if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status=="A" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Activated" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "1" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Undeleted")
+                if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status=="A" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Activated" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "1" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Undeleted")
                 {
                     ViewBag.stat = "حذف";
                     ViewBag.h = "تعطيل";
                 }
-
-                if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "0"))
+                if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "0"))
                 {
                     ViewBag.stat = "تفعيل";
                     ViewBag.h = "تعطيل";
                 }
-
-                if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Hold" || cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "2")
+                if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Hold" || 
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "2")
                 {
                     ViewBag.h = "تنشيط";
                     ViewBag.stat = "حذف";
                 }
-
                 if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == null)
                 {
                     ViewBag.h = "تعطيل";
                     ViewBag.stat = "حذف";
                 }
-                ViewBag.delete = cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status;
-                
-
+                ViewBag.delete = cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status;            
             }
             return View(cR_Mas_Sup_Brand);
         }
@@ -186,8 +180,50 @@ namespace RentCar.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Brand_Code,CR_Mas_Sup_Brand_Ar_Name,CR_Mas_Sup_Brand_En_Name,CR_Mas_Sup_Brand_Fr_Name,CR_Mas_Sup_Brand_Status,CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand,string save, string delete, string hold)
+        public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Brand_Code, CR_Mas_Sup_Brand_Ar_Name, CR_Mas_Sup_Brand_En_Name, " +
+        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand 
+         cR_Mas_Sup_Brand, string save, string delete, string hold)
         {
+            if (delete == "Delete" || delete == "حذف")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "D";
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            if (delete == "Activate" || delete == "تفعيل")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            if (hold == "تعطيل" || hold == "hold")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "H";
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            if (hold == "تنشيط" || hold == "Activate")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
@@ -196,52 +232,39 @@ namespace RentCar.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(cR_Mas_Sup_Brand);
+            }
+            if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "A" ||
+            cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Activated" ||
+            cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "1" ||
+            cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Undeleted")
+            {
+                ViewBag.stat = "حذف";
+                ViewBag.h = "تعطيل";
             }
 
-           
-            if (delete=="Delete" || delete=="حذف")
+            if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" ||
+                 cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" ||
+                 cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "0"))
             {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "D";
                 ViewBag.stat = "تفعيل";
                 ViewBag.h = "تعطيل";
-                ViewBag.delete = "D";
             }
 
-
-            if (delete == "Activate" || delete == "تفعيل")
+            if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" ||
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Hold" ||
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "2")
             {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
-                ViewBag.stat = "حذف";
-                ViewBag.h = "تعطيل";
-                ViewBag.delete = "A";
-            }
-
-
-
-            if (hold == "تعطيل"|| hold == "hold")
-            {      
                 ViewBag.h = "تنشيط";
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "H";
-                ViewBag.delete = "H";
                 ViewBag.stat = "حذف";
             }
-        
 
-            if (hold == "تنشيط" || hold == "Activate")
+            if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == null)
             {
                 ViewBag.h = "تعطيل";
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
-                ViewBag.delete = "A";
                 ViewBag.stat = "حذف";
             }
-           
-
             return View(cR_Mas_Sup_Brand);
-
         }
-
-
 
         // GET: Brand/Delete/5
         //////public ActionResult Delete(string id)

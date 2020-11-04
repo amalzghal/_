@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using System.Web.WebPages;
 using RentCar.Models;
 
 namespace RentCar.Controllers
@@ -191,7 +187,7 @@ namespace RentCar.Controllers
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Car_Specifications_Code, CR_Mas_Sup_Car_Specifications_Ar, CR_Mas_Sup_Car_Specifications_En," +
             "CR_Mas_Sup_Car_Specifications_Fr, CR_Mas_Sup_Car_Specifications_Status, CR_Mas_Sup_Car_Specifications_Reasons")] 
              CR_Mas_Sup_Car_Specifications cR_Mas_Sup_Car_Specifications, string save, string delete, string hold)
-        {           
+        {
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "D";
@@ -199,8 +195,10 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
+
             if (delete == "Activate" || delete == "تفعيل")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
@@ -208,8 +206,10 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
+
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "H";
@@ -217,8 +217,10 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
+
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
@@ -226,17 +228,50 @@ namespace RentCar.Controllers
                 {
                     db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
+
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
                     db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
-            return RedirectToAction("Index");
+            if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "A" ||
+            cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Activated" ||
+            cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "1" ||
+            cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Undeleted")
+            {
+                ViewBag.stat = "حذف";
+                ViewBag.h = "تعطيل";
+            }
+
+            if ((cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "D" ||
+                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Deleted" ||
+                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "0"))
+            {
+                ViewBag.stat = "تفعيل";
+                ViewBag.h = "تعطيل";
+            }
+
+            if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "H" ||
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Hold" ||
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "2")
+            {
+                ViewBag.h = "تنشيط";
+                ViewBag.stat = "حذف";
+            }
+
+            if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == null)
+            {
+                ViewBag.h = "تعطيل";
+                ViewBag.stat = "حذف";
+            }
+            return View(cR_Mas_Sup_Car_Specifications);
         }
 
         //////// GET: Car_Specifications/Delete/5

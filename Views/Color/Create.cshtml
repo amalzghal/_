@@ -1,0 +1,96 @@
+﻿@model RentCar.Models.CR_Mas_Sup_Color
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">إضافة</h4>
+<style>
+    #sp {
+        margin-right: 15%;
+        margin-top: 16px;
+        margin-bottom: -5px;
+    }
+    #add_btn {
+        background-color: #5bc0de;
+        height: 35px;
+        width: 60px;
+        margin-right: 45px;
+        margin-top: 40px;
+        color: #fff;
+        float: right;
+    }
+    .lbl {
+        margin-right: 30px;
+        font-size: 16px !important;
+        font-family: 'Times New Roman' !important;
+    }
+    .txt {
+        width: 200px !important;
+        margin-top: 18px;
+        font-size: 13px !important;
+        font-family: 'Times New Roman!important';
+        height: 20px;
+    }
+    .text-danger {
+        font-size: 12px;
+        margin-right: 160px;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة لون جديد</span></h4>
+        <hr style="border-top: 1px solid #1c11114a;" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            <div>
+                @Html.LabelFor(model => model.CR_Mas_Sup_Color_Code, new { @class = "lbl", style = "margin-left:60px;" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Code, new { @class = "txt", @readonly = "readonly" })
+                <div id="sp">
+                    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Code)
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CR_Mas_Sup_Color_Ar_Name, new { @class = "lbl", style = "margin-left:23px;" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Ar_Name, new { @class = "txt" })
+                <div id="sp">
+                    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Ar_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CR_Mas_Sup_Color_En_Name, new { @class = "lbl", style = "margin-left:7px;" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_En_Name, new { @class = "txt" })
+                <div id="sp">
+                    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_En_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CR_Mas_Sup_Color_Fr_Name, new { @class = "lbl", style = "margin-left:13.5px;" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Fr_Name, new { @class = "txt" })
+                <div id="sp">
+                    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Fr_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @Html.LabelFor(model => model.CR_Mas_Sup_Color_Status, htmlAttributes: new { @class = "Hidden" })
+            @Html.EditorFor(model => model.CR_Mas_Sup_Color_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Status, "", new { @class = "text-danger" })
+
+            @Html.LabelFor(model => model.CR_Mas_Sup_Color_Group_Code, "رمز المجموعة", htmlAttributes: new { @class = "Hidden" })
+            @Html.DropDownList("CR_Mas_Sup_Color_Group_Code", null, new { @class = "Hidden" })
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Group_Code, "", new { @class = "Hidden" })
+
+            @Html.LabelFor(model => model.CR_Mas_Sup_Color_Reasons, htmlAttributes: new { @class = "Hidden" })
+            @Html.EditorFor(model => model.CR_Mas_Sup_Color_Reasons, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Reasons, "", new { @class = "Hidden" })
+        </div>
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="حفظ" name="add" class="btn btn-info" id="add_btn" />
+                @Html.ActionLink("إنهاء", "Index", "Color", null, new { @class = "btn btn-danger", title = "عودة لقائمة الألوان", Style = "Float:Left;margin-top:40px;margin-left:40px;font-family:Times-new-roman;width:60px;" })
+            </div>
+        </div>
+    </div>
+}

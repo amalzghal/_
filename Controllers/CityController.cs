@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using RentCar.Models;
 
@@ -21,20 +17,20 @@ namespace RentCar.Controllers
             return View(cR_Mas_Sup_City.ToList());
         }
 
-        // GET: City/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
-            if (cR_Mas_Sup_City == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cR_Mas_Sup_City);
-        }
+        //////// GET: City/Details/5
+        //////public ActionResult Details(string id)
+        //////{
+        //////    if (id == null)
+        //////    {
+        //////        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //////    }
+        //////    CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
+        //////    if (cR_Mas_Sup_City == null)
+        //////    {
+        //////        return HttpNotFound();
+        //////    }
+        //////    return View(cR_Mas_Sup_City);
+        //////}
 
         // GET: City/Create
         public ActionResult Create()
@@ -98,31 +94,30 @@ namespace RentCar.Controllers
             return View(cR_Mas_Sup_City);
         }
 
-        // GET: City/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
-            if (cR_Mas_Sup_City == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cR_Mas_Sup_City);
-        }
-
-        // POST: City/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
-            db.CR_Mas_Sup_City.Remove(cR_Mas_Sup_City);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //////// GET: City/Delete/5
+        //////public ActionResult Delete(string id)
+        //////{
+        //////    if (id == null)
+        //////    {
+        //////        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //////    }
+        //////    CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
+        //////    if (cR_Mas_Sup_City == null)
+        //////    {
+        //////        return HttpNotFound();
+        //////    }
+        //////    return View(cR_Mas_Sup_City);
+        //////}
+        //////// POST: City/Delete/5
+        //////[HttpPost, ActionName("Delete")]
+        //////[ValidateAntiForgeryToken]
+        //////public ActionResult DeleteConfirmed(string id)
+        //////{
+        //////    CR_Mas_Sup_City cR_Mas_Sup_City = db.CR_Mas_Sup_City.Find(id);
+        //////    db.CR_Mas_Sup_City.Remove(cR_Mas_Sup_City);
+        //////    db.SaveChanges();
+        //////    return RedirectToAction("Index");
+        //////}
 
         protected override void Dispose(bool disposing)
         {

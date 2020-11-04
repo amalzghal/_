@@ -17,15 +17,18 @@ namespace RentCar.Models
         [Required(ErrorMessage = "الرمز إجباري")]
         [Display(Name ="الرمز")]
         public string CR_Mas_Sup_Car_Specifications_Code { get; set; }
-        [Required(ErrorMessage = "الإسم العربي إجباري")]
+
+        [Required(ErrorMessage = "الإسم بالعربي إجباري")]
         [Display(Name="الإسم العربي")]
         [StringLength(50,MinimumLength =3,ErrorMessage ="must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Specifications_Ar { get; set; }
-        [Required(ErrorMessage = "الإسم الإنجليزي إجباري")]
+
+        [Required(ErrorMessage = "الإسم بالإنجليزي إجباري")]
         [Display(Name="الإسم الإنجليزي")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Specifications_En { get; set; }
-        [Required(ErrorMessage = "الإسم الفرنسي إجباري")]
+
+        [Required(ErrorMessage = "الإسم بالفرنسي إجباري")]
         [Display(Name="الإسم الفرنسي")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Specifications_Fr { get; set; }
@@ -33,6 +36,7 @@ namespace RentCar.Models
         [Display(Name="الحالة")]
         [StringLength(1)]
         public string CR_Mas_Sup_Car_Specifications_Status { get; set; }
+
         [Display(Name="السبب")]
         [StringLength(100)]
         public string CR_Mas_Sup_Car_Specifications_Reasons { get; set; }

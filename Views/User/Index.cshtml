@@ -46,11 +46,6 @@
     .table thead {
         background: #9898988c;
     }
-
-        .table thead th {
-            color: #124f77;
-        }
-
     .table tr a {
         text-decoration: none;
         color: black;
@@ -61,6 +56,7 @@
     }
 
     .table thead th {
+        color: #124f77;
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
@@ -105,7 +101,7 @@
                 <thead>
                     <tr>
 
-                        <th>
+                        <th style="width:60px;">
                             @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Code)
                         </th>
 
@@ -138,7 +134,7 @@
                             @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Status)
                         </th>
 
-                        <th>
+                        <th style="width:30%;">
                             @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Reasons)
                         </th>
 

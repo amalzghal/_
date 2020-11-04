@@ -1,0 +1,92 @@
+﻿@model RentCar.Models.CR_Mas_Sup_Color
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">تعديل</h4>
+<style>
+    #save-btn {
+        margin-right: 10px;
+        background-color: #5bc0de !important;
+        width: 80px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+    #bttn {
+        width: 80px;
+        background-color: #5bc0de !important;
+        margin-left: 20px;
+    }
+    .lbl {
+        margin-right: 30px;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+    .txt {
+        margin-right: 20px;
+        margin-top: 10px;
+    }
+    .text-danger {
+        font-size: 12px;
+        margin-right: 160px;
+        font-family: 'Times New Roman';
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على لون </span></h4>
+    <hr style="border-top: 1px solid #1c11114a;" />
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Color_Code, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Code, new { @class = "txt", style = "margin-right:75px;width:30%", @readonly = "readonly" })
+        <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Color_Ar_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Ar_Name, new { @class = "txt", style = "margin-right:32.7px;width:30%;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Ar_Name, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Color_En_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_En_Name, new { @class = "txt", style = "margin-right:17px;width:30%;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_En_Name, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Color_Fr_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Fr_Name, new { @class = "txt", style = "margin-right:23.9px;width:30%;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Fr_Name, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Color_Reasons, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Color_Reasons, new { @class = "txt", style = "margin-right:65px;width:70%;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Reasons, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(model => model.CR_Mas_Sup_Color_Status, new { @class = "Hidden" })
+    @Html.EditorFor(model => model.CR_Mas_Sup_Color_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "Hidden", @readonly = "", style = "margin-right:67.5px;" } })
+    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Status, "", new { @class = "Hidden" })
+
+    @Html.LabelFor(model => model.CR_Mas_Sup_Color_Group_Code, "المجموعة", new { @class = "Hidden" })
+    @Html.DropDownList("CR_Mas_Sup_Color_Group_Code", null, new { @class = "Hidden" })
+    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Color_Group_Code, "", new { @class = "Hidden" })
+
+    <div style="margin-top:50px;">
+        <div>
+            <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
+            <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
+            @if (ViewBag.delete == "D")
+            {
+                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+            }
+            else
+            {
+                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
+            }
+            <a class="btn btn-info" title="عودة لقائمة الألوان" href="/Color/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+        </div>
+    </div>
+</div>
+}

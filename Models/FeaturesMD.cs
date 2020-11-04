@@ -11,28 +11,31 @@ namespace RentCar.Models
     public partial class CR_Mas_Sup_Car_Features
     {
     }
-
     public class FeaturesMetaData
     {
         [Required(ErrorMessage = "الرمز إجباري")]
         [Display(Name = "الرمز")]
         public string CR_Mas_Sup_Car_Features_Code { get; set; }
-        [Required(ErrorMessage = "الإسم العربي إجباري")]
-        [Display(Name = "الإسم العربي")]
+
+        [Required(ErrorMessage = "عفوا إسم الميزة بالعربي إجباري")]
+        [Display(Name = "الإسم بالعربي")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Features_Ar { get; set; }
-        [Required(ErrorMessage = "الإسم الإنجليزي إجباري")]
-        [Display(Name = "الإسم الإنجليزي")]
+
+        [Required(ErrorMessage = " عفواالإسم الميزة بالإنجليزي إجباري")]
+        [Display(Name = "الإسم بالإنجليزي")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Features_En { get; set; }
-        [Required(ErrorMessage = "الإسم الفرنسي إجباري")]
-        [Display(Name = "الإسم الفرنسي")]
+
+        [Required(ErrorMessage = "الإسم الميزة بالفرنسي إجباري")]
+        [Display(Name = "الإسم بالفرنسي")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "must be between 4 and 50")]
         public string CR_Mas_Sup_Car_Features_Fr { get; set; }
 
         [Display(Name = "الحالة")]
         [StringLength(1)]
         public string CR_Mas_Sup_Car_Features_Status { get; set; }
+
         [Display(Name = "السبب")]
         [StringLength(100)]
         public string CR_Mas_Sup_Car_Features_Reasons { get; set; }

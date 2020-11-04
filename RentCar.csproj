@@ -37,11 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -131,7 +132,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\CategoryCarController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
@@ -142,6 +145,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandMD.cs" />
+    <Compile Include="Models\CategoryMD.cs" />
     <Compile Include="Models\CR_Mas_Sup_Brand.cs">
       <DependentUpon>RentCarModel.tt</DependentUpon>
     </Compile>
@@ -151,7 +155,13 @@
     <Compile Include="Models\CR_Mas_Sup_Car_Specifications.cs">
       <DependentUpon>RentCarModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Category_Car.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CR_Mas_Sup_City.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CR_Mas_Sup_Color.cs">
       <DependentUpon>RentCarModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CR_Mas_Sup_Group.cs">
@@ -195,7 +205,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RentCarModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ColorMD.cs" />
     <Compile Include="Models\SpecificationsMD.cs" />
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>RentCarModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserInfMD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -205,6 +222,81 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\RentCar.dll" />
+    <Content Include="bin\RentCar.pdb" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Console.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.dll" />
+    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Net.Http.dll" />
+    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
+    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\roslyn\System.ValueTuple.dll" />
+    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
+    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
+    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap-theme.css" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap-theme.min.css" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap.css" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap.min.css" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\js\bootstrap.js" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\js\bootstrap.min.js" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\js\npm.js" />
     <Content Include="Bootstrap_Arabic\bootstrap-big-grid.min.css" />
     <Content Include="Bootstrap_Arabic\bootstrap.min.css" />
     <Content Include="Bootstrap_Arabic\bootstrap.min.js" />
@@ -324,6 +416,25 @@
       <DependentUpon>RentCarModel.edmx</DependentUpon>
       <LastGenOutput>RentCarModel.cs</LastGenOutput>
     </Content>
+    <Content Include="bin\RentCar.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap-theme.css.map" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap-theme.min.css.map" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap.css.map" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Bootstrap_Arabic\font\CHANGA-SEMIBOLD.TTF" />
@@ -437,6 +548,16 @@
     <Content Include="Views\Specifications\Create.cshtml" />
     <Content Include="Views\Specifications\Index.cshtml" />
     <Content Include="Views\Specifications\Edit.cshtml" />
+    <Content Include="Views\CategoryCar\Delete.cshtml" />
+    <Content Include="Views\CategoryCar\Details.cshtml" />
+    <Content Include="Views\Color\Create.cshtml" />
+    <Content Include="Views\Color\Delete.cshtml" />
+    <Content Include="Views\Color\Details.cshtml" />
+    <Content Include="Views\Color\Index.cshtml" />
+    <Content Include="Views\Color\Edit.cshtml" />
+    <Content Include="Views\CategoryCar\Create.cshtml" />
+    <Content Include="Views\CategoryCar\Edit.cshtml" />
+    <Content Include="Views\CategoryCar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
