@@ -75,7 +75,7 @@
         @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_PassWord, "", new { @class = "hidden" })
 
         @Html.LabelFor(model => model.CR_Mas_User_Information_Status, htmlAttributes: new { @class = "hidden" })
-        @Html.EditorFor(model => model.CR_Mas_User_Information_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+        @Html.EditorFor(model => model.CR_Mas_User_Information_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden", @readonly = "readonly" } })
         @Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Status, "", new { @class = "hidden" })
 
         <div style="margin-top:50px;">

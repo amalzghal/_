@@ -95,7 +95,6 @@ namespace RentCar.Controllers
         //////    return View(cR_Mas_Sup_Brand);
         //////}
 
-
         public CR_Mas_Sup_Brand GetLastRecord()
         {
             var Lrecord = db.CR_Mas_Sup_Brand.Max(Lr => Lr.CR_Mas_Sup_Brand_Code);
@@ -151,14 +150,12 @@ namespace RentCar.Controllers
                     ////    //return Content("<script language='javascript' type='text/javascript'>alert     ('هذه الماركة موجودة ');</script>");
                         
                     //////}
-
                 }
             }
             catch (Exception ex)
             {
 
             }
-
             return View(cR_Mas_Sup_Brand);
         }
 
@@ -272,24 +269,24 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
+                ViewBag.delete = "A";
             }
-
             if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" ||
                  cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" ||
                  cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "0"))
             {
                 ViewBag.stat = "تفعيل";
                 ViewBag.h = "تعطيل";
+                ViewBag.delete = "D";
             }
-
             if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" ||
                 cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Hold" ||
                 cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "2")
             {
                 ViewBag.h = "تنشيط";
                 ViewBag.stat = "حذف";
+                ViewBag.delete = "H";
             }
-
             if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == null)
             {
                 ViewBag.h = "تعطيل";

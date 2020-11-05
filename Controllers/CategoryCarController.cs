@@ -251,6 +251,7 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
+                ViewBag.delete = "A";
             }
 
             if ((cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "D" ||
@@ -259,6 +260,7 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "تفعيل";
                 ViewBag.h = "تعطيل";
+                ViewBag.delete = "D";
             }
 
             if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "H" ||
@@ -267,6 +269,7 @@ namespace RentCar.Controllers
             {
                 ViewBag.h = "تنشيط";
                 ViewBag.stat = "حذف";
+                ViewBag.delete = "H";
             }
 
             if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == null)
