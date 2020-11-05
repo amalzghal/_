@@ -25,6 +25,7 @@
     .txt {
         margin-right: 20px;
         margin-top: 10px;
+        width:200px;
     }
     .text-danger {
         font-size: 12px;
@@ -43,7 +44,7 @@
     <hr style="border-top: 1px solid #1c11114a;" />
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "txt", style = "margin-right:65px", @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "txt", style = "margin-right:75px;width:10%", @readonly = "readonly" })
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
     <div>
@@ -63,7 +64,7 @@
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Reasons, new { @class = "txt", style = "margin-right:60.5px" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Reasons, new { @class = "txt", style = "margin-right:65px;width:70%" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Reasons, "", new { @class = "text-danger" })
     </div>
 

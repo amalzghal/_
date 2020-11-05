@@ -27,7 +27,7 @@
         font-family: 'Times New Roman' !important;
     }
     .txt {
-        width: 200px !important;
+        width: 200px ;
         margin-top: 18px;
         font-size: 13px !important;
         font-family: 'Times New Roman!important';
@@ -47,8 +47,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
             <div>
-                @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "lbl", style = "margin-left:60px;" })
-                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "txt", @readonly = "readonly" })
+                @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "lbl" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "txt", style = "margin-right:65px;width:13%", @readonly = "readonly" })
                 <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Code)
             </div>
             <div>

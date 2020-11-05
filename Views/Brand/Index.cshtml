@@ -39,7 +39,8 @@
         font: bold 15px Simplified Arabic;
     }
     .table thead {
-        background: #9898988c;
+        overflow-y: scroll;
+        flex-grow: 1;
     }
     .table tr a {
         text-decoration: none;
@@ -53,8 +54,10 @@
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
+        background: #989898;
+        position: sticky;
+        top: 0;
     }
-
     .btn-info {
         margin-right: 10px;
     }
@@ -62,15 +65,12 @@
 <form method="post">
     <div class="form_bg">
         <p style="margin-top:20px">
-
             @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إغلاق",style="margin-right:10px;" })
             @Html.ActionLink(" ", "Create", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة سجل جديد" })
             @*@Html.ActionLink(" ", "Index", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-print",name= "excelCall" })*@
-
             <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 45px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-print", title = "طباعة" })
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search",title="بحث" })
-
             <img src="~/images/srch.png" id="SrchImg" />
             <input class="form-control" type="text" id="inputtext" name="TxtSearch" placeholder="بحث..." />
             <script>
@@ -89,26 +89,24 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th>إسم الماركة</th>
+                            <th style="width:10%;">إسم الماركة</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
+                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
+                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
                         }
-                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
-                        <th>المرجع</th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
+                        <th style="width:50%;">المرجع</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">
-
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -144,11 +142,26 @@
                                 </td>
                             }
 
-                            <td align="center">
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)
-                                </a>
-                            </td>
+                        <td align="center">
+                            @*<a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)</a>*@
+                            @if (item.CR_Mas_Sup_Brand_Status == "A")
+                            {
+                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">نشط</a>
+                            }
+
+                            @if (item.CR_Mas_Sup_Brand_Status == "H")
+                            {
+                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">معطل</a>
+                            }
+
+                            @if (item.CR_Mas_Sup_Brand_Status == "D")
+                            {
+                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">محذوف</a>
+                            }
+
+
+
+                        </td>
                             <td>
                                 <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
                                     @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Reasons)

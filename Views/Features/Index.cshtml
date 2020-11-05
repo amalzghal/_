@@ -37,11 +37,10 @@
         font: bold 15px Simplified Arabic;
     }
     .table thead {
-        background: #9898988c;
+        /*background: #9898988c;*/
+        overflow-y: scroll;
+        flex-grow: 1;
     }
-    .table thead th {
-            color: #124f77;
-     }
     .table tr a {
         text-decoration: none;
         color: black;
@@ -50,9 +49,13 @@
         border-color: #000;
     }
     .table thead th {
+        color: #124f77;
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
+        background: #989898;
+        position: sticky;
+        top: 0;
     }
     .btn-info {
         margin-right: 10px;
@@ -61,13 +64,11 @@
 <form method="post">
     <div class="form_bg">
         <p style="margin-top:20px">
-
             @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إنهاء", style = "margin-right:10px;" })
             @Html.ActionLink(" ", "Create", "Features", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة ميزة" })
             <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 100px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-print", title = "طباعة" })
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search", title = "بحث" })
-
             <img src="~/images/srch.png" id="SrchImg" />
             <input class="form-control" type="text" id="inputtext" name="TxtSearch" placeholder="بحث..." />
             <script>
@@ -82,42 +83,25 @@
             </script>
         </p>
         <div class="table-responsive" style="width:697px; height:250px; overflow:auto;border: 1px solid #1c11114a;">
-
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Code)
-                        </th>
+                        <th style="width:5%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Code)</th>
 
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Ar)
-                            </th>
+                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Ar)</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_En)
-                            </th>
+                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_En)</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Fr)
-                            </th>
+                            <th style="width:5%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Fr)</th>
                         }
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Status)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Reasons)
-                        </th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Status)</th>
+                        <th style="width:50%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">

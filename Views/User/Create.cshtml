@@ -30,7 +30,7 @@
     .txt {
         width: 200px;
         margin-right: 20px;
-        margin-top: 30px;
+        margin-top: 10px;
     }
     .text-danger {
         font-size: 12px;
@@ -50,30 +50,30 @@
 <div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_User_Information_Code, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Code, new { @class = "txt", style = "margin-right:35px", @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Code, new { @class = "txt", style = "margin-right:65px;width:13%", @readonly = "readonly" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Code, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-top:22px;margin-right:36px;" })
+        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-right:24px;width:30%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Ar_Name, "", new { @class = "text-danger" })
     </div>
 
     <div>
         @Html.LabelFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:22px" })
+        @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:10px;width:30%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_En_Name, "", new { @class = "text-danger" })
     </div>
 
     <div>
         @Html.LabelFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:30px;" })
+        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:17px;width:30%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Fr_Name, "", new { @class = "text-danger" })
     </div>
 
     <div>
         @Html.LabelFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:7px;" })
+        @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:40px;width:30%;" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Mobile_No, "", new { @class = "text-danger" })
     </div>
 

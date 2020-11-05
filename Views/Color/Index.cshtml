@@ -36,10 +36,9 @@
         font: bold 15px Simplified Arabic;
     }
     .table thead {
-        background: #9898988c;
-    }
-    .table thead th {
-        color: #124f77;
+        /*background: #9898988c;*/
+        overflow-y: scroll;
+        flex-grow: 1;
     }
     .table tr a {
         text-decoration: none;
@@ -49,9 +48,13 @@
         border-color: #000;
     }
     .table thead th {
+        color: #124f77;
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
+        background: #989898;
+        position: sticky;
+        top: 0;
     }
     .btn-info {
         margin-right: 10px;
@@ -82,29 +85,22 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th style="min-width:7%;width:10%;">
-                            @Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Code)
-                        </th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th style="min-width:15%;width:25%;">
-                                الإسم
-                            </th>
+                            <th style="width:10%;">الإسم</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
                             <th>Name</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
                             <th>Nom</th>
                         }
-                        <th style="min-width:7%;width:10%;">
-                            المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@
-                        </th>
-                        <th style="min-width:7%;width:7%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Status)</th>
-                        <th>@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Reasons)</th>
+                        <th style="width:10%;">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Status)</th>
+                        <th style="width:60%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">

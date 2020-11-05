@@ -174,7 +174,7 @@ namespace RentCar.Controllers
 
                 if ((cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "D"|| cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "0"))
                 {
-                    ViewBag.stat = "تفعيل";
+                    ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
                 }
 
@@ -223,18 +223,25 @@ namespace RentCar.Controllers
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "D";
-                ViewBag.stat = "تفعيل";
+                ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
                 ViewBag.delete = "D";
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
 
-            if (delete == "Activate" || delete == "تفعيل")
+            if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
                 ViewBag.delete = "A";
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
 
@@ -245,6 +252,10 @@ namespace RentCar.Controllers
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "H";
                 ViewBag.delete = "H";
                 ViewBag.stat = "حذف";
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
 
@@ -254,6 +265,9 @@ namespace RentCar.Controllers
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
                 ViewBag.delete = "A";
                 ViewBag.stat = "حذف";
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
             ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Brand_Code);

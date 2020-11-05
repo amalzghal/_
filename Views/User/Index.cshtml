@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<RentCar.Models.CR_Mas_User_Information>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -14,8 +12,6 @@
     <h4 style="margin-right:10px;">المستخدمين</h4>
     <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات المستخدمين و تمكن البحث عن مستخدم أو إظافة مستخدم جديد</h6>
 </div>
-
-
 <style>
     #inputtext {
         width: 250px;
@@ -24,14 +20,12 @@
         margin-left: -5px;
         float: left;
     }
-
     #SrchImg {
         float: left;
         margin-top: -10px;
         margin-left: 0px;
         margin-right: -35px;
     }
-
     #Btn {
         width: 60px;
         height: 30px;
@@ -42,33 +36,31 @@
         border-color: #5bc0de;
         font: bold 15px Simplified Arabic;
     }
-
     .table thead {
-        background: #9898988c;
+        /*background: #9898988c;*/
+        overflow-y: scroll;
+        flex-grow: 1;
     }
     .table tr a {
         text-decoration: none;
         color: black;
     }
-
     .table td {
         border-color: #000;
     }
-
     .table thead th {
         color: #124f77;
         border-color: #000;
         border-bottom: 2px solid #000;
         text-align: center;
+        background: #989898;
+        position: sticky;
+        top: 0;
     }
-
     .btn-info {
         margin-right: 10px;
     }
 </style>
-
-
-
 <form method="post">
     <div class="form_bg">
         <p style="margin-top:20px">
@@ -96,48 +88,25 @@
             @*<input type="submit" id="btn" name="BtnSearch" value="بحث" />*@
         </p>
         <div class="table-responsive" style="width:697px; height:250px; overflow:auto;border: 1px solid #1c11114a;">
-
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-
-                        <th style="width:60px;">
-                            @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Code)
-                        </th>
-
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Ar_Name)
-                            </th>
+                            <th style="width:13%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Ar_Name)</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_User_Information_En_Name)
-                            </th>
+                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_En_Name)</th>
                         }
-
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Fr_Name)
-                            </th>
+                            <th style="width:5%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Fr_Name)</th>
                         }
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Mobile_No)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Status)
-                        </th>
-
-                        <th style="width:30%;">
-                            @Html.DisplayNameFor(model => model.CR_Mas_User_Information_Reasons)
-                        </th>
-
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Mobile_No)</th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Status)</th>
+                        <th style="width:40%;">@Html.DisplayNameFor(model => model.CR_Mas_User_Information_Reasons)</th>
                     </tr>
                 </thead>
 

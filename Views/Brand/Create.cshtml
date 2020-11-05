@@ -13,78 +13,74 @@
         margin-top: 5px;
         margin-bottom:5px;
     }
-
     #add_btn {
         background-color: #5bc0de;
-        height: 35px;
-        width: 60px;
+        height: 20px;
+        width: 80px;
         margin-right: 20px;
         margin-top: 40px;
         color: #fff;
         float: right;
-        margin-bottom:10px;
+        margin-bottom: 10px;
+        font-family: 'Times New Roman';
+        padding-top:3px;
+        font-size:12px;
     }
    .lbl{
        margin-right:30px;
        font-size:16px;
        font-family:'Times New Roman';
-   }
-
+    }
     .txt {
         width: 200px;
         margin-right: 20px;
-        margin-top: 30px;
+        margin-top: 15px;
     }
-
     .text-danger {
         font-size: 12px;
         margin-right: 160px;
         font-family: 'Times New Roman';
     }
-
 </style>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
 <div class="form-horizontal" >
-    <h4>
-        <span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة ماركة جديدة</span>
-    </h4>
+    <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة ماركة جديدة</span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div>
     <div>
-        <div>
-            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-top:22px;margin-right:36px;" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Ar_Name, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20px" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_En_Name, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:26.5px;" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Fr_Name, "", new { @class = "text-danger" })
-        </div>
-
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Code, htmlAttributes: new { @class = "hidden" })
-        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Code, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-        @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Code, "", new { @class = "hidden" })
-
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, htmlAttributes: new { @class = "Hidden" })
-        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Reasons, new { htmlAttributes = new { @class = "Hidden" }, @readonly = "readonly" })
-        @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Reasons, "", new { @class = "Hidden" })
-
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
-        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-        @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Status, "", new { @class = "hidden" })
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "txt", style = "margin-right:77px;width:13%", @readonly = "readonly" })
+        <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Ar_Name, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20px" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_En_Name, "", new { @class = "text-danger" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:26.5px;" })
+        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Fr_Name, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, htmlAttributes: new { @class = "Hidden" })
+    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Reasons, new { htmlAttributes = new { @class = "Hidden" }, @readonly = "readonly" })
+    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Reasons, "", new { @class = "Hidden" })
+
+    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
+    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
+    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Status, "", new { @class = "hidden" })
+</div>
     <input type="submit" name="add" class="btn btn-info" id="add_btn" value="حفظ" title="حفظ" />
-    @Html.ActionLink("إنهاء", "Index", "Brand", null, new { @class = "btn btn-info", Style = "Float:Left;margin-top:40px;margin-left:10px;font-family:Times-new-roman;width:60px;" })
+    @Html.ActionLink("إنهاء", "Index", "Brand", null, new { @class = "btn btn-info", Style = "Float:Left;margin-top:40px;margin-left:10px;font-family:Times-new-roman;width:80px;height:20px;padding-top:0px" })
+
 </div>
 }
 

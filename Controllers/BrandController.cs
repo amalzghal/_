@@ -95,8 +95,8 @@ namespace RentCar.Controllers
         //////    return View(cR_Mas_Sup_Brand);
         //////}
 
-        // GET: Brand/Create
-        public ActionResult Create()
+
+        public CR_Mas_Sup_Brand GetLastRecord()
         {
             var Lrecord = db.CR_Mas_Sup_Brand.Max(Lr => Lr.CR_Mas_Sup_Brand_Code);
             CR_Mas_Sup_Brand b = new CR_Mas_Sup_Brand();
@@ -104,13 +104,21 @@ namespace RentCar.Controllers
             {
                 int val = int.Parse(Lrecord) + 1;
                 b.CR_Mas_Sup_Brand_Code = val.ToString();
-            }else
+            }
+            else
             {
                 b.CR_Mas_Sup_Brand_Code = "1001";
             }
-                b.CR_Mas_Sup_Brand_Status = "A";
-
-            return View(b);
+            return b;
+        }
+        // GET: Brand/Create
+        public ActionResult Create()
+        {
+            CR_Mas_Sup_Brand brand = new CR_Mas_Sup_Brand();
+            brand=GetLastRecord();
+            brand.CR_Mas_Sup_Brand_Status = "A";
+            
+            return View(brand);
         }
 
         // POST: Brand/Create
@@ -119,14 +127,38 @@ namespace RentCar.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CR_Mas_Sup_Brand_Code, CR_Mas_Sup_Brand_Ar_Name, CR_Mas_Sup_Brand_En_Name, " +
-        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand)
+        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand, string CR_Mas_Sup_Brand_Ar_Name)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CR_Mas_Sup_Brand.Add(cR_Mas_Sup_Brand);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    //var Lrecord = db.CR_Mas_Sup_Brand.Where(Lr => Lr.CR_Mas_Sup_Brand_Ar_Name == CR_Mas_Sup_Brand_Ar_Name).Select(lr => lr.CR_Mas_Sup_Brand_Ar_Name);
+                    //if (Lrecord == null)
+                    //{
+                        db.CR_Mas_Sup_Brand.Add(cR_Mas_Sup_Brand);
+                        db.SaveChanges();
+                    //return RedirectToAction("Index");
+                    
+                    cR_Mas_Sup_Brand= new CR_Mas_Sup_Brand();
+                    cR_Mas_Sup_Brand = GetLastRecord();
+                    cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
+                    return RedirectToAction("Create", "Brand");
+                   
+                    //}
+                    //////else
+                    //////{
+                    ////    //return Content("<script language='javascript' type='text/javascript'>alert     ('هذه الماركة موجودة ');</script>");
+                        
+                    //////}
+
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+
             return View(cR_Mas_Sup_Brand);
         }
 
@@ -155,7 +187,7 @@ namespace RentCar.Controllers
                     cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" || 
                     cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "0"))
                 {
-                    ViewBag.stat = "تفعيل";
+                    ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
                 }
                 if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" || 
