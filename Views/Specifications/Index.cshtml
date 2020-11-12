@@ -8,7 +8,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div>
-    <h4 style="margin-right:10px;">المواصفات</h4>
+    <h4 style="margin-right:10px;">المواصفات / عرض البيانات</h4>
     <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات المواصفات و تمكن البحث عن مواصفة أو إظافة مواصفة جديدة</h6>
 </div>
 <style>
@@ -87,21 +87,21 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th style="width:5%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Code)</th>
+                        <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Ar)</th>
+                            <th style="width:20%;">إسم المواصفة</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_En)</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_En)</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th style="width:5%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Fr)</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Fr)</th>
                         }
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Status)</th>
-                        <th style="width:50%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons)</th>
+                        <th style="width:60%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">
@@ -138,9 +138,18 @@
                             </td>
                         }
                         <td align="center">
-                            <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">
-                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Status)
-                            </a>
+                            @if (item.CR_Mas_Sup_Car_Specifications_Status == "A")
+                            {
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">نشط</a>
+                            }
+                            @if (item.CR_Mas_Sup_Car_Specifications_Status == "H")
+                            {
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">معطل</a>
+                            }
+                            @if (item.CR_Mas_Sup_Car_Specifications_Status == "D")
+                            {
+                                <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">محذوف</a>
+                            }
                         </td>
                         <td>
                             <a href="~/Specifications/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Car_Specifications_Code)">

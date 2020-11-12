@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<span><h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">تعديل</h4></span>
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic"> الماركات / تعديل</h4>
 <style>
     #save-btn {
         margin-right: 10px;
@@ -12,9 +12,16 @@
         margin-bottom:10px;
     }
     #bttn {
+        float: right;
         width: 80px;
         background-color: #5bc0de !important;
-        margin-left:20px;
+        margin-left: 20px;
+    }
+    #btn-confirm {
+        float: right;
+        width: 80px;
+        margin-left: 20px;
+        float: right;
     }
     .lbl {
         margin-right: 30px;
@@ -36,11 +43,10 @@
         background-color: #5bc0de;
         width: 80px;
         height: 25px;
-        padding-top: 0px;
+        padding-top: 5px;
         padding-right: 10px;
         font-size: 12px;
         font-family: times new roman;
-        padding-top: 5px;
     }
 </style>
 @using (Html.BeginForm())
@@ -51,51 +57,55 @@
         <span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على ماركة </span>
     </h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div style="margin-top:25px;">
+    <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "lbl" })
         @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "txt", style = "margin-right:77px;width:13%", @readonly = "readonly" })
-        <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Code, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Ar_Name, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20.5px" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20.5px", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_En_Name, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:27.5px" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:27.5px", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Fr_Name, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Reasons, "", new { @class = "text-danger" })
     </div>
 
-    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
-    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden", @readonly = "readonly", style = "margin-right:71px" } })
-    @*@Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })*@
-    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Brand_Status, "", new { @class = "hidden" })
+    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "Hidden" })
+    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "Hidden" } })
+
 
     <div style="margin-top:50px;">
         <div>
-            @* appel de l"action depuis bouton<input type="submit" name="delete" class="btn btn-danger" value="حذف" style="float: left;background-color: #d9534f;width:80px;" onclick="location.href='@Url.Action("Delete", "Brand", new {id=Model.CR_Mas_Sup_Brand_Code})'" />*@
             <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
-            <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
             @if (ViewBag.delete == "D")
             {
-                <a name="delete" id="btn-confirm" class="btn btn-success" value="" style="float:right;width:80px;height:20px;padding-top:2px;font:bold 10px Tahoma;margin-left:10px;color:white;">@ViewBag.stat</a>
+                <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" disabled />
+                <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" />
             }
             else
             {
-                <a name="delete" id="btn-confirm" class="btn btn-danger" value="" style="float:right;width:80px;height:20px;padding-top:2px;font:bold 10px Tahoma;margin-left:10px;color:white;">@ViewBag.stat</a>
+                if (ViewBag.delete == "H")
+                {
+                    <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" />
+                    <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" disabled />
+                }
+                else
+                {
+                    <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" />
+                    <input type="button" name="delete" id="btn-confirm" class="btn btn-danger" value="@ViewBag.stat" style="background-color:#d9534f;" />
+                }
             }
             <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" style="margin-top:17%;">
                 <div class="modal-dialog modal-sm">
@@ -107,13 +117,13 @@
                         <div class="modal-footer">
                             @if (ViewBag.delete == "D")
                             {
-                                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#5cb85c;" />
+                                <input type="submit" name="delete" id="modal-btn-si" class="btn btn-success" value="@ViewBag.stat" style="width:80px;background-color:#5cb85c;" />
                             }
                             else
-                            {
-                                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#d9534f;" />
+                            { 
+                                 <input type="submit" name="delete" id="modal-btn-si" class="btn btn-danger" value="@ViewBag.stat" style="width:80px;background-color:#d9534f;" />
                             }
-                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float: left;width: 80px;height: 40px;font: bold 14px Tahoma">إلغاء</button>
+                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float:left;width:80px;font:bold 10px Tahoma;height: 20px;padding-top: 5px;">إلغاء</button>
                         </div>
                     </div>
                 </div>
@@ -143,11 +153,8 @@
                     }
                 });
             </script>
-            <a class="btn btn-info" title="عودة لقائمة الماركات" href="/Brand/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+            <a class="btn btn-info" title="" href="/Brand/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
         </div>
     </div>
 </div>
 }
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@

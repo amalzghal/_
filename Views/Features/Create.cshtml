@@ -5,7 +5,7 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">إضافة</h4>
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">المميزات / إضافة</h4>
 <style>
     #sp {
         margin-right: 15%;
@@ -44,36 +44,32 @@
     <div class="form-horizontal" >
     <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة ميزة جديدة</span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Code, new { @class = "lbl" })
             @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Code, new { @class = "txt", style = "margin-right:78px;width:10%", @readonly = "readonly" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_Code, "", new { @class = "text-danger" })
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "txt", style = "margin-right:36px;" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_Ar, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "txt", style = "margin-right:36px;", maxlength = "50" })
+            <br><span class="text-danger">@ViewBag.LRExistAr</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "txt", style = "margin-right:20px" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_En, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "txt", style = "margin-right:20px", maxlength = "50" })
+            <br><span class="text-danger">@ViewBag.LRExistEn</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "txt", style = "margin-right:26.5px;" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_Fr, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "txt", style = "margin-right:26.5px;", maxlength = "50" })
+            <br><span class="text-danger">@ViewBag.LRExistFr</span>
         </div>
 
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Reasons, htmlAttributes: new { @class = "Hidden" })
-        @Html.EditorFor(model => model.CR_Mas_Sup_Car_Features_Reasons, new { htmlAttributes = new { @class = "Hidden" }, @readonly = "readonly" })
-        @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_Reasons, "", new { @class = "Hidden" })
+        @Html.EditorFor(model => model.CR_Mas_Sup_Car_Features_Reasons, new { htmlAttributes = new { @class = "Hidden" } })
 
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Status, htmlAttributes: new { @class = "hidden" })
-        @Html.EditorFor(model => model.CR_Mas_Sup_Car_Features_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-        @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Features_Status, "", new { @class = "hidden" })
+        @Html.EditorFor(model => model.CR_Mas_Sup_Car_Features_Status, new { htmlAttributes = new { @class = "hidden" } })
     </div>
     <input type="submit" name="add" class="btn btn-info" id="add_btn" value="حفظ" title="حفظ" />
     @Html.ActionLink("إنهاء", "Index", "Features", null, new { @class = "btn btn-info", Style = "Float:Left;margin-top:40px;margin-left:10px;font-family:Times-new-roman;width:60px;" })

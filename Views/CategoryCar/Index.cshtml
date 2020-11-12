@@ -8,8 +8,8 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div>
-    <h4 style="margin-right:10px;">الفئات</h4>
-    <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الفئات و تمكن المسنخدم من البحث عن لون أو إضافة فئة جديد</h6>
+    <h4 style="margin-right:10px;">الفئات / عرض البيانات</h4>
+    <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الفئات و تمكن المسنخدم من البحث عن فئة أو إضافة فئة جديد</h6>
 </div>
 <style>
     #inputtext {
@@ -87,19 +87,19 @@
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th style="width:10%;">الإسم</th>
+                            <th style="width:20%;">إسم الفئة</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th style="width:10%;">Name</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_En_Name)</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th style="width:5%;">Nom</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Fr_Name)</th>
                         }
-                        <th style="width:10%;">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
+                        <th style="width:15%;">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Status)</th>
-                        <th style="width:60%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Reasons)</th>
+                        <th style="width:45%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Category_Car_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">
@@ -141,9 +141,18 @@
                                 </a>
                             </td>
                             <td style="text-align:center">
-                                <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Status)
-                                </a>
+                                @if (item.CR_Mas_Sup_Category_Car_Status == "A")
+                                {
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">نشط</a>
+                                }
+                                @if (item.CR_Mas_Sup_Category_Car_Status == "H")
+                                {
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">معطل</a>
+                                }
+                                @if (item.CR_Mas_Sup_Category_Car_Status == "D")
+                                {
+                                    <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">محذوف</a>
+                                }
                             </td>
                             <td>
                                 <a href="~/CategoryCar/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Category_Car_Code)">

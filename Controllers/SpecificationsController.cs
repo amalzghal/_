@@ -95,21 +95,26 @@ namespace RentCar.Controllers
         //////    }
         //////    return View(cR_Mas_Sup_Car_Specifications);
         //////}
-
-        // GET: Car_Specifications/Create
-        public ActionResult Create()
+        public CR_Mas_Sup_Car_Specifications GetLastRecord()
         {
             var Lrecord = db.CR_Mas_Sup_Car_Specifications.Max(Lr => Lr.CR_Mas_Sup_Car_Specifications_Code);
-            CR_Mas_Sup_Car_Specifications spec = new CR_Mas_Sup_Car_Specifications();
+            CR_Mas_Sup_Car_Specifications s = new CR_Mas_Sup_Car_Specifications();
             if (Lrecord != null)
             {
                 int val = int.Parse(Lrecord) + 1;
-                spec.CR_Mas_Sup_Car_Specifications_Code = val.ToString();
+                s.CR_Mas_Sup_Car_Specifications_Code = val.ToString();
             }
             else
             {
-                spec.CR_Mas_Sup_Car_Specifications_Code = "1001";
+                s.CR_Mas_Sup_Car_Specifications_Code = "1001";
             }
+            return s;
+        }
+        // GET: Car_Specifications/Create
+        public ActionResult Create()
+        {
+            CR_Mas_Sup_Car_Specifications spec = new CR_Mas_Sup_Car_Specifications();
+            spec = GetLastRecord();
             spec.CR_Mas_Sup_Car_Specifications_Status = "A";
             return View(spec);
         }
@@ -120,16 +125,54 @@ namespace RentCar.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CR_Mas_Sup_Car_Specifications_Code, CR_Mas_Sup_Car_Specifications_Ar, CR_Mas_Sup_Car_Specifications_En," +
-            "CR_Mas_Sup_Car_Specifications_Fr, CR_Mas_Sup_Car_Specifications_Status, CR_Mas_Sup_Car_Specifications_Reasons")] 
-            CR_Mas_Sup_Car_Specifications cR_Mas_Sup_Car_Specifications)
+        "CR_Mas_Sup_Car_Specifications_Fr, CR_Mas_Sup_Car_Specifications_Status, CR_Mas_Sup_Car_Specifications_Reasons")] CR_Mas_Sup_Car_Specifications 
+        cR_Mas_Sup_Car_Specifications, string CR_Mas_Sup_Car_Specifications_Ar, string CR_Mas_Sup_Car_Specifications_Fr, string CR_Mas_Sup_Car_Specifications_En)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CR_Mas_Sup_Car_Specifications.Add(cR_Mas_Sup_Car_Specifications);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    var LrecordExitArabe = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_Ar == CR_Mas_Sup_Car_Specifications_Ar);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_En == CR_Mas_Sup_Car_Specifications_En);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_Fr == CR_Mas_Sup_Car_Specifications_Fr);
 
+
+                    if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length > 3 && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length > 3 &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length > 3)
+                    {
+                        db.CR_Mas_Sup_Car_Specifications.Add(cR_Mas_Sup_Car_Specifications);
+                        cR_Mas_Sup_Car_Specifications = new CR_Mas_Sup_Car_Specifications();
+                        cR_Mas_Sup_Car_Specifications = GetLastRecord();
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
+                        db.SaveChanges();
+                        return RedirectToAction("Create", "Specifications");
+                    }
+                    else
+                    {
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar == null)
+                            ViewBag.LRExistAr = "عفوا إسم المواصفة بالعربي إجباري";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En == null)
+                            ViewBag.LRExistEn = "عفوا إسم المواصفة بالإنجليزي إجباري";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr == null)
+                            ViewBag.LRExistFr = "عفوا إسم المواصفة بالفرنسي إجباري";
+                        if (LrecordExitArabe)
+                            ViewBag.LRExistAr = "عفوا هذه المواصفة موجودة";
+                        if (LrecordExitEnglish)
+                            ViewBag.LRExistEn = "عفوا هذه المواصفة موجودة";
+                        if (LrecordExitFrench)
+                            ViewBag.LRExistFr = "عفوا هذه المواصفة موجودة";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length < 3)
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length < 3)
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length < 3)
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                    }
+                }
+            }
+            catch (Exception ex) { }
             return View(cR_Mas_Sup_Car_Specifications);
         }
 
@@ -159,7 +202,7 @@ namespace RentCar.Controllers
                     cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Deleted" ||
                     cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "0")
                 {
-                    ViewBag.stat = "تفعيل";
+                    ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
                 }
                 if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "H" ||
@@ -198,8 +241,7 @@ namespace RentCar.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
-            if (delete == "Activate" || delete == "تفعيل")
+            if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
                 if (ModelState.IsValid)
@@ -209,7 +251,6 @@ namespace RentCar.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "H";
@@ -220,7 +261,6 @@ namespace RentCar.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
@@ -231,7 +271,6 @@ namespace RentCar.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
@@ -250,16 +289,14 @@ namespace RentCar.Controllers
                 ViewBag.h = "تعطيل";
                 ViewBag.delete = "A";
             }
-
             if ((cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "D" ||
                  cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Deleted" ||
                  cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "0"))
             {
-                ViewBag.stat = "تفعيل";
+                ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
                 ViewBag.delete = "D";
             }
-
             if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "H" ||
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Hold" ||
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "2")
@@ -268,7 +305,6 @@ namespace RentCar.Controllers
                 ViewBag.stat = "حذف";
                 ViewBag.delete = "H";
             }
-
             if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == null)
             {
                 ViewBag.h = "تعطيل";

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -94,27 +95,29 @@ namespace RentCar.Controllers
         //////    }
         //////    return View(cR_Mas_Sup_Category_Car);
         //////}
-
-        // GET: Model/Create
-        public ActionResult Create()
+        public CR_Mas_Sup_Category_Car GetLastRecord()
         {
-            ViewBag.CR_Mas_Sup_Category_Car_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code",
-            "CR_Mas_Sup_Group_Ar_Name");
-
             var Lrecord = db.CR_Mas_Sup_Category_Car.Max(Lr => Lr.CR_Mas_Sup_Category_Car_Code);
-            CR_Mas_Sup_Category_Car b = new CR_Mas_Sup_Category_Car();
+            CR_Mas_Sup_Category_Car c = new CR_Mas_Sup_Category_Car();
             if (Lrecord != null)
             {
-                double val = double.Parse(Lrecord) + 1;
-                b.CR_Mas_Sup_Category_Car_Code = val.ToString();
+                Int64 val = Int64.Parse(Lrecord) + 1;
+                c.CR_Mas_Sup_Category_Car_Code = val.ToString();
             }
             else
             {
-                b.CR_Mas_Sup_Category_Car_Code = "3100000001";
+                c.CR_Mas_Sup_Category_Car_Code = "3400000001";
             }
-            b.CR_Mas_Sup_Category_Car_Status = "A";
-            return View(b);
-
+            return c;
+        }
+        // GET: Model/Create
+        public ActionResult Create()
+        {
+            ViewBag.CR_Mas_Sup_Category_Car_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name");
+            CR_Mas_Sup_Category_Car cat = new CR_Mas_Sup_Category_Car();
+            cat = GetLastRecord();
+            cat.CR_Mas_Sup_Category_Car_Status = "A";
+            return View(cat);
         }
 
         // POST: Model/Create
@@ -122,20 +125,59 @@ namespace RentCar.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Category_Car_Code, CR_Mas_Sup_Category_Car_Group_Code, " +
-        "CR_Mas_Sup_Category_Car_Ar_Name, CR_Mas_Sup_Category_Car_En_Name, CR_Mas_Sup_Category_Car_Fr_Name, " +
-        "CR_Mas_Sup_Category_Car_Status, CR_Mas_Sup_Category_Car_Reasons")]
-        CR_Mas_Sup_Category_Car cR_Mas_Sup_Category_Car)
+        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Category_Car_Code, CR_Mas_Sup_Category_Car_Group_Code, CR_Mas_Sup_Category_Car_Ar_Name, " +
+        "CR_Mas_Sup_Category_Car_En_Name, CR_Mas_Sup_Category_Car_Fr_Name, sCR_Mas_Sup_Category_Car_Status, CR_Mas_Sup_Category_Car_Reasons")]
+        CR_Mas_Sup_Category_Car cR_Mas_Sup_Category_Car, string CR_Mas_Sup_Category_Car_Ar_Name, string CR_Mas_Sup_Category_Car_Fr_Name, 
+        string CR_Mas_Sup_Category_Car_En_Name)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CR_Mas_Sup_Category_Car.Add(cR_Mas_Sup_Category_Car);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var LrecordExitArabe = db.CR_Mas_Sup_Category_Car.Any(Lr => Lr.CR_Mas_Sup_Category_Car_Ar_Name == CR_Mas_Sup_Category_Car_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Category_Car.Any(Lr => Lr.CR_Mas_Sup_Category_Car_En_Name == CR_Mas_Sup_Category_Car_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Category_Car.Any(Lr => Lr.CR_Mas_Sup_Category_Car_Fr_Name == CR_Mas_Sup_Category_Car_Fr_Name);
+
+
+                    if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Ar_Name != null && cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_En_Name != null &&
+                        cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
+                        cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Ar_Name.Length > 3 && cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_En_Name.Length > 3 &&
+                        cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Fr_Name.Length > 3)
+                    {
+                        //cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Group_Code = "34";
+                        db.CR_Mas_Sup_Category_Car.Add(cR_Mas_Sup_Category_Car);
+                        cR_Mas_Sup_Category_Car = new CR_Mas_Sup_Category_Car();
+                        cR_Mas_Sup_Category_Car = GetLastRecord();
+                        cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status = "A";
+                        db.SaveChanges();
+                        return RedirectToAction("Create", "CategoryCar");
+                    }
+                    else
+                    {
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Ar_Name == null)
+                            ViewBag.LRExistAr = "عفوا إسم الفئة بالعربي إجباري";
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_En_Name == null)
+                            ViewBag.LRExistEn = "عفوا إسم الفئة بالإنجليزي إجباري";
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Fr_Name == null)
+                            ViewBag.LRExistFr = "عفوا إسم الفئة بالفرنسي إجباري";
+                        if (LrecordExitArabe)
+                            ViewBag.LRExistAr = "عفوا هذه الفئة موجودة";
+                        if (LrecordExitEnglish)
+                            ViewBag.LRExistEn = "عفوا هذه الفئة موجودة";
+                        if (LrecordExitFrench)
+                            ViewBag.LRExistFr = "عفوا هذه الفئة موجودة";
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Ar_Name != null && cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Ar_Name.Length < 3)
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_En_Name != null && cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_En_Name.Length < 3)
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                        if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Fr_Name != null && cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Fr_Name.Length < 3)
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                    }
+                }
             }
+            catch (Exception ex) { }
             ViewBag.CR_Mas_Sup_Category_Car_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code",
-                "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Group_Code);
-            //ViewBag.CR_Mas_Sup_Category_Car_Group_Code = "31";
+            "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Group_Code);
             return View(cR_Mas_Sup_Category_Car);
         }
 
@@ -162,7 +204,7 @@ namespace RentCar.Controllers
                 if ((cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "D" || 
                     cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "0"))
                 {
-                    ViewBag.stat = "تفعيل";
+                    ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
                 }
                 if (cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "H" || 
@@ -204,7 +246,7 @@ namespace RentCar.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            if (delete == "Activate" || delete == "تفعيل")
+            if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status = "A";
                 if (ModelState.IsValid)
@@ -258,7 +300,7 @@ namespace RentCar.Controllers
                  cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "Deleted" ||
                  cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status == "0"))
             {
-                ViewBag.stat = "تفعيل";
+                ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
                 ViewBag.delete = "D";
             }
@@ -277,6 +319,7 @@ namespace RentCar.Controllers
                 ViewBag.h = "تعطيل";
                 ViewBag.stat = "حذف";
             }
+            ViewBag.delete = cR_Mas_Sup_Category_Car.CR_Mas_Sup_Category_Car_Status;
             return View(cR_Mas_Sup_Category_Car);
         }
 

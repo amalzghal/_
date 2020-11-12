@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">تعديل</h4>
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">المواصفات / تعديل</h4>
 <style>
     #save-btn {
         margin-right: 10px;
@@ -30,43 +30,52 @@
         margin-right: 160px;
         font-family: 'Times New Roman';
     }
+    .a {
+        float: right;
+        background-color: #5bc0de;
+        width: 80px;
+        height: 25px;
+        padding-top: 0px;
+        padding-right: 10px;
+        font-size: 12px;
+        font-family: times new roman;
+        padding-top: 5px;
+    }
 </style>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+<div class="form-horizontal">
     <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على المواصفة </span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Code, new { @class = "lbl" })
         @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Code, new { @class = "txt", style = "margin-right:72px;width:10%", @readonly = "readonly" })
-        <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, new { @class = "txt", style = "margin-right:35px;width:30%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, new { @class = "txt", style = "margin-right:35px;width:30%;", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Ar, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_En, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_En, new { @class = "txt", style = "margin-right:20px;width:30%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_En, new { @class = "txt", style = "margin-right:20px;width:30%;", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_En, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Fr, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Fr, new { @class = "txt", style = "margin-right:27px;width:30%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Fr, new { @class = "txt", style = "margin-right:27px;width:30%;", @maxlength = "50" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Fr, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;" })
+        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;", @maxlength = "100" })
         <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons, "", new { @class = "text-danger" })
     </div>
 
     @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Status, htmlAttributes: new { @class = "hidden" })
-    @Html.EditorFor(model => model.CR_Mas_Sup_Car_Specifications_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden", @readonly = "readonly", style = "margin-right:71px" } })
-    @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Car_Specifications_Status, "", new { @class = "hidden" })
+    @Html.EditorFor(model => model.CR_Mas_Sup_Car_Specifications_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "hidden"} })
 
     <div style="margin-top:50px;">
         <div>
@@ -74,12 +83,58 @@
             <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="float: right;" />
             @if (ViewBag.delete == "D")
             {
-                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />
+                <a name="delete" id="btn-confirm" class="btn btn-success" value="" style="float:right;width:80px;height:20px;padding-top:2px;font:bold 10px Tahoma;margin-left:10px;color:white;">@ViewBag.stat</a>
             }
             else
             {
-                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" style="float: right;background-color: #d9534f;width:80px;" />
+                <a name="delete" id="btn-confirm" class="btn btn-danger" value="" style="float:right;width:80px;height:20px;padding-top:2px;font:bold 10px Tahoma;margin-left:10px;color:white;">@ViewBag.stat</a>
             }
+            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" style="margin-top:17%;">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style=" margin-right: 10%;">تأكيد</h4>
+                        </div>
+                        <div class="modal-footer">
+                            @if (ViewBag.delete == "D")
+                            {
+                                <input type="submit" name="delete" class="btn btn-success" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#5cb85c;" />
+                            }
+                            else
+                            {
+                                <input type="submit" name="delete" class="btn btn-danger" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#d9534f;" />
+                            }
+                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float: left;width: 80px;height: 40px;font: bold 14px Tahoma">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var modalConfirm = function (callback) {
+
+                    $("#btn-confirm").on("click", function () {
+                        $("#mi-modal").modal('show');
+                    });
+                    $("#modal-btn-si").on("click", function () {
+                        callback(true);
+                        $("#mi-modal").modal('hide');
+                    });
+                    $("#modal-btn-no").on("click", function () {
+                        callback(false);
+                        $("#mi-modal").modal('hide');
+                    });
+                };
+                modalConfirm(function (confirm) {
+                    if (confirm) {
+                        //Acciones si el usuario confirma
+                        $("#form1").submit();
+                    } else {
+                        //Acciones si el usuario no confirma
+                        $("#result").html("canceled");
+                    }
+                });
+            </script>
             <a class="btn btn-info" title="عودة لقائمة المواصفات" href="/Specifications/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
         </div>
     </div>

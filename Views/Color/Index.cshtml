@@ -8,7 +8,7 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div>
-    <h4 style="margin-right:10px;">الألوان</h4>
+    <h4 style="margin-right:10px;">الألوان / عرض البيانات</h4>
     <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الألوان و تمكن المسنخدم من البحث عن لون أو إضافة لون جديد</h6>
 </div>
 <style>
@@ -88,19 +88,19 @@
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th style="width:10%;">الإسم</th>
+                            <th style="width:20%;">إسم اللون</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th>Name</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_En_Name)</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th>Nom</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Fr_Name)</th>
                         }
-                        <th style="width:10%;">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
+                        <th style="width:15%;">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Status)</th>
-                        <th style="width:60%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Reasons)</th>
+                        <th style="width:45%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Color_Reasons)</th>
                     </tr>
                 </thead>
                 <tbody id="tbl">
@@ -141,9 +141,18 @@
                                 </a>
                             </td>
                             <td style="text-align:center">
-                                <a href="~/Color/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Status)
-                                </a>
+                                @if (item.CR_Mas_Sup_Color_Status == "A")
+                                {
+                                    <a href="~/Color/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Code)">نشط</a>
+                                }
+                                @if (item.CR_Mas_Sup_Color_Status == "H")
+                                {
+                                    <a href="~/Color/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Code)">معطل</a>
+                                }
+                                @if (item.CR_Mas_Sup_Color_Status == "D")
+                                {
+                                    <a href="~/Color/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Code)">محذوف</a>
+                                }
                             </td>
                             <td>
                                 <a href="~/Color/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Color_Code)">

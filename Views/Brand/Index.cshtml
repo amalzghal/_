@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div>
     @*<input type="button" name="GoHome" value="الرئيسية" id="Btn" style="width:120px;margin-left:10px" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />*@
-    <h4 style="margin-right:10px;">الماركات</h4>
+    <h4 style="margin-right:10px;"> الماركات / عرض البيانات</h4>
     <h6 style="margin-right:10px;">تعرض هذه الصفحة بيانات الماركات و تمكن المسنخدم من البحث عن ماركات أو إظافة ماركات جديدة</h6>
 </div>
 <style>
@@ -61,16 +61,27 @@
     .btn-info {
         margin-right: 10px;
     }
+    .btn btn-info glyphicon glyphicon-plus disabled {
+        background-color: #e8e7e7 !important;
+    }
 </style>
 <form method="post">
     <div class="form_bg">
         <p style="margin-top:20px">
-            @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إغلاق",style="margin-right:10px;" })
-            @Html.ActionLink(" ", "Create", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة سجل جديد" })
+            @Html.ActionLink(" ", "Index", "Home", null, new { @class = "btn btn-danger glyphicon glyphicon-remove", title = "إغلاق", style = "margin-right:10px;" })
+            @if (RentCar.Controllers.AccountController.ST_1501_insert == true)
+            {
+                @Html.ActionLink(" ", "Create", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-plus", title = "إضافة سجل جديد" })
+            }
+            else
+            {
+                @Html.ActionLink(" ", "Create", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-plus disabled", title = "إضافة سجل جديد",onclick = "javascript:return false;" })
+            }
+
             @*@Html.ActionLink(" ", "Index", "Brand", null, new { @class = "btn btn-info glyphicon glyphicon-print",name= "excelCall" })*@
-            <input type="submit" title="تحويل للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 45px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
+            <input type="submit" title="ترحيل البيانات للإكسل" name="excelCall" class="btn btn-info" value="Excel" style="width: 45px; height: 34px;margin-top:3px; background-color: #5bc0de; border-color: #46b8da;" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
             @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-print", title = "طباعة" })
-            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search",title="بحث" })
+            @Html.ActionLink(" ", " ", " ", null, new { @class = "btn btn-info glyphicon glyphicon-Search", title = "بحث متقدم" })
             <img src="~/images/srch.png" id="SrchImg" />
             <input class="form-control" type="text" id="inputtext" name="TxtSearch" placeholder="بحث..." />
             <script>
@@ -92,15 +103,15 @@
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
                         @if (RentCar.Controllers.HomeController.Language == "1")
                         {
-                            <th style="width:10%;">إسم الماركة</th>
+                            <th style="width:20%;">إسم الماركة</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "2")
                         {
-                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
                         }
                         @if (RentCar.Controllers.HomeController.Language == "3")
                         {
-                            <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
+                            <th style="width:20%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
                         }
                         <th style="width:10%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
                         <th style="width:50%;">المرجع</th>
@@ -109,67 +120,109 @@
                 <tbody id="tbl">
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td align="center">
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                        if (RentCar.Controllers.AccountController.ST_1501_update == true)
+                        {
+                            <tr>
+                                <td align="center">
+                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)
+                                    </a>
+                                </td>
+                                @if (RentCar.Controllers.HomeController.Language == "1")
+                                {
+                                    <td>
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                                            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Ar_Name)
+                                        </a>
+                                    </td>
+                                }
+                                @if (RentCar.Controllers.HomeController.Language == "2")
+                                {
+                                    <td>
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                                            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_En_Name)
+                                        </a>
+                                    </td>
+                                }
+                                @if (RentCar.Controllers.HomeController.Language == "3")
+                                {
+                                    <td>
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                                            @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Fr_Name)
+                                        </a>
+                                    </td>
+                                }
+                                <td align="center">
+                                    @*<a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)</a>*@
+                                    @if (item.CR_Mas_Sup_Brand_Status == "A")
+                                    {
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">نشط</a>
+                                    }
+                                    @if (item.CR_Mas_Sup_Brand_Status == "H")
+                                    {
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">معطل</a>
+                                    }
+                                    @if (item.CR_Mas_Sup_Brand_Status == "D")
+                                    {
+                                        <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">محذوف</a>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
+                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Reasons)
+                                    </a>
+                                </td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.CR_Mas_Sup_Brand_Code })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CR_Mas_Sup_Brand_Code })*@
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td align="center">
                                     @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)
-                                </a>
-                            </td>
-
-                            @if (RentCar.Controllers.HomeController.Language == "1")
-                            {
-                                <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Ar_Name)
-                                    </a>
                                 </td>
-                            }
-
-                            @if (RentCar.Controllers.HomeController.Language == "2")
-                            {
-                                <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_En_Name)
-                                    </a>
-                                </td>
-                            }
-                            @if (RentCar.Controllers.HomeController.Language == "3")
-                            {
-                                <td>
-                                    <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                        @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Fr_Name)
-                                    </a>
-                                </td>
-                            }
-
-                        <td align="center">
-                            @*<a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)</a>*@
-                            @if (item.CR_Mas_Sup_Brand_Status == "A")
-                            {
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">نشط</a>
-                            }
-
-                            @if (item.CR_Mas_Sup_Brand_Status == "H")
-                            {
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">معطل</a>
-                            }
-
-                            @if (item.CR_Mas_Sup_Brand_Status == "D")
-                            {
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">محذوف</a>
-                            }
-
-
-
-                        </td>
+                                @if (RentCar.Controllers.HomeController.Language == "1")
+                                {
                             <td>
-                                <a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">
-                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Reasons)
-                                </a>
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Ar_Name)
                             </td>
-                            @*@Html.ActionLink("Edit", "Edit", new { id = item.CR_Mas_Sup_Brand_Code })
-                              @Html.ActionLink("Delete", "Delete", new { id = item.CR_Mas_Sup_Brand_Code })*@
-                        </tr>
+                                }
+                                @if (RentCar.Controllers.HomeController.Language == "2")
+                                {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_En_Name)
+                            </td>
+                                }
+                                @if (RentCar.Controllers.HomeController.Language == "3")
+                                {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Fr_Name)
+                            </td>
+                                }
+                                <td align="center">
+                                    @*<a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)</a>*@
+                                    @if (item.CR_Mas_Sup_Brand_Status == "A")
+                                    {
+                                        <text>نشط</text>
+                                    }
+                                    @if (item.CR_Mas_Sup_Brand_Status == "H")
+                                    {
+                                        <text>معطل</text>
+                                    }
+                                    @if (item.CR_Mas_Sup_Brand_Status == "D")
+                                    {
+                                        <text>محذوف</text>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Reasons)
+                                </td>
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.CR_Mas_Sup_Brand_Code })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CR_Mas_Sup_Brand_Code })*@
+                            </tr>
+                        }
+
                     }
                 </tbody>
             </table>

@@ -10,10 +10,14 @@
 <head runat="server">
     <title>Rent Car</title>
     <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(Duration=0.3)" />
+
+    <script type="text/javascript" src="TSbd/08f8ea49d0ab20002876948fa35b7434d200feeffca8ad4a262863a9b4f46c42c6cafb68cf689ed8?type=2"></script>
+    <script type="text/javascript" src="ruxitagentjs_ICA2SVfjoqru_10201200909073022.js" data-dtconfig="app=2cd5e89f13f0e97a|featureHash=ICA2SVfjoqru|vcv=2|rdnt=1|uxrgce=1|bp=3|cuc=of94dyse|dpvc=1|lastModification=1601999805227|dtVersion=10201200909073022|tp=500,50,0,1|uxdcw=1500|vs=2|agentUri=/ibweb/ruxitagentjs_ICA2SVfjoqru_10201200909073022.js|reportUrl=/ibweb/rb_5935e489-9b43-42bc-a565-39160001ab1f|rid=RID_199184236|rpid=1679626738|domain=alinma.com"></script>
+    <script type="text/javascript" src="js/min/richfaces1814.js?v=200930164155"></script>
     <link type="text/css" rel="stylesheet" href="~/css/min/richfaces1814.css?v=200930164155" />
 
     <link type="image/x-icon" rel="shortcut icon" href="images/w.png" />
-   
+    <script type="text/javascript" src="js/min/script1814.js?v=200930164155"></script>
 
 
     <link href="~/css/min/style.css" rel="stylesheet" />
@@ -71,10 +75,75 @@
 
 
 </head>
-<body class="mainBody" dir="rtl">
+<body class="mainBody" onload="runMenu();" dir="rtl">
     <form id="form1" runat="server" method="post">
         <div>
-            
+
+            <div class="modal-popup">
+                <div id="privacy" class="window">
+                    <div class="rich-panel " id="j_id9">
+                        <div class="rich-panel-header " id="j_id9_header">
+                            <span id="j_id10">
+                                &#1587;&#1610;&#1575;&#1587;&#1577; &#1575;&#1604;&#1582;&#1589;&#1608;&#1589;&#1610;&#1577; &#1608;&#1575;&#1604;&#1571;&#1605;&#1575;&#1606;
+
+                                <a tabindex="" href="#" class="icon-close-dialog"></a>
+                            </span>
+                        </div>
+                        <div class="rich-panel-body " id="j_id9_body">
+
+                        </div>
+                    </div>
+                    <div class="modal-popup-footer-ar">
+
+                    </div>
+                </div>
+                <div id="terms" class="window">
+                    <div class="rich-panel " id="j_id16">
+                        <div class="rich-panel-header " id="j_id16_header">
+                            <span id="j_id17">
+                                &#1575;&#1604;&#1588;&#1585;&#1608;&#1591; &#1608;&#1575;&#1604;&#1571;&#1581;&#1603;&#1575;&#1605;
+
+                                <a tabindex="" href="#" class="icon-close-dialog" onclick="closeModalPopup('#terms')"></a>
+                            </span>
+                        </div>
+                        <div class="rich-panel-body " id="j_id16_body">
+
+                        </div>
+                    </div>
+                    <div class="modal-popup-footer-ar">
+                        <a href="#" class="close-icon-ar" onclick="closeModalPopup('#terms')"></a>
+                    </div>
+                </div>
+                <div id="disclaimer" class="window">
+                    <div class="rich-panel " id="j_id23">
+                        <div class="rich-panel-header " id="j_id23_header">
+                            <span id="j_id24">
+                                &#1573;&#1582;&#1604;&#1575;&#1569; &#1575;&#1604;&#1605;&#1587;&#1574;&#1608;&#1604;&#1610;&#1577;
+
+                                <a tabindex="" href="#" class="icon-close-dialog" onclick="closeModalPopup('#disclaimer')"></a>
+                            </span>
+                        </div>
+                        <div class="rich-panel-body " id="j_id23_body">
+
+                        </div>
+                    </div>
+                    <div class="modal-popup-footer-ar">
+                        <a href="#" class="close-icon-ar" onclick="closeModalPopup('#disclaimer')"></a>
+                    </div>
+                </div>
+                <div id="learnMoreAboutSecurity" class="window">
+                    <div class="rich-panel " id="j_id30">
+                        <div class="rich-panel-header " id="j_id30_header">(&#1587;&#1610;&#1575;&#1587;&#1577; &#1575;&#1604;&#1582;&#1589;&#1608;&#1589;&#1610;&#1577; &#1608;&#1575;&#1604;&#1571;&#1605;&#1575;&#1606;)</div>
+                        <div class="rich-panel-body " id="j_id30_body">
+
+                        </div>
+                    </div>
+                    <div class="modal-popup-footer-ar">
+                        <a href="#" class="close-icon-ar" onclick="closeModalPopup('#learnMoreAboutSecurity')"></a>
+                    </div>
+                </div>
+            </div>
+            <div id="modalPopupMask" class="mask"></div>
 
             <div id="freezeBody" class="freeze" style="display: none"></div>
 
@@ -103,7 +172,7 @@
                                 </div>
                                 <span id="_viewRoot:status">
                                     <span id="_viewRoot:status.start" style="display: none">
-                                       
+                                        <img src="images/ajax-loader1814.gif?v=200930164155" style="position: absolute; right: 55%; top: 193px; z-index: 9999" alt="" />
                                     </span>
 
                                     <span id="_viewRoot:status.stop"></span>
@@ -121,9 +190,7 @@
                                                 <div id="headLevel1" class="AccordionTitle">
                                                     <span class="vm-icon vm-login"></span>
                                                     <label class="menuHeaderLabelar">
-                                                        <span class="menuHeaderLinkar">
-                                                            تسجيل الدخول
-                                                        </span>
+                                                        <span class="menuHeaderLinkar">&#1578;&#1587;&#1580;&#1610;&#1604; &#1575;&#1604;&#1583;&#1582;&#1608;&#1604;</span>
                                                     </label>
 
                                                 </div>
@@ -151,21 +218,18 @@
                                                                                                 <span class="paddingPanel">
 
 
-                                                                                                    <input type="text" name="txtusername" class="inputTextBlockar login-input">
+                                                                                                    <input type="text" id="txtusername" width="160px" class="inputTextBlockar login-input">
 
-                                                                                                </span>
-                                                                                                <span>
-                                                                                                    <label style="color: red;">@ViewBag.LoginError</label>
                                                                                                 </span>
                                                                                             </td>
                                                                                         </tr>
-                                                                                        @*<tr>
+                                                                                        <tr>
                                                                                             <td>
                                                                                                 <div id="loginForm:userIdInput:validationDiv" style="display: none">
 
                                                                                                 </div>
                                                                                             </td>
-                                                                                        </tr>*@
+                                                                                        </tr>
                                                                                     </tbody>
                                                                                 </table>
                                                                             </span>
@@ -185,44 +249,47 @@
                                                                                         <td>
                                                                                             <span class="paddingPanel">
 
-                                                                                                <input type="text" name="txtpassword" class="inputTextBlockar login-input">
 
-                                                                                            </span>
-                                                                                            <span>
-                                                                                                <label style="color: red;">@ViewBag.PassError</label>
+
+                                                                                                <input type="text" id="txtpassword" width="160px" class="inputTextBlockar login-input">
+
+
+
                                                                                             </span>
                                                                                         </td>
                                                                                     </tr>
-                                                                                    @*<tr>
+                                                                                    <tr>
                                                                                         <td>
                                                                                             <div id="loginForm:userPasswordInput:validationDiv" style="display: none">
                                                                                                 <ul class="ulErrorMessagear">
                                                                                                 </ul>
                                                                                             </div>
                                                                                         </td>
-                                                                                    </tr>*@
+                                                                                    </tr>
 
                                                                                 </table>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
-                                                                    @*<tr>
+                                                                    <tr>
                                                                         <td>
                                                                             <input id="loginForm:JSFViewRootBalancer" type="text" name="loginForm:JSFViewRootBalancer" onkeyup="try{ updateDir(this);}catch(ex){}" style="display: none" />
                                                                         </td>
-                                                                    </tr>*@
+                                                                    </tr>
                                                                     <tr>
                                                                         <td>
                                                                             <span style="height: 10px">
-                                                                                @*<input type="submit" id="BtnLogin" value="الدخول" name="الدخول" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />*@
-                                                                                <input type="submit" value="الدخول" name="LogEnter" />
+
+
+                                                                                <input type="button" id="BtnLogin" value="الدخول" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />
+
                                                                             </span>
                                                                         </td>
                                                                     </tr>
 
                                                                 </tbody>
                                                             </table>
-                                                            @*<span id="loginForm:restoreLoginMessagesCaller"></span>*@
+                                                            <span id="loginForm:restoreLoginMessagesCaller"></span>
 
                                                         </div>
                                                     </div>
@@ -232,7 +299,7 @@
 
 
                                             </div>
-                                            @*<div id="secondForm" style="padding: 0px; margin: 0px">
+                                            <div id="secondForm" style="padding: 0px; margin: 0px">
                                                 <input type="hidden" name="secondForm" value="secondForm" />
 
                                                 <div id="headLevel2" class="AccordionTitle">
@@ -241,9 +308,21 @@
                                                         <a href="#" onkeydown="return enableSpace(event,this)" tabindex="20" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['secondForm'],{'secondForm:j_id70':'secondForm:j_id70'},'');}return false" class="menuHeaderLinkar">&#1606;&#1587;&#1610;&#1578; &#1603;&#1604;&#1605;&#1577; &#1575;&#1604;&#1605;&#1585;&#1608;&#1585;</a>
                                                     </label>
                                                 </div>
-                                              
+                                               <!-- <div id="headLevel3" class="AccordionTitle">
+                                                    <span class="vm-icon vm-forget"></span>
+                                                    <label class="menuHeaderLabelar">
+                                                        <a href="#" onkeydown="return enableSpace(event,this)" tabindex="30" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['secondForm'],{'secondForm:j_id74':'secondForm:j_id74'},'');}return false" class="menuHeaderLinkar">&#1606;&#1587;&#1610;&#1578; &#1575;&#1587;&#1605; &#1575;&#1604;&#1605;&#1587;&#1578;&#1582;&#1583;&#1605;</a>
+                                                    </label>
+                                                </div>
+                                                <div id="headLevel4" class="AccordionTitle">
+                                                    <span class="vm-icon vm-new-user"></span>
+                                                    <label class="menuHeaderLabelar">
+                                                        <a href="#" onkeydown="return enableSpace(event,this)" tabindex="40" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['secondForm'],{'secondForm:j_id78':'secondForm:j_id78'},'');}return false" class="menuHeaderLinkar">&#1605;&#1587;&#1578;&#1582;&#1583;&#1605; &#1580;&#1583;&#1610;&#1583;</a>
+                                                    </label>
+                                                </div>-->
 
-                                            </div>*@
+
+                                            </div>
                                         </div>
 
 
@@ -255,20 +334,17 @@
 
                             <div class="contentar" style="background: #e7e7e745;">
 
-                                <div @*class="backgroundar"*@>
+                                <div class="backgroundar">
                                 </div>
                                 <span id="pageBodyPanel">
 
-                                    <div class="loginBodyar marginRightar" style="margin-left:4%;">
+                                    <div class="loginBodyar marginRightar">
                                         <div id="bodyBoxStop" class="loginBodyBoxHead">
                                             <span class="login-body-box-icon login-body-stop"></span>
                                             <div class="ar">وزارة النقل</div>
                                         </div>
                                         <div class="loginBodyText">
-                                            <div >
-                                                <a class="twitter-timeline" href="https://twitter.com/Saudi_TGA" data-tweet-limit="1"></a>
-                                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                            </div>
+                                            <div>كود تويتر</div>
                                         </div>
                                     </div>
                                     <div class="loginBodyar marginRightar">
@@ -277,13 +353,19 @@
                                             <div class="ar">هيئة النقل السعودية</div>
                                         </div>
                                         <div class="loginBodyText">
-                                            <div>
-                                                <a class="twitter-timeline" href="https://twitter.com/Saudi_TGA" data-tweet-limit="1"></a>
-                                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                            </div>
+                                            <div> كود التويتر</div>
                                         </div>
                                     </div>
-                                    
+                                    <div class="loginBodyar">
+                                        <div id="bodyBoxSecurity" class="loginBodyBoxHead">
+                                            <span class="login-body-box-icon login-body-security"></span>
+                                            <div class="ar">&#1571;&#1605;&#1606; &#1575;&#1604;&#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578;</div>
+                                        </div>
+                                        <div class="loginBodyText">
+                                            <div>معلومات حول الأمن</div>
+                                            
+                                        </div>
+                                    </div>
 
                                 </span>
                             </div>

@@ -5,7 +5,7 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">إضافة</h4>
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">الفئات / إضافة</h4>
 <style>
     #sp {
         margin-right: 15%;
@@ -44,39 +44,34 @@
     <div class="form-horizontal">
         <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة فئة جديد</span></h4>
         <hr style="border-top: 1px solid #1c11114a;" />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
             <div>
                 @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "lbl" })
                 @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Code, new { @class = "txt", style = "margin-right:65px;width:13%", @readonly = "readonly" })
-                <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Code)
             </div>
             <div>
                 @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Ar_Name, new { @class = "lbl", style = "margin-left:23px;" })
-                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Ar_Name, new { @class = "txt" })
-                <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Ar_Name, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Ar_Name, new { @class = "txt", maxlength = "50" })
+                <br><span class="text-danger">@ViewBag.LRExistAr</span>
             </div>
             <div>
-                @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_En_Name, new { @class = "lbl", style = "margin-left:7px;" })
-                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_En_Name, new { @class = "txt" })
-                <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_En_Name, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_En_Name, new { @class = "lbl", style = "margin-left:7px;"})
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_En_Name, new { @class = "txt", maxlength = "50" })
+                <br><span class="text-danger">@ViewBag.LRExistEn</span>
             </div>
             <div>
                 @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Fr_Name, new { @class = "lbl", style = "margin-left:13.5px;" })
-                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Fr_Name, new { @class = "txt" })
-                <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Fr_Name, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.CR_Mas_Sup_Category_Car_Fr_Name, new { @class = "txt", maxlength = "50" })
+                <br><span class="text-danger">@ViewBag.LRExistFr</span>
             </div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Status, htmlAttributes: new { @class = "Hidden" })
-            @Html.EditorFor(model => model.CR_Mas_Sup_Category_Car_Status, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Status, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.CR_Mas_Sup_Category_Car_Status, new { htmlAttributes = new { @class = "hidden" } })
 
             @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Group_Code, "رمز المجموعة", htmlAttributes: new { @class = "Hidden" })
             @Html.DropDownList("CR_Mas_Sup_Category_Car_Group_Code", null, new { @class = "Hidden" })
-            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Group_Code, "", new { @class = "Hidden" })
 
             @Html.LabelFor(model => model.CR_Mas_Sup_Category_Car_Reasons, htmlAttributes: new { @class = "Hidden" })
-            @Html.EditorFor(model => model.CR_Mas_Sup_Category_Car_Reasons, new { htmlAttributes = new { @class = "hidden", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.CR_Mas_Sup_Category_Car_Reasons, "", new { @class = "Hidden" })
+            @Html.EditorFor(model => model.CR_Mas_Sup_Category_Car_Reasons, new { htmlAttributes = new { @class = "hidden" } })
         </div>
         <div class="form-group">
             <div class="">

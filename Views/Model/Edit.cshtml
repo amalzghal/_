@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">تعديل</h4>
+<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">الطراز / تعديل</h4>
 <style>
     #save-btn {
         margin-right: 10px;
@@ -42,11 +42,10 @@
 <div class="form-horizontal">
     <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على ماركة </span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "lbl" })
         @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "txt", style = "margin-right:75px;width:13%", @readonly = "readonly" })
-        <br>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.CR_Mas_Sup_Model_Brand_Code, "الماركة", new { @class = "lbl" })

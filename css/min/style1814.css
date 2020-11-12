@@ -620,7 +620,7 @@ ul {
 }
 
 .marginRightar {
-    margin-left: 20px
+    /*margin-left: 20px*/
 }
 
 .loginBodyen {
@@ -631,7 +631,7 @@ ul {
 
 .loginBodyar {
     float: right;
-    width: 220px;
+    width: 48%;
     margin-bottom: 20px
 }
 
@@ -676,7 +676,7 @@ ul {
 }
 
 .loginBodyText {
-    height: 170px;
+    height: 528px;
     border: 0;
     background: #dededeb0
 }

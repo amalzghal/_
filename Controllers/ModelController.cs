@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using RentCar.Models;
@@ -27,7 +23,6 @@ namespace RentCar.Controllers
         [ActionName("Index")]
         public ActionResult Index_Post(string excelCall,string lang)
         {
-
             if (!string.IsNullOrEmpty(lang))
             {
                 if (HomeController.Language == "1")
@@ -44,8 +39,6 @@ namespace RentCar.Controllers
                     }
                 }
             }
-
-
             if (!string.IsNullOrEmpty(excelCall))
             {
                 var brandTable = new System.Data.DataTable("teste");
@@ -58,7 +51,6 @@ namespace RentCar.Controllers
                 brandTable.Columns.Add("الإسم", typeof(string));
                 brandTable.Columns.Add("الرمز", typeof(string));
                 var Lrecord = db.CR_Mas_Sup_Model.ToList();
-
 
                 if (Lrecord != null)
                 {
@@ -86,33 +78,44 @@ namespace RentCar.Controllers
                 Response.Output.Write(sw.ToString());
                 Response.Flush();
                 Response.End();
-
             }
             return View(db.CR_Mas_Sup_Model.ToList());
         }
 
-        // GET: Model/Details/5
-        public ActionResult Details(string id)
+        //////// GET: Model/Details/5
+        //////public ActionResult Details(string id)
+        //////{
+        //////    if (id == null)
+        //////    {
+        //////        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //////    }
+        //////    CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
+        //////    if (cR_Mas_Sup_Model == null)
+        //////    {
+        //////        return HttpNotFound();
+        //////    }
+        //////    return View(cR_Mas_Sup_Model);
+        //////}
+        public CR_Mas_Sup_Model GetLastRecord()
         {
-            if (id == null)
+            var Lrecord = db.CR_Mas_Sup_Model.Max(Lr => Lr.CR_Mas_Sup_Model_Code);
+            CR_Mas_Sup_Model m = new CR_Mas_Sup_Model();
+            if (Lrecord != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                int val = int.Parse(Lrecord) + 1;
+                m.CR_Mas_Sup_Model_Code = val.ToString();
             }
-            CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
-            if (cR_Mas_Sup_Model == null)
+            else
             {
-                return HttpNotFound();
+                m.CR_Mas_Sup_Model_Code = "3100000001";
             }
-            return View(cR_Mas_Sup_Model);
+            return m;
         }
-
         // GET: Model/Create
         public ActionResult Create()
         {
             ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
             ViewBag.CR_Mas_Sup_Model_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name");
-
-
             var Lrecord = db.CR_Mas_Sup_Model.Max(Lr => Lr.CR_Mas_Sup_Model_Code);
             CR_Mas_Sup_Model b = new CR_Mas_Sup_Model();
             if (Lrecord != null)
@@ -124,13 +127,8 @@ namespace RentCar.Controllers
             {
                 b.CR_Mas_Sup_Model_Code = "3100000001";
             }
-
-            b.CR_Mas_Sup_Model_Status = "A";
-            
-
-
-            return View(b);
-            
+            b.CR_Mas_Sup_Model_Status = "A";            
+            return View(b);            
         }
 
         // POST: Model/Create
@@ -138,17 +136,19 @@ namespace RentCar.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Model_Code,CR_Mas_Sup_Model_Group_Code,CR_Mas_Sup_Model_Brand_Code,CR_Mas_Sup_Model_Ar_Name,CR_Mas_Sup_Model_En_Name,CR_Mas_Sup_Model_Fr_Name,CR_Mas_Sup_Model_Counter,CR_Mas_Sup_Model_Status,CR_Mas_Sup_Model_Reasons")] CR_Mas_Sup_Model cR_Mas_Sup_Model)
+        public ActionResult Create([Bind(Include = "CR_Mas_Sup_Model_Code, CR_Mas_Sup_Model_Group_Code, CR_Mas_Sup_Model_Brand_Code, CR_Mas_Sup_Model_Ar_Name, " +
+        "CR_Mas_Sup_Model_En_Name, CR_Mas_Sup_Model_Fr_Name, CR_Mas_Sup_Model_Counter, CR_Mas_Sup_Model_Status, CR_Mas_Sup_Model_Reasons")] CR_Mas_Sup_Model cR_Mas_Sup_Model)
         {
             if (ModelState.IsValid)
             {
+                //cR_Mas_Sup_Model.CR_Mas_Sup_Model_Group_Code = "31";
                 db.CR_Mas_Sup_Model.Add(cR_Mas_Sup_Model);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Brand_Code);
             ViewBag.CR_Mas_Sup_Model_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Group_Code);
-            //ViewBag.CR_Mas_Sup_Model_Group_Code = "31";
+           
             return View(cR_Mas_Sup_Model);
         }
 
@@ -213,13 +213,13 @@ namespace RentCar.Controllers
                      
                     return RedirectToAction("Index");
                 }
+                ViewBag.h = "تعطيل";
+                ViewBag.stat = "حذف";
+                ViewBag.delete = cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status;
                 ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Brand_Code);
                 ViewBag.CR_Mas_Sup_Model_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Group_Code);
                 return View(cR_Mas_Sup_Model);
-            }
-                
-
-
+            }           
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "D";
@@ -231,8 +231,6 @@ namespace RentCar.Controllers
 
                 return RedirectToAction("Index");
             }
-
-
             if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
@@ -243,9 +241,6 @@ namespace RentCar.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-
-
             if (hold == "تعطيل" || hold == "hold")
             {
                 ViewBag.h = "تنشيط";
@@ -257,8 +252,6 @@ namespace RentCar.Controllers
 
                 return RedirectToAction("Index");
             }
-
-
             if (hold == "تنشيط" || hold == "Activate")
             {
                 ViewBag.h = "تعطيل";
@@ -269,38 +262,34 @@ namespace RentCar.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Brand_Code);
             ViewBag.CR_Mas_Sup_Model_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Model.CR_Mas_Sup_Model_Group_Code);
             return View(cR_Mas_Sup_Model);
         }
-
-        // GET: Model/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
-            if (cR_Mas_Sup_Model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cR_Mas_Sup_Model);
-        }
-
-        // POST: Model/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
-            db.CR_Mas_Sup_Model.Remove(cR_Mas_Sup_Model);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        //////// GET: Model/Delete/5
+        //////public ActionResult Delete(string id)
+        //////{
+        //////    if (id == null)
+        //////    {
+        //////        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //////    }
+        //////    CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
+        //////    if (cR_Mas_Sup_Model == null)
+        //////    {
+        //////        return HttpNotFound();
+        //////    }
+        //////    return View(cR_Mas_Sup_Model);
+        //////}
+        //////// POST: Model/Delete/5
+        //////[HttpPost, ActionName("Delete")]
+        //////[ValidateAntiForgeryToken]
+        //////public ActionResult DeleteConfirmed(string id)
+        //////{
+        //////    CR_Mas_Sup_Model cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Find(id);
+        //////    db.CR_Mas_Sup_Model.Remove(cR_Mas_Sup_Model);
+        //////    db.SaveChanges();
+        //////    return RedirectToAction("Index");
+        //////}
         protected override void Dispose(bool disposing)
         {
             if (disposing)
