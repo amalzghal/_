@@ -48,35 +48,50 @@
 <div class="form-horizontal">
     <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من إظافة ماركة جديدة</span></h4>
     <hr style="border-top: 1px solid #1c11114a;" />
-<div>
     <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "txt", style = "margin-right:77px;width:13%", @readonly = "readonly" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px;", maxlength = "50" })
-        <br><span class="text-danger">@ViewBag.LRExistAr</span>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20px", maxlength = "50" })
-        <br><span class="text-danger">@ViewBag.LRExistEn</span>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:26.5px;", maxlength = "50" })
-        <br><span class="text-danger">@ViewBag.LRExistFr</span>
-    </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "txt", style = "margin-right:77px;width:13%", @readonly = "readonly" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "txt", style = "margin-right:36px;", maxlength = "30", autocomplete = "off" })
+            <br><span class="text-danger">@ViewBag.LRExistAr</span>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "txt", style = "margin-right:20px", maxlength = "30", autocomplete = "off" })
+            <br><span class="text-danger">@ViewBag.LRExistEn</span>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "lbl" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "txt", style = "margin-right:26.5px;", maxlength = "30", autocomplete = "off" })
+            <br><span class="text-danger">@ViewBag.LRExistFr</span>
+        </div>
+        @*<div id="merci" style="margin-Top: 10px; margin-right: 200px; color: red;font-family:Times-new-roman;"></div>
+        <div id="Message" style="display: none;margin-Top: 10px; margin-right: 200px; color: red;font-family:Times-new-roman;">La modification a été effectuée</div>*@
+        <div class="text-danger" onunload="showMessage()" id="Message" style="margin-Top: 10px; margin-right: 200px;">@ViewBag.Message</div>
+        <script type="text/javascript">
+            function showDiv1() {
+                document.getElementById("Message").style.display = "Block";
+            }
+            function showDiv2() {
+               document.getElementById("Message").style.display = "none";
+            }
+            function showMessage() {
+                setTimeout("showDiv1()", 50);
+                setTimeout("showDiv2()", 5000);
+            }
+        </script>
 
-    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, htmlAttributes: new { @class = "Hidden" })
-    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Reasons, new { htmlAttributes = new { @class = "Hidden" } })
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Reasons, htmlAttributes: new { @class = "Hidden" })
+        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Reasons, new { htmlAttributes = new { @class = "Hidden" } })
 
-    @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
-    @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden" } })
-</div>
-    <input type="submit" name="add" class="btn btn-info" id="add_btn" value="حفظ"  />
+        @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Status, htmlAttributes: new { @class = "hidden" })
+        @Html.EditorFor(model => model.CR_Mas_Sup_Brand_Status, new { htmlAttributes = new { @class = "hidden" } })
+    </div>
+    <input type="submit" name="add" class="btn btn-info" id="add_btn" value="حفظ" onclick="showMessage()" />
+    @*<input type="submit" name="add" class="btn btn-info" id="add_btn" value="حفظ" onclick="setTimeout(document.getElementById('merci').innerHTML = 'La modification a été effectuée',50000)" />*@
     @Html.ActionLink("إنهاء", "Index", "Brand", null, new { @class = "btn btn-info", Style = "Float:Left;margin-top:40px;margin-left:10px;font-family:Times-new-roman;width:80px;height:20px;padding-top:0px" })
-
 </div>
 }

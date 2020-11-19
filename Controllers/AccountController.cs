@@ -477,7 +477,7 @@ namespace RentCar.Controllers
         {
             if (LogEnter == "الدخول")
             {
-                var q = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == txtusername && user.CR_Mas_User_Information_PassWord == txtpassword);
+                var q = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == txtusername && user.CR_Mas_User_Information_PassWord == txtpassword && user.CR_Mas_User_Information_Status=="A");
                 if (q != null)
                 {
                     UserLogin = q.CR_Mas_User_Information_Code;
@@ -485,49 +485,16 @@ namespace RentCar.Controllers
 
                     Init();
                     Get_Authority();
-                    if (MT_1102 == true)
-                    {
-                        Session["CarRentalContract"] = "True";
-                        if (ST_1102 == true)
-                        {
-                            if (ST_1102_insert == true)
-                            {
-                                Session["CarRentalContract_insert"] = "True";
-                            }
-
-                            if (ST_1102_delete == true)
-                            {
-                                Session["CarRentalContract_delete"] = "True";
-                            }
-
-                            if (ST_1102_undelete == true)
-                            {
-                                Session["CarRentalContract_undelete"] = "True";
-                            }
-
-                            if (ST_1102_update == true)
-                            {
-                                Session["CarRentalContract_update"] = "True";
-                            }
-                            if (ST_1102_hold == true)
-                            {
-                                Session["CarRentalContract_hold"] = "True";
-                            }
-                            if (ST_1102_unhold == true)
-                            {
-                                Session["CarRentalContract_unhold"] = "True";
-                            }
-                        }
-
-                    }
-
+                    Session["Hello"] = "....مرحبا " + UserName ;
 
                     return RedirectToAction("index", "home");
                 }
                 else
                 {
-                    ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم";
-                    ViewBag.PassError = "الرجاء التأكد من كلمة السر";
+                    //////ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم";
+                    //////ViewBag.PassError = "الرجاء التأكد من كلمة السر";
+
+                    ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم و  كلمة السر";
                 }
             }
             return View();

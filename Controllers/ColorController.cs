@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using RentCar.Models;
@@ -143,15 +140,15 @@ namespace RentCar.Controllers
 
                     if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null &&
                         cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length > 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length > 3 &&
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length > 3)
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length >= 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length >= 3 &&
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length >= 3)
                     {
-                        //cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code = "33";
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code = "33";
                         db.CR_Mas_Sup_Color.Add(cR_Mas_Sup_Color);
-                        cR_Mas_Sup_Color = new CR_Mas_Sup_Color();
-                        cR_Mas_Sup_Color = GetLastRecord();
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
                         db.SaveChanges();
+                        cR_Mas_Sup_Color = new CR_Mas_Sup_Color();
+                        cR_Mas_Sup_Color = GetLastRecord();                                              
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
                         return RedirectToAction("Create", "Color");
                     }
                     else
@@ -169,17 +166,17 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذا اللون موجود";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                     }
                 }
             }
-            catch (Exception ex) { }
-            ViewBag.CR_Mas_Sup_Color_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", 
-            "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code);
+            catch (Exception) { }
+            ViewBag.CR_Mas_Sup_Color_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code",
+                                                 "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code);
             return View(cR_Mas_Sup_Color);
         }
 
@@ -235,58 +232,86 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Color_Code, CR_Mas_Sup_Color_Group_Code, CR_Mas_Sup_Color_Ar_Name, " +
         "CR_Mas_Sup_Color_En_Name, CR_Mas_Sup_Color_Fr_Name, CR_Mas_Sup_Color_Status, CR_Mas_Sup_Color_Reasons")] 
-        CR_Mas_Sup_Color cR_Mas_Sup_Color, string save, string delete, string hold)
+        CR_Mas_Sup_Color cR_Mas_Sup_Color, string save, string delete, string hold, string CR_Mas_Sup_Color_Ar_Name, 
+        string CR_Mas_Sup_Color_Fr_Name, string CR_Mas_Sup_Color_En_Name)
         {
-            if (delete == "Delete" || delete == "حذف")
-            {
-                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "D";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (delete == "Activate" || delete == "إسترجاع")
-            {
-                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تعطيل" || hold == "hold")
-            {
-                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "H";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تنشيط" || hold == "Activate")
-            {
-                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var LrecordExitArabe = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_Ar_Name == CR_Mas_Sup_Color_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_En_Name == CR_Mas_Sup_Color_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_Fr_Name == CR_Mas_Sup_Color_Fr_Name);
+
+
+                    if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null &&
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length >= 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length >= 3 &&
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length >= 3)
+                    {
+                        db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name == null)
+                            ViewBag.LRExistAr = "عفوا إسم اللون بالعربي إجباري";
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name == null)
+                            ViewBag.LRExistEn = "عفوا إسم اللون بالإنجليزي إجباري";
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name == null)
+                            ViewBag.LRExistFr = "عفوا إسم اللون بالفرنسي إجباري";
+                        if (LrecordExitArabe)
+                            ViewBag.LRExistAr = "عفوا هذا اللون موجود";
+                        if (LrecordExitEnglish)
+                            ViewBag.LRExistEn = "عفوا هذا اللون موجود";
+                        if (LrecordExitFrench)
+                            ViewBag.LRExistFr = "عفوا هذا اللون موجود";
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length < 3)
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length < 3)
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length < 3)
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                    }
                 }
             }
-            ViewBag.CR_Mas_Sup_Color_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code);
+            if (delete == "Delete" || delete == "حذف")
+            {
+                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "D";
+                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (delete == "Activate" || delete == "إسترجاع")
+            {
+                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
+                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تعطيل" || hold == "hold")
+            {
+                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "H";
+                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تنشيط" || hold == "Activate")
+            {
+                cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
+                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }         
             if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "A" ||
             cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "Activated" ||
             cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "1" ||
@@ -294,7 +319,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
-                ViewBag.delete = "A";
             }
 
             if ((cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "D" ||
@@ -303,7 +327,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
-                ViewBag.delete = "D";
             }
 
             if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "H" ||
@@ -312,7 +335,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.h = "تنشيط";
                 ViewBag.stat = "حذف";
-                ViewBag.delete = "H";
             }
 
             if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == null)
@@ -323,6 +345,7 @@ namespace RentCar.Controllers
 
             ViewBag.CR_Mas_Sup_Color_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code",
             "CR_Mas_Sup_Group_Ar_Name", cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code);
+            ViewBag.delete = cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status;
             return View(cR_Mas_Sup_Color);
         }
 

@@ -51,22 +51,22 @@
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-right:24px;width:30%;", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Ar_Name, new { @class = "txt", style = "margin-right:24px;width:30%;", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistAr</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:10px;width:30%;", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_En_Name, new { @class = "txt", style = "margin-right:10px;width:30%;", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistEn</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:17px;width:30%;", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Fr_Name, new { @class = "txt", style = "margin-right:17px;width:30%;", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistFr</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:40px;width:30%;" })
+            @Html.TextBoxFor(model => model.CR_Mas_User_Information_Mobile_No, new { @class = "txt", style = "margin-right:40px;width:30%;", autocomplete = "off" })
             <br>@Html.ValidationMessageFor(model => model.CR_Mas_User_Information_Mobile_No, "", new { @class = "text-danger" })
         </div>
         @*<div id="merci"></div>

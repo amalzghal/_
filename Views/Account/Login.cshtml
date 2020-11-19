@@ -151,21 +151,21 @@
                                                                                                 <span class="paddingPanel">
 
 
-                                                                                                    <input type="text" name="txtusername" class="inputTextBlockar login-input">
+                                                                                                    <input type="text" name="txtusername" class="inputTextBlockar login-input" autocomplete="off">
 
                                                                                                 </span>
-                                                                                                <span>
-                                                                                                    <label style="color: red;">@ViewBag.LoginError</label>
-                                                                                                </span>
+                                                                                                @*<span>
+                                                        <label style="color: red;">@ViewBag.LoginError</label>
+                                                    </span>*@
                                                                                             </td>
                                                                                         </tr>
                                                                                         @*<tr>
-                                                                                            <td>
-                                                                                                <div id="loginForm:userIdInput:validationDiv" style="display: none">
+                                                <td>
+                                                    <div id="loginForm:userIdInput:validationDiv" style="display: none">
 
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>*@
+                                                    </div>
+                                                </td>
+                                            </tr>*@
                                                                                     </tbody>
                                                                                 </table>
                                                                             </span>
@@ -185,32 +185,32 @@
                                                                                         <td>
                                                                                             <span class="paddingPanel">
 
-                                                                                                <input type="text" name="txtpassword" class="inputTextBlockar login-input">
+                                                                                                <input type="text" name="txtpassword" class="inputTextBlockar login-input" autocomplete="off">
 
                                                                                             </span>
-                                                                                            <span>
-                                                                                                <label style="color: red;">@ViewBag.PassError</label>
-                                                                                            </span>
+                                                                                            @*<span>
+                                                    <label style="color: red;">@ViewBag.PassError</label>
+                                                </span>*@
                                                                                         </td>
                                                                                     </tr>
                                                                                     @*<tr>
-                                                                                        <td>
-                                                                                            <div id="loginForm:userPasswordInput:validationDiv" style="display: none">
-                                                                                                <ul class="ulErrorMessagear">
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                    </tr>*@
+                                            <td>
+                                                <div id="loginForm:userPasswordInput:validationDiv" style="display: none">
+                                                    <ul class="ulErrorMessagear">
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>*@
 
                                                                                 </table>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
                                                                     @*<tr>
-                                                                        <td>
-                                                                            <input id="loginForm:JSFViewRootBalancer" type="text" name="loginForm:JSFViewRootBalancer" onkeyup="try{ updateDir(this);}catch(ex){}" style="display: none" />
-                                                                        </td>
-                                                                    </tr>*@
+                            <td>
+                                <input id="loginForm:JSFViewRootBalancer" type="text" name="loginForm:JSFViewRootBalancer" onkeyup="try{ updateDir(this);}catch(ex){}" style="display: none" />
+                            </td>
+                        </tr>*@
                                                                     <tr>
                                                                         <td>
                                                                             <span style="height: 10px">
@@ -224,9 +224,13 @@
                                                             </table>
                                                             @*<span id="loginForm:restoreLoginMessagesCaller"></span>*@
 
+
+
                                                         </div>
                                                     </div>
-
+                                                    <div style="margin-right: 10px;">
+                                                        <label style="color: red;">@ViewBag.LoginError</label>
+                                                    </div>
                                                 </div>
 
 

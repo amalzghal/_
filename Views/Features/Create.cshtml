@@ -51,17 +51,17 @@
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "txt", style = "margin-right:36px;", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Ar, new { @class = "txt", style = "margin-right:36px;", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistAr</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "txt", style = "margin-right:20px", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_En, new { @class = "txt", style = "margin-right:20px", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistEn</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "lbl" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "txt", style = "margin-right:26.5px;", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Features_Fr, new { @class = "txt", style = "margin-right:26.5px;", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistFr</span>
         </div>
 

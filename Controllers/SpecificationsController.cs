@@ -139,14 +139,14 @@ namespace RentCar.Controllers
 
                     if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null &&
                         cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
-                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length > 3 && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length > 3 &&
-                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length > 3)
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length >= 3 && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length >= 3 &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length >= 3)
                     {
                         db.CR_Mas_Sup_Car_Specifications.Add(cR_Mas_Sup_Car_Specifications);
+                        db.SaveChanges();
                         cR_Mas_Sup_Car_Specifications = new CR_Mas_Sup_Car_Specifications();
                         cR_Mas_Sup_Car_Specifications = GetLastRecord();
                         cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
-                        db.SaveChanges();
                         return RedirectToAction("Create", "Specifications");
                     }
                     else
@@ -164,15 +164,15 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذه المواصفة موجودة";
                         if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                     }
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
             return View(cR_Mas_Sup_Car_Specifications);
         }
 
@@ -229,56 +229,85 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Car_Specifications_Code, CR_Mas_Sup_Car_Specifications_Ar, CR_Mas_Sup_Car_Specifications_En," +
             "CR_Mas_Sup_Car_Specifications_Fr, CR_Mas_Sup_Car_Specifications_Status, CR_Mas_Sup_Car_Specifications_Reasons")] 
-             CR_Mas_Sup_Car_Specifications cR_Mas_Sup_Car_Specifications, string save, string delete, string hold)
+             CR_Mas_Sup_Car_Specifications cR_Mas_Sup_Car_Specifications, string save, string delete, string hold, string CR_Mas_Sup_Car_Specifications_Ar,
+             string CR_Mas_Sup_Car_Specifications_En, string CR_Mas_Sup_Car_Specifications_Fr)
         {
-            if (delete == "Delete" || delete == "حذف")
-            {
-                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "D";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (delete == "Activate" || delete == "إسترجاع")
-            {
-                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تعطيل" || hold == "hold")
-            {
-                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "H";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تنشيط" || hold == "Activate")
-            {
-                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var LrecordExitArabe = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_Ar == CR_Mas_Sup_Car_Specifications_Ar);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_En == CR_Mas_Sup_Car_Specifications_En);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Car_Specifications.Any(Lr => Lr.CR_Mas_Sup_Car_Specifications_Fr == CR_Mas_Sup_Car_Specifications_Fr);
+
+
+                    if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length >= 3 && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length >= 3 &&
+                        cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length >= 3)
+                    {
+                        db.Entry(cR_Mas_Sup_Car_Specifications).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar == null)
+                            ViewBag.LRExistAr = "عفوا إسم المواصفة بالعربي إجباري";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En == null)
+                            ViewBag.LRExistEn = "عفوا إسم المواصفة بالإنجليزي إجباري";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr == null)
+                            ViewBag.LRExistFr = "عفوا إسم المواصفة بالفرنسي إجباري";
+                        if (LrecordExitArabe)
+                            ViewBag.LRExistAr = "عفوا هذه المواصفة موجودة";
+                        if (LrecordExitEnglish)
+                            ViewBag.LRExistEn = "عفوا هذه المواصفة موجودة";
+                        if (LrecordExitFrench)
+                            ViewBag.LRExistFr = "عفوا هذه المواصفة موجودة";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Ar.Length < 3)
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_En.Length < 3)
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr != null && cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Fr.Length < 3)
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                    }
                 }
+            }
+            if (delete == "Delete" || delete == "حذف")
+            {
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "D";
+                db.CR_Mas_Sup_Car_Specifications.Attach(cR_Mas_Sup_Car_Specifications);
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");             
+            }
+            if (delete == "Activate" || delete == "إسترجاع")
+            {
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
+                db.CR_Mas_Sup_Car_Specifications.Attach(cR_Mas_Sup_Car_Specifications);
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تعطيل" || hold == "hold")
+            {
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "H";
+                db.CR_Mas_Sup_Car_Specifications.Attach(cR_Mas_Sup_Car_Specifications);
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تنشيط" || hold == "Activate")
+            {
+                cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status = "A";
+                db.CR_Mas_Sup_Car_Specifications.Attach(cR_Mas_Sup_Car_Specifications);
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Car_Specifications).Property(b => b.CR_Mas_Sup_Car_Specifications_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "A" ||
             cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Activated" ||
@@ -287,7 +316,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
-                ViewBag.delete = "A";
             }
             if ((cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "D" ||
                  cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Deleted" ||
@@ -295,7 +323,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
-                ViewBag.delete = "D";
             }
             if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "H" ||
                 cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == "Hold" ||
@@ -303,13 +330,13 @@ namespace RentCar.Controllers
             {
                 ViewBag.h = "تنشيط";
                 ViewBag.stat = "حذف";
-                ViewBag.delete = "H";
             }
             if (cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status == null)
             {
                 ViewBag.h = "تعطيل";
                 ViewBag.stat = "حذف";
             }
+            ViewBag.delete = cR_Mas_Sup_Car_Specifications.CR_Mas_Sup_Car_Specifications_Status;
             return View(cR_Mas_Sup_Car_Specifications);
         }
 

@@ -84,7 +84,7 @@ namespace RentCar.Controllers
             {
                 db.Entry(cR_Mas_Sup_Regions).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListRegion");
             }
             return View(cR_Mas_Sup_Regions);
         }
@@ -112,7 +112,7 @@ namespace RentCar.Controllers
             CR_Mas_Sup_Regions cR_Mas_Sup_Regions = db.CR_Mas_Sup_Regions.Find(id);
             db.CR_Mas_Sup_Regions.Remove(cR_Mas_Sup_Regions);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ListRegion");
         }
 
         protected override void Dispose(bool disposing)

@@ -139,15 +139,16 @@ namespace RentCar.Controllers
 
                     if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null &&
                         cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null &&  !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
-                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length > 3 && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length > 3 &&
-                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length > 3)
+                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length >= 3 && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length >= 3 &&
+                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length >= 3)
                     {
-                        db.CR_Mas_Sup_Brand.Add(cR_Mas_Sup_Brand);                      
+                        db.CR_Mas_Sup_Brand.Add(cR_Mas_Sup_Brand);
+                        db.SaveChanges();
+                        //ViewBag.Message = "La modification a été effectuée";
                         cR_Mas_Sup_Brand = new CR_Mas_Sup_Brand();
                         cR_Mas_Sup_Brand = GetLastRecord();
                         cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
-                        db.SaveChanges();
-                        return RedirectToAction("Create", "Brand");
+                        //return RedirectToAction("Create", "Brand");
                     }
                     else
                     {
@@ -164,15 +165,15 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذه الماركة موجودة";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
                     }     
                 }
             }
-            catch (Exception ex){}
+            catch (Exception){}
             return View(cR_Mas_Sup_Brand);
         }
 
@@ -228,57 +229,85 @@ namespace RentCar.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Brand_Code, CR_Mas_Sup_Brand_Ar_Name, CR_Mas_Sup_Brand_En_Name, " +
-        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand 
-         cR_Mas_Sup_Brand, string save, string delete, string hold)
+        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand, 
+        string save, string delete, string hold, string CR_Mas_Sup_Brand_Ar_Name, string CR_Mas_Sup_Brand_Fr_Name, string CR_Mas_Sup_Brand_En_Name)
         {
-            if (delete == "Delete" || delete == "حذف")
-            {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "D";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (delete == "Activate" || delete == "إسترجاع")
-            {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تعطيل" || hold == "hold")
-            {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "H";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            if (hold == "تنشيط" || hold == "Activate")
-            {
-                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
-                if (ModelState.IsValid)
-                {
-                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var LrecordExitArabe = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Ar_Name == CR_Mas_Sup_Brand_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_En_Name == CR_Mas_Sup_Brand_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Fr_Name == CR_Mas_Sup_Brand_Fr_Name);
+
+
+                    if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null &&
+                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
+                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length >= 3 && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length >= 3 &&
+                        cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length >= 3)
+                    {
+                        db.Entry(cR_Mas_Sup_Brand).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name == null)
+                            ViewBag.LRExistAr = "عفوا إسم الماركة بالعربي إجباري";
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name == null)
+                            ViewBag.LRExistEn = "عفوا إسم الماركة بالإنجليزي إجباري";
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name == null)
+                            ViewBag.LRExistFr = "عفوا إسم الماركة بالفرنسي إجباري";
+                        if (LrecordExitArabe)
+                            ViewBag.LRExistAr = "عفوا هذه الماركة موجودة";
+                        if (LrecordExitEnglish)
+                            ViewBag.LRExistEn = "عفوا هذه الماركة موجودة";
+                        if (LrecordExitFrench)
+                            ViewBag.LRExistFr = "عفوا هذه الماركة موجودة";
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length < 3)
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length < 3)
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                        if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length < 3)
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                    }
                 }
+            }
+            if (delete == "Delete" || delete == "حذف")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "D";
+                db.CR_Mas_Sup_Brand.Attach(cR_Mas_Sup_Brand);
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (delete == "Activate" || delete == "إسترجاع")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
+                db.CR_Mas_Sup_Brand.Attach(cR_Mas_Sup_Brand);
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تعطيل" || hold == "hold")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "H";
+                db.CR_Mas_Sup_Brand.Attach(cR_Mas_Sup_Brand);
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            if (hold == "تنشيط" || hold == "Activate")
+            {
+                cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status = "A";
+                db.CR_Mas_Sup_Brand.Attach(cR_Mas_Sup_Brand);
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Status).IsModified = true;
+                db.Entry(cR_Mas_Sup_Brand).Property(b => b.CR_Mas_Sup_Brand_Reasons).IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "A" ||
             cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Activated" ||
@@ -287,7 +316,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "حذف";
                 ViewBag.h = "تعطيل";
-                //ViewBag.delete = "A";
             }
             if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" ||
                  cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" ||
@@ -295,8 +323,6 @@ namespace RentCar.Controllers
             {
                 ViewBag.stat = "تفعيل";
                 ViewBag.h = "تعطيل";
-                //ViewBag.delete = "D";
-
             }
             if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "H" ||
                 cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Hold" ||
@@ -304,14 +330,12 @@ namespace RentCar.Controllers
             {
                 ViewBag.h = "تنشيط";
                 ViewBag.stat = "حذف";
-                //ViewBag.delete = "H";
             }
             if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == null)
             {
                 ViewBag.h = "تعطيل";
                 ViewBag.stat = "حذف";
             }
-
             ViewBag.delete = cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status;
             return View(cR_Mas_Sup_Brand);
         }

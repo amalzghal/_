@@ -20,7 +20,11 @@
         margin-right: 45px;
         margin-top: 40px;
         color: #fff;
-        float: right;       
+        float: right;
+        /*margin-bottom: 10px;
+        font-family: 'Times New Roman';
+        padding-top: 3px;
+        font-size: 12px;*/
     }
     .lbl {
         margin-right: 30px;
@@ -29,7 +33,7 @@
     }
     .txt {
         width: 200px;
-        margin-top: 18px;
+        margin-top: 15px;
         font-size: 13px !important;
         font-family: 'Times New Roman!important';
         height: 20px;
@@ -53,26 +57,23 @@
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Model_Brand_Code, new { @class = "lbl" })
             @Html.DropDownList("CR_Mas_Sup_Model_Brand_Code", null, new { @class = "txt", style = "margin-right:62px;width:13%" })
-            <br>@Html.ValidationMessageFor(model => model.CR_Mas_Sup_Model_Brand_Code, "", new { @class = "text-danger" })
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "lbl", style = "margin-left:30px;" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "txt", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "txt", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistAr</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "lbl", style = "margin-left:15px;" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "txt", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "txt", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistEn</span>
         </div>
         <div>
             @Html.LabelFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "lbl", style = "margin-left:23px;" })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "txt", maxlength = "50" })
+            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "txt", maxlength = "30", autocomplete = "off" })
             <br><span class="text-danger">@ViewBag.LRExistFr</span>
         </div>
 
-        @*@Html.LabelFor(model => model.CR_Mas_Sup_Model_Status, new { @class = "lbl", style = "margin-left:57px;", })
-            @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Status, new { @class = "txt" })*@
         @Html.LabelFor(model => model.CR_Mas_Sup_Model_Status, htmlAttributes: new { @class = "Hidden" })
         @Html.EditorFor(model => model.CR_Mas_Sup_Model_Status, new { htmlAttributes = new { @class = "hidden"}})
 
@@ -86,10 +87,8 @@
         @Html.EditorFor(model => model.CR_Mas_Sup_Model_Reasons, new { htmlAttributes = new { @class = "hidden"}})
     </div>
     <div class="form-group">
-        <div class="">
-            <input type="submit" value="حفظ" name="add" class="btn btn-info" id="add_btn" />
-            @Html.ActionLink("إنهاء", "Index", "Model", null, new { @class = "btn btn-info", title = "عودة لقائمة الطرازات", Style = "Float:Left;margin-top:40px;margin-left:40px;font-family:Times-new-roman;width:80px;height:20px;padding-top:1px;" })
-        </div>
+        <input type="submit" value="حفظ" name="add" class="btn btn-info" id="add_btn" />
+        @Html.ActionLink("إنهاء", "Index", "Model", null, new { @class = "btn btn-info", title = "عودة لقائمة الطرازات", Style = "Float:Left;margin-top:40px;margin-left:40px;font-family:Times-new-roman;width:80px;height:20px;padding-top:1px;" })
     </div>
 </div>
 }

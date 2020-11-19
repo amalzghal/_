@@ -514,7 +514,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Account\Login_amal.cshtml" />
     <Content Include="Views\Regions\Create.cshtml" />
     <Content Include="Views\Regions\Delete.cshtml" />
     <Content Include="Views\Regions\Details.cshtml" />
@@ -564,7 +563,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="images\login\" />
     <Folder Include="images\modalPanel\" />
-    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
