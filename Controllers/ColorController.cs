@@ -16,8 +16,28 @@ namespace RentCar.Controllers
         // GET: Model
         public ActionResult Index()
         {
-            var cR_Mas_Sup_Color = db.CR_Mas_Sup_Color.Include(c => c.CR_Mas_Sup_Group);
-            return View(cR_Mas_Sup_Color.ToList());
+            if (AccountController.ST_1501_unhold != true || AccountController.ST_1501_hold != true && AccountController.ST_1501_undelete != true || AccountController.ST_1501_delete != true)
+            {
+                var cR_Mas_Sup_Color = db.CR_Mas_Sup_Color.Include(c => c.CR_Mas_Sup_Group).Where(x => x.CR_Mas_Sup_Color_Status != "D" && x.CR_Mas_Sup_Color_Status != "H");
+                return View(cR_Mas_Sup_Color.ToList());
+            }
+
+            else
+                if (AccountController.ST_1501_unhold != true || AccountController.ST_1501_hold != true)
+            {
+                var cR_Mas_Sup_Color = db.CR_Mas_Sup_Color.Include(c => c.CR_Mas_Sup_Group).Where(x => x.CR_Mas_Sup_Color_Status != "H");
+                return View(cR_Mas_Sup_Color.ToList());
+            }
+            else if (AccountController.ST_1501_undelete != true || AccountController.ST_1501_delete != true)
+            {
+                var cR_Mas_Sup_Color = db.CR_Mas_Sup_Color.Include(c => c.CR_Mas_Sup_Group).Where(x => x.CR_Mas_Sup_Color_Status != "D");
+                return View(cR_Mas_Sup_Color.ToList());
+            }
+            else
+            {
+                var cR_Mas_Sup_Color = db.CR_Mas_Sup_Color.Include(c => c.CR_Mas_Sup_Group);
+                return View(cR_Mas_Sup_Color.ToList());
+            }
         }
 
         [HttpPost]
@@ -143,22 +163,24 @@ namespace RentCar.Controllers
                         cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length >= 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length >= 3 &&
                         cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length >= 3)
                     {
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Code = GetLastRecord().CR_Mas_Sup_Color_Code;
                         cR_Mas_Sup_Color.CR_Mas_Sup_Color_Group_Code = "33";
                         db.CR_Mas_Sup_Color.Add(cR_Mas_Sup_Color);
                         db.SaveChanges();
                         cR_Mas_Sup_Color = new CR_Mas_Sup_Color();
                         cR_Mas_Sup_Color = GetLastRecord();                                              
                         cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
+                        TempData["TempModel"] = "تم الحفظ بنجاح";
                         return RedirectToAction("Create", "Color");
                     }
                     else
                     {
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم اللون بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم اللون بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم اللون بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا اللون موجود";
                         if (LrecordExitEnglish)
@@ -166,11 +188,11 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذا اللون موجود";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                     }
                 }
             }
@@ -204,12 +226,14 @@ namespace RentCar.Controllers
                 {
                     ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
+                    ViewData["ReadOnly"] = "true";
                 }
 
                 if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "H" || cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == "2")
                 {
                     ViewBag.h = "تنشيط";
                     ViewBag.stat = "حذف";
+                    ViewData["ReadOnly"] = "true";
                 }
 
                 if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status == null)
@@ -232,22 +256,24 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Color_Code, CR_Mas_Sup_Color_Group_Code, CR_Mas_Sup_Color_Ar_Name, " +
         "CR_Mas_Sup_Color_En_Name, CR_Mas_Sup_Color_Fr_Name, CR_Mas_Sup_Color_Status, CR_Mas_Sup_Color_Reasons")] 
-        CR_Mas_Sup_Color cR_Mas_Sup_Color, string save, string delete, string hold, string CR_Mas_Sup_Color_Ar_Name, 
-        string CR_Mas_Sup_Color_Fr_Name, string CR_Mas_Sup_Color_En_Name)
+        CR_Mas_Sup_Color cR_Mas_Sup_Color, string save, string delete, string hold)
         {
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    var LrecordExitArabe = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_Ar_Name == CR_Mas_Sup_Color_Ar_Name);
-                    var LrecordExitEnglish = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_En_Name == CR_Mas_Sup_Color_En_Name);
-                    var LrecordExitFrench = db.CR_Mas_Sup_Color.Any(Lr => Lr.CR_Mas_Sup_Color_Fr_Name == CR_Mas_Sup_Color_Fr_Name);
+                    var LrecordExitArabe = db.CR_Mas_Sup_Color.Any(c => c.CR_Mas_Sup_Color_Code != cR_Mas_Sup_Color.CR_Mas_Sup_Color_Code &&
+                                                                   c.CR_Mas_Sup_Color_Ar_Name == cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Color.Any(c => c.CR_Mas_Sup_Color_Code != cR_Mas_Sup_Color.CR_Mas_Sup_Color_Code &&
+                                                                     c.CR_Mas_Sup_Color_En_Name == cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Color.Any(c => c.CR_Mas_Sup_Color_Code != cR_Mas_Sup_Color.CR_Mas_Sup_Color_Code &&
+                                                                    c.CR_Mas_Sup_Color_Fr_Name == cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name);
 
 
                     if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null &&
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length >= 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length >= 3 &&
-                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length >= 3)
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length >= 3 && 
+                        cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length >= 3 && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length >= 3 &&
+                        !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench)
                     {
                         db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
                         db.SaveChanges();
@@ -256,11 +282,11 @@ namespace RentCar.Controllers
                     else
                     {
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم اللون بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم اللون بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم اللون بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا اللون موجود";
                         if (LrecordExitEnglish)
@@ -268,47 +294,39 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذا اللون موجود";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                         if (cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name != null && cR_Mas_Sup_Color.CR_Mas_Sup_Color_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 20 حرفًا";
                     }
                 }
             }
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "D";
-                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
-                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "H";
-                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status = "A";
-                db.CR_Mas_Sup_Color.Attach(cR_Mas_Sup_Color);
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Color).Property(b => b.CR_Mas_Sup_Color_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Color).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }         
@@ -348,7 +366,6 @@ namespace RentCar.Controllers
             ViewBag.delete = cR_Mas_Sup_Color.CR_Mas_Sup_Color_Status;
             return View(cR_Mas_Sup_Color);
         }
-
         //////// GET: Model/Delete/5
         //////public ActionResult Delete(string id)
         //////{

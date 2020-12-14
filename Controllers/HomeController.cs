@@ -10,7 +10,7 @@ namespace RentCar.Controllers
     public class HomeController : Controller
     {
         public static string Language = "1";
-
+        public static string SystemName = "";
         // GET: Home
         [ActionName("Index")]
         public ActionResult Index_Get()

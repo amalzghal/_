@@ -1,0 +1,107 @@
+﻿@model RentCar.Models.CR_Mas_User_Sub_Validation
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>CR_Mas_User_Sub_Validation</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CR_Mas_User_Sub_Validation_Code)
+
+        @Html.HiddenFor(model => model.CR_Mas_User_Sub_Validation_Tasks_Code)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_Insert, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_Insert)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_Insert, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_UpDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_UpDate)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_UpDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_Delete, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_Delete)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_Delete, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_UnDelete, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_UnDelete)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_UnDelete, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_Hold, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_Hold)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_Hold, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_UnHold, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_UnHold)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_UnHold, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CR_Mas_User_Sub_Validation_Print, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.CR_Mas_User_Sub_Validation_Print)
+                    @Html.ValidationMessageFor(model => model.CR_Mas_User_Sub_Validation_Print, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

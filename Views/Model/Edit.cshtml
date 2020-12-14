@@ -1,10 +1,7 @@
 ﻿@model RentCar.Models.CR_Mas_Sup_Model
-
 @{
-    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4 style="margin-right: 30px;font:bold 18px Simplified Arabic">الطراز / تعديل</h4>
 <style>
     #save-btn {
         margin-right: 10px;
@@ -13,180 +10,245 @@
         margin-left: 20px;
         margin-bottom: 10px;
     }
+
     #bttn {
         float: right;
         width: 80px;
         background-color: #5bc0de !important;
         margin-left: 20px;
     }
+
     #btn-confirm {
         float: right;
         width: 80px;
         margin-left: 20px;
     }
+
     .lbl {
         margin-right: 30px;
         font-size: 16px;
         font-family: 'Times New Roman';
     }
-    .txt {
-        width: 200px;
-        margin-top: 10px;
-        /*font-size: 13px !important;
-        font-family: 'Times New Roman!important';
-        height: 20px;*/
-        margin-right: 20px;
+
+    .hidden {
+        display: none
     }
+
     .text-danger {
         font-size: 12px;
         margin-right: 160px;
         font-family: 'Times New Roman';
     }
+
+    .a {
+        float: right;
+        background-color: #5bc0de;
+        width: 80px;
+        height: 25px;
+        padding-top: 5px;
+        padding-right: 10px;
+        font-size: 12px;
+        font-family: times new roman;
+    }
+
+    .texterr {
+        font-family: 'Times New Roman' !important;
+        font-size: 14px !important;
+        color: red !important;
+        margin-right: 50% !important;
+        height: 40px;
+    }
+    #asterisk {
+        color: red;
+        float: right;
+        font-size: 15px!important;
+        margin-right: 112px;
+        margin-top: 5px;
+        position: absolute;
+    }
 </style>
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
-<div class="form-horizontal">
-    <h4><span style="margin-right:30px;font:bold 15px Simplified Arabic">تمكن هذه الصفحة المستخدم من التعديل على الطراز </span></h4>
-    <hr style="border-top: 1px solid #1c11114a;" />  
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "txt", style = "margin-right:75px;width:12%", @readonly = "readonly" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Brand_Code, "الماركة", new { @class = "lbl" })
-        @Html.DropDownList("CR_Mas_Sup_Model_Brand_Code", null, new { @class = "txt", style = "margin-right:75px" })
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "txt", style = "margin-right:35px", maxlength = "30", autocomplete = "off" })
-        <br><span class="text-danger">@ViewBag.LRExistAr</span>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "txt", style = "margin-right:20px", maxlength = "30", autocomplete = "off" })
-        <br><span class="text-danger">@ViewBag.LRExistEn</span>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "txt", style = "margin-right:27px", maxlength = "30", autocomplete = "off" })
-        <br><span class="text-danger">@ViewBag.LRExistFr</span>
-    </div>
-    <div>
-        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Reasons, new { @class = "lbl" })
-        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Reasons, new { @class = "txt", style = "margin-right:68px;width:70%;", maxlength = "100", autocomplete = "off" })
-    </div>
-
-    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Counter, new { @class = "Hidden" })
-    @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Counter, new { @class = "Hidden" })
-
-    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Status, new { @class = "Hidden" })
-    @Html.EditorFor(model => model.CR_Mas_Sup_Model_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "Hidden"} })
-
-    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Group_Code, "المجموعة", new { @class = "Hidden" })
-    @Html.DropDownList("CR_Mas_Sup_Model_Group_Code", null, new { @class = "Hidden" })
-
-    <div style="margin-top:50px;">
-        <div>
-            @if (ViewBag.delete == "D")
+<div class="corp_content">
+    <div class="title_corp"> الطرازات / تعديل</div>
+    <div class="subtitle_corp"> تمكن هذه الصفحة المستخدم من التعديل على الطراز</div>
+    <div class="hr_60"></div>
+    <div class="hr_80"></div>
+    <div class="corp_page">
+        <div class="page_content">
+            <div class="text-danger" id="Message" style="margin-Top: 10px; margin-right: 300px;">@TempData["TempModif"]</div>
+            @using (Html.BeginForm())
             {
-                if (RentCar.Controllers.AccountController.ST_1502_undelete)
-                {
-                    @*<input type="submit" name="delete" id="del" class="btn btn-success" value="@ViewBag.stat" style="float: right;background-color: #5cb85c;width:80px;" />*@
-                    <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" disabled />
-                    <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" disabled />
-                    <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" />
-                }
-                else
-                {
-                    <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" disabled />
-                    <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" disabled />
-                    <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" disabled />
-                }
-            }
-            else
-            {
-                if (ViewBag.delete == "H")
-                {
-                    if (RentCar.Controllers.AccountController.ST_1502_unhold)
-                    {
-                        <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" disabled />
-                        <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" />
-                        <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" disabled />
-                    }
-                    else
-                    {
-                        <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" disabled />
-                        <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" disabled />
-                        <input type="button" name="delete" id="btn-confirm" class="btn btn-success" value="@ViewBag.stat" style="background-color:#5cb85c;" disabled />
-                    }
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal" style="margin-top:-30px;height:53%;">
+                    <div class="col-md-6 offset-md-6">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Code, new { @class = "input_form col-md-6", style = "float:right;width:31%", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Brand_Code, "الماركة", new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.DropDownList("CR_Mas_Sup_Model_Brand_Code", null, new { @class = "input_form col-md-6", style = "float:right;width:31%" })
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Ar_Name, new { @class = "input_form col-md-6", id = "RtextAr", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistAr</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_En_Name, new { @class = "input_form col-md-6", id = "RtextEn", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistEn</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Fr_Name, new { @class = "input_form col-md-6", id = "RtextFr", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistFr</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Model_Reasons, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Reasons, new { @class = "input_form col-md-6", maxlength = "100", autocomplete = "off", style = "margin-left: -415px;width:600px;" })
+                    </div>
 
-                }
-                else
-                {
-                    if (RentCar.Controllers.AccountController.ST_1502_update)
-                    {
-                        <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" />
-                        <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" />
-                        <input type="button" name="delete" id="btn-confirm" class="btn btn-danger" value="@ViewBag.stat" style="background-color:#d9534f;" />
-                    }
-                    else
-                    {
-                        <input type="submit" name="save" value="حفظ" id="save-btn" class="btn btn-info" style="float: right;" disabled />
-                        <input type="submit" name="hold" id="bttn" class="btn btn-info" value="@ViewBag.h" style="" />
-                        <input type="button" name="delete" id="btn-confirm" class="btn btn-danger" value="@ViewBag.stat" style="background-color:#d9534f;" />
-                    }
+                    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Counter, new { @class = "Hidden" })
+                    @Html.TextBoxFor(model => model.CR_Mas_Sup_Model_Counter, new { @class = "Hidden" })
 
-                }
-            }
-            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" style="margin-top:17%;">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel" style=" margin-right: 10%;">تأكيد</h4>
-                        </div>
-                        <div class="modal-footer">
+                    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Status, new { @class = "Hidden" })
+                    @Html.EditorFor(model => model.CR_Mas_Sup_Model_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "Hidden" } })
+
+                    @Html.LabelFor(model => model.CR_Mas_Sup_Model_Group_Code, "المجموعة", new { @class = "Hidden" })
+                    @Html.DropDownList("CR_Mas_Sup_Model_Group_Code", null, new { @class = "Hidden" })
+
+                    <div style="margin-top:50px;">
+                        <div>
                             @if (ViewBag.delete == "D")
                             {
-                                <input type="submit" name="delete" id="modal-btn-si" class="btn btn-success" value="@ViewBag.stat" style="width:80px;background-color:#5cb85c;" />
+                                if (RentCar.Controllers.AccountController.ST_1502_undelete)
+                                {
+                                    <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;" />
+                                }
+                                else
+                                {
+                                    <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                }
                             }
                             else
                             {
-                                <input type="submit" name="delete" id="modal-btn-si" class="btn btn-danger" value="@ViewBag.stat" style="width:80px;background-color:#d9534f;" />
+                                if (ViewBag.delete == "H")
+                                {
+                                    if (RentCar.Controllers.AccountController.ST_1502_unhold)
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;" />
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                }
+                                else
+                                {
+                                    if (RentCar.Controllers.AccountController.ST_1502_update)
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                    if (RentCar.Controllers.AccountController.ST_1502_hold)
+                                    {
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 60px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+
+                                    if (RentCar.Controllers.AccountController.ST_1502_delete)
+                                    {
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 60px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                }
                             }
-                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float:left;width:80px;font:bold 10px Tahoma;height: 20px;padding-top: 2px;">إلغاء</button>
+                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" style="margin-top:17%;">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel" style=" margin-right: 10%;">تأكيد</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            @if (ViewBag.delete == "D")
+                                            {
+                                                <input type="submit" name="delete" class="submit_btn" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#5cb85c;" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" name="delete" class="submit_btn" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#d9534f;" />
+                                            }
+                                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float: left;width: 80px;height: 40px;font: bold 14px Tahoma">إلغاء</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var modalConfirm = function (callback) {
+
+                                    $("#btn-confirm").on("click", function () {
+                                        $("#mi-modal").modal('show');
+                                    });
+                                    $("#modal-btn-si").on("click", function () {
+                                        callback(true);
+                                        $("#mi-modal").modal('hide');
+                                    });
+                                    $("#modal-btn-no").on("click", function () {
+                                        callback(false);
+                                        $("#mi-modal").modal('hide');
+                                    });
+                                };
+                                modalConfirm(function (confirm) {
+                                    if (confirm) {
+                                        //Acciones si el usuario confirma
+                                        $("#form1").submit();
+                                    } else {
+                                        //Acciones si el usuario no confirma
+                                        $("#result").html("canceled");
+                                    }
+                                });
+                            </script>
+                            <div class="col-md-6" style="margin-top:60px">
+                                <a href="/Model/Index/" class="btn" style="color:white;background-color:#F3B161;width:80px!important;padding-right:27px;border-radius:unset;height:30px;padding-top:5px;float:left;font-size:15px!important;font-family:'Times New Roman';">انهاء</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <script>
-                var modalConfirm = function (callback) {
-
-                    $("#btn-confirm").on("click", function () {
-                        $("#mi-modal").modal('show');
-                    });
-                    $("#modal-btn-si").on("click", function () {
-                        callback(true);
-                        $("#mi-modal").modal('hide');
-                    });
-                    $("#modal-btn-no").on("click", function () {
-                        callback(false);
-                        $("#mi-modal").modal('hide');
-                    });
-                };
-                modalConfirm(function (confirm) {
-                    if (confirm) {
-                        //Acciones si el usuario confirma
-                        $("#form1").submit();
-                    } else {
-                        //Acciones si el usuario no confirma
-                        $("#result").html("canceled");
-                    }
-                });
-            </script>
-            <a class="btn btn-info" title="عودة لقائمة الطرازات" href="/Model/Index" style="float:left;width:80px;height:20px;padding-top:3px;font:bold 10px Tahoma;margin-left:10px;">إنهاء</a>
+                <script type="text/javascript">
+                    $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 3000); });
+                </script>
+                <script>
+                    var isreadonly = @ViewData["ReadOnly"];
+                    $(document).ready(function(){
+                        if(isreadonly)
+                        {
+                            $('#RtextAr').attr('readonly', 'readonly');
+                            $('#RtextEn').attr('readonly', 'readonly');
+                            $('#RtextFr').attr('readonly', 'readonly');
+                        }
+                    })
+                </script>
+            }
         </div>
     </div>
 </div>
-}

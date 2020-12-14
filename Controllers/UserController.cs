@@ -17,7 +17,31 @@ namespace RentCar.Controllers
         [ActionName("Index")]
         public ActionResult Index_Get()
         {
-            return View(db.CR_Mas_User_Information.ToList());
+
+            if (AccountController.ST_1701_unhold != true || AccountController.ST_1701_hold != true && AccountController.ST_1701_undelete != true || AccountController.ST_1701_delete != true)
+            {
+                var UserLIst = from CR_Mas_User_Information in db.CR_Mas_User_Information
+                               where CR_Mas_User_Information.CR_Mas_User_Information_Status != "H" && CR_Mas_User_Information.CR_Mas_User_Information_Status != "D"
+                                select CR_Mas_User_Information;
+                return View(UserLIst);
+            }
+
+            else
+                if (AccountController.ST_1701_unhold != true || AccountController.ST_1701_hold != true)
+            {
+                var UserLIst = db.CR_Mas_User_Information.Where(x => x.CR_Mas_User_Information_Status != "H");
+                return View(UserLIst);
+            }
+            else if (AccountController.ST_1701_undelete != true || AccountController.ST_1701_delete != true)
+            {
+                var UserLIst = db.CR_Mas_User_Information.Where(x => x.CR_Mas_User_Information_Status != "D");
+                return View(UserLIst);
+            }
+            else
+            {
+                return View(db.CR_Mas_User_Information.ToList());
+            }
+           
         }
 
         [HttpPost]
@@ -146,22 +170,24 @@ namespace RentCar.Controllers
                         cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name.Length >= 3 && cR_Mas_User_Information.CR_Mas_User_Information_En_Name.Length >= 3 &&
                         cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name.Length >= 3)
                     {
+                        cR_Mas_User_Information.CR_Mas_User_Information_Code = GetLastRecord().CR_Mas_User_Information_Code;
                         db.CR_Mas_User_Information.Add(cR_Mas_User_Information);
                         db.SaveChanges();
                         cR_Mas_User_Information = new CR_Mas_User_Information();
                         cR_Mas_User_Information = GetLastRecord();
                         cR_Mas_User_Information.CR_Mas_User_Information_Status = "A";
                         cR_Mas_User_Information.CR_Mas_User_Information_PassWord = cR_Mas_User_Information.CR_Mas_User_Information_Code;
+                        TempData["TempModel"] = "تم الحفظ بنجاح";
                         return RedirectToAction("Create", "User");
                     }
                     else
                     {
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم المستخدم بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم المستخدم بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم المستخدم بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا المستخدم موجود";
                         if (LrecordExitEnglish)
@@ -169,11 +195,11 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذا المستخدم موجود";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_En_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                     }
                 }
             }
@@ -210,6 +236,7 @@ namespace RentCar.Controllers
                 {
                     ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
+                    ViewData["ReadOnly"] = "true";
                 }
 
                 if (cR_Mas_User_Information.CR_Mas_User_Information_Status == "H" || 
@@ -218,6 +245,7 @@ namespace RentCar.Controllers
                 {
                     ViewBag.h = "تنشيط";
                     ViewBag.stat = "حذف";
+                    ViewData["ReadOnly"] = "true";
                 }
 
                 if (cR_Mas_User_Information.CR_Mas_User_Information_Status == null)
@@ -237,16 +265,18 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_User_Information_Code, CR_Mas_User_Information_PassWord, CR_Mas_User_Information_Ar_Name, " +
             "CR_Mas_User_Information_En_Name, CR_Mas_User_Information_Fr_Name, CR_Mas_User_Information_Mobile_No, CR_Mas_User_Information_Status, " +
-            "CR_Mas_User_Information_Reasons")] CR_Mas_User_Information cR_Mas_User_Information, string save, string delete, string hold, 
-            string CR_Mas_User_Information_Ar_Name, string CR_Mas_User_Information_Fr_Name, string CR_Mas_User_Information_En_Name)
+            "CR_Mas_User_Information_Reasons")] CR_Mas_User_Information cR_Mas_User_Information, string save, string delete, string hold)
         {
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    var LrecordExitArabe = db.CR_Mas_User_Information.Any(Lr => Lr.CR_Mas_User_Information_Ar_Name == CR_Mas_User_Information_Ar_Name);
-                    var LrecordExitEnglish = db.CR_Mas_User_Information.Any(Lr => Lr.CR_Mas_User_Information_En_Name == CR_Mas_User_Information_En_Name);
-                    var LrecordExitFrench = db.CR_Mas_User_Information.Any(Lr => Lr.CR_Mas_User_Information_Fr_Name == CR_Mas_User_Information_Fr_Name);
+                    var LrecordExitArabe = db.CR_Mas_User_Information.Any(u => u.CR_Mas_User_Information_Code != cR_Mas_User_Information.CR_Mas_User_Information_Code &&
+                                                                          u.CR_Mas_User_Information_Ar_Name == cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_User_Information.Any(u => u.CR_Mas_User_Information_Code != cR_Mas_User_Information.CR_Mas_User_Information_Code && 
+                                                                                 u.CR_Mas_User_Information_En_Name == cR_Mas_User_Information.CR_Mas_User_Information_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_User_Information.Any(u => u.CR_Mas_User_Information_Code != cR_Mas_User_Information.CR_Mas_User_Information_Code &&
+                                                                           u.CR_Mas_User_Information_Fr_Name == cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name);
 
 
                     if (cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_En_Name != null &&
@@ -261,11 +291,11 @@ namespace RentCar.Controllers
                     else
                     {
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم المستخدم بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم المستخدم بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم المستخدم بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا المستخدم موجود";
                         if (LrecordExitEnglish)
@@ -273,51 +303,43 @@ namespace RentCar.Controllers
                         if (LrecordExitFrench)
                             ViewBag.LRExistFr = "عفوا هذا المستخدم موجود";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_En_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                         if (cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name != null && cR_Mas_User_Information.CR_Mas_User_Information_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 50 حرفًا";
                     }
                 }
             }
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "D";
-                db.CR_Mas_User_Information.Attach(cR_Mas_User_Information);
+                /*db.CR_Mas_User_Information.Attach(cR_Mas_User_Information);
                 db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Status).IsModified = true;
                 db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Mobile_No).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Reasons).IsModified = true;
+                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Reasons).IsModified = true;*/
+                db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "A";
-                db.CR_Mas_User_Information.Attach(cR_Mas_User_Information);
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Status).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Mobile_No).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Reasons).IsModified = true;
+                db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "H";
-                db.CR_Mas_User_Information.Attach(cR_Mas_User_Information);
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Status).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Mobile_No).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Reasons).IsModified = true;
+                db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_User_Information.CR_Mas_User_Information_Status = "A";
-                db.CR_Mas_User_Information.Attach(cR_Mas_User_Information);
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Status).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Mobile_No).IsModified = true;
-                db.Entry(cR_Mas_User_Information).Property(b => b.CR_Mas_User_Information_Reasons).IsModified = true;
+                db.Entry(cR_Mas_User_Information).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

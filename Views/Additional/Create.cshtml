@@ -1,0 +1,119 @@
+﻿@model RentCar.Models.CR_Mas_Sup_Additional
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .texterr {
+        font-family: 'Times New Roman' !important;
+        font-size: 14px !important;
+        color: red !important;
+        margin-right: 50% !important;
+        height: 40px;
+    }
+
+    #asterisk {
+        color: red;
+        float: right;
+        font-size: 15px !important;
+        margin-right: 112px;
+        margin-top: 5px;
+        position: absolute;
+        font-family: 'Times New Roman';
+    }
+</style>
+
+
+<div class="corp_content">
+    <div class="title_corp"> الإضافات / اضافة</div>
+    <div class="subtitle_corp">تمكن هذه الصفحة المستخدم من إظافة إضافات جديدة</div>
+    <div class="hr_60"></div>
+    <div class="hr_80"></div>
+    <div class="corp_page">
+        <div class="page_content" style=" margin-top: 10px; height:421px!important;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <div>
+                        <div class="col-md-6 offset-md-6 " style="margin-top:50px;">
+                            @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Code, htmlAttributes: new { @class = "label_form col-md-6", style = "float:right" })
+                            @Html.TextBoxFor(model => model.CR_Mas_Sup_Additional_Code, new { @class = "input_form col-md-6", style = "float:right;width:30%", @readonly = "readonly" })
+                            <div class="texterr"></div>
+                        </div>
+
+                        <div class="col-md-6 offset-md-6 m-t-1">
+                            @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Ar_Name, htmlAttributes: new { @class = "label_form col-md-6", style = "float:right" })
+                            @Html.TextBoxFor(model => model.CR_Mas_Sup_Additional_Ar_Name, new { @class = "input_form col-md-6", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                            <div id="asterisk">*</div>
+                            <div class="texterr">@ViewBag.LRExistAr</div>
+                            <script>
+                                window.onload = function () {
+                                    var txtBox = document.getElementById("CR_Mas_Sup_Additional_Ar_Name");
+                                    if (txtBox != null) {
+                                        txtBox.focus();
+                                    }
+                                };
+                            </script>
+                        </div>
+
+                        <div class="col-md-6 offset-md-6 m-t-1">
+                            @Html.LabelFor(model => model.CR_Mas_Sup_Additional_En_Name, htmlAttributes: new { @class = "label_form col-md-6", style = "float:right" })
+                            @Html.TextBoxFor(model => model.CR_Mas_Sup_Additional_En_Name, new { @class = "input_form col-md-6", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                            <div id="asterisk">*</div>
+                            <div class="texterr">@ViewBag.LRExistAr</div>
+                        </div>
+
+                        <div class="col-md-6 offset-md-6 m-t-1">
+                            @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Fr_Name, htmlAttributes: new { @class = "label_form col-md-6", style = "float:right" })
+                            @Html.TextBoxFor(model => model.CR_Mas_Sup_Additional_Fr_Name, new { @class = "input_form col-md-6", maxlength = "30", autocomplete = "off", style = "width:250px;margin-left:-65px;" })
+                            <div id="asterisk">*</div>
+                            <div class="texterr">@ViewBag.LRExistAr</div>
+                        </div>
+
+                        <div>
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Status, htmlAttributes: new { @class = "Hidden" })
+                        @Html.EditorFor(model => model.CR_Mas_Sup_Additional_Status, new { htmlAttributes = new { @class = "hidden" } })
+
+                        </div>
+
+                        <div>
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Group_Code, "CR_Mas_Sup_Additional_Group_Code", htmlAttributes: new { @class = "Hidden" })
+                        @Html.DropDownList("CR_Mas_Sup_Additional_Group_Code", null, new { @class = "hidden" })
+                        </div>
+
+                        <div >
+                            @Html.LabelFor(model => model.CR_Mas_Sup_Additional_Reasons, htmlAttributes: new { @class = "Hidden" })
+                            @Html.EditorFor(model => model.CR_Mas_Sup_Additional_Reasons, new { htmlAttributes = new { @class = "hidden" } })
+                        </div>
+
+
+
+                        <div class="col-md-6" style="margin-top:20px">
+                            <div style="height:110px;"></div>
+                            <a href="~/Additional/Index/" class="btn" style="font-family:'Times New Roman';float:left;font-size:15px!important;width: 70px !important;padding-top:4px;height:30px; background-color: #F3B161; padding-right: 22px; border-radius: 0px; color: white;">انهاء</a>
+                        </div>
+                        <div class="col-md-6" style="margin-top:20px;">
+                            <div style="height:110px;"></div>
+                            <input type="submit" name="add" class="submit_btn" id="add_btn" value="حفظ" style="margin-right:10px;" />
+                        </div>
+                        <div class="col-md-6" id="Message" style="font-family:'Times New Roman';font-size:16px;color:red;margin-Top: 380px; margin-right: 330px;position:absolute;">@TempData["TempModel"]</div>
+                        <script type="text/javascript">
+                            $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 3000); });
+                        </script>
+                       
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

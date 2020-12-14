@@ -16,8 +16,27 @@ namespace RentCar.Controllers
         // GET: Model
         public ActionResult Index()
         {
-            var cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Include(c => c.CR_Mas_Sup_Brand).Include(c => c.CR_Mas_Sup_Group);
-            return View(cR_Mas_Sup_Model.ToList());
+            if (AccountController.ST_1502_unhold != true || AccountController.ST_1502_hold != true && AccountController.ST_1502_undelete != true || AccountController.ST_1502_delete != true)
+            {
+                var cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Include(c => c.CR_Mas_Sup_Brand).Include(c => c.CR_Mas_Sup_Group).Where(stat => stat.CR_Mas_Sup_Model_Status != "H" && stat.CR_Mas_Sup_Model_Status != "D");
+                return View(cR_Mas_Sup_Model.ToList());
+            }
+            else
+                if (AccountController.ST_1502_unhold != true || AccountController.ST_1502_hold != true)
+            {
+                var cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Include(c => c.CR_Mas_Sup_Brand).Include(c => c.CR_Mas_Sup_Group).Where(stat => stat.CR_Mas_Sup_Model_Status != "H");
+                return View(cR_Mas_Sup_Model.ToList());
+            }
+            else if (AccountController.ST_1502_undelete != true || AccountController.ST_1502_delete != true)
+            {
+                var cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Include(c => c.CR_Mas_Sup_Brand).Include(c => c.CR_Mas_Sup_Group).Where(stat => stat.CR_Mas_Sup_Model_Status != "D");
+                return View(cR_Mas_Sup_Model.ToList());
+            }
+            else
+            {
+                var cR_Mas_Sup_Model = db.CR_Mas_Sup_Model.Include(c => c.CR_Mas_Sup_Brand).Include(c => c.CR_Mas_Sup_Group);
+                return View(cR_Mas_Sup_Model.ToList());
+            }
         }
 
         [HttpPost]
@@ -103,7 +122,7 @@ namespace RentCar.Controllers
             CR_Mas_Sup_Model m = new CR_Mas_Sup_Model();
             if (Lrecord != null)
             {
-                int val = int.Parse(Lrecord) + 1;
+                Int64 val = Int64.Parse(Lrecord) + 1;
                 m.CR_Mas_Sup_Model_Code = val.ToString();
             }
             else
@@ -115,7 +134,25 @@ namespace RentCar.Controllers
         // GET: Model/Create
         public ActionResult Create()
         {
-            ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
+
+            if (AccountController.ST_1502_unhold != true || AccountController.ST_1502_hold != true && AccountController.ST_1502_undelete != true || AccountController.ST_1502_delete != true)
+            {
+                ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand.Where(x => x.CR_Mas_Sup_Brand_Status != "D" && x.CR_Mas_Sup_Brand_Status != "H"), "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
+            }
+            else
+                if (AccountController.ST_1502_unhold != true || AccountController.ST_1502_hold != true)
+            {
+                ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand.Where(x => x.CR_Mas_Sup_Brand_Status != "H"), "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
+            }
+            else if (AccountController.ST_1502_undelete != true || AccountController.ST_1502_delete != true)
+            {
+                ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand.Where(x => x.CR_Mas_Sup_Brand_Status != "D"), "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
+            }
+            else
+            {
+                ViewBag.CR_Mas_Sup_Model_Brand_Code = new SelectList(db.CR_Mas_Sup_Brand, "CR_Mas_Sup_Brand_Code", "CR_Mas_Sup_Brand_Ar_Name");
+            }
+
             ViewBag.CR_Mas_Sup_Model_Group_Code = new SelectList(db.CR_Mas_Sup_Group, "CR_Mas_Sup_Group_Code", "CR_Mas_Sup_Group_Ar_Name");
             CR_Mas_Sup_Model mod = new CR_Mas_Sup_Model();
             mod = GetLastRecord();
@@ -146,22 +183,24 @@ namespace RentCar.Controllers
                         cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name.Length >= 3 && cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name.Length >= 3 &&
                         cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name.Length >= 3)
                     {
+                        cR_Mas_Sup_Model.CR_Mas_Sup_Model_Code = GetLastRecord().CR_Mas_Sup_Model_Code;
                         cR_Mas_Sup_Model.CR_Mas_Sup_Model_Group_Code = "31";
                         db.CR_Mas_Sup_Model.Add(cR_Mas_Sup_Model);
                         db.SaveChanges();
                         cR_Mas_Sup_Model = new CR_Mas_Sup_Model();
                         cR_Mas_Sup_Model = GetLastRecord();
                         cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
+                        TempData["TempModel"] = "تم الحفظ بنجاح";
                         return RedirectToAction("Create", "Model");
                     }
                     else
                     {
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم الطراز بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم الطراز بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم الطراز بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا الطراز موجود";
                         if (LrecordExitEnglish)
@@ -208,11 +247,13 @@ namespace RentCar.Controllers
                 {
                     ViewBag.stat = "إسترجاع";
                     ViewBag.h = "تعطيل";
+                    ViewData["ReadOnly"] = "true";
                 }
                 if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "H" ||  cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "2")
                 {
                     ViewBag.h = "تنشيط";
                     ViewBag.stat = "حذف";
+                    ViewData["ReadOnly"] = "true";
                 }
                 if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == null)
                 {
@@ -236,16 +277,18 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CR_Mas_Sup_Model_Code, CR_Mas_Sup_Model_Group_Code, CR_Mas_Sup_Model_Brand_Code, " +
         "CR_Mas_Sup_Model_Ar_Name, CR_Mas_Sup_Model_En_Name, CR_Mas_Sup_Model_Fr_Name, CR_Mas_Sup_Model_Counter, CR_Mas_Sup_Model_Status, " +
-        "CR_Mas_Sup_Model_Reasons")] CR_Mas_Sup_Model cR_Mas_Sup_Model, string save, string delete, string hold, 
-        string CR_Mas_Sup_Model_Ar_Name, string CR_Mas_Sup_Model_Fr_Name, string CR_Mas_Sup_Model_En_Name)
+        "CR_Mas_Sup_Model_Reasons")] CR_Mas_Sup_Model cR_Mas_Sup_Model, string save, string delete, string hold)
         {
             if (!string.IsNullOrEmpty(save))
             {
                 if (ModelState.IsValid)
                 {
-                    var LrecordExitArabe = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Ar_Name == CR_Mas_Sup_Model_Ar_Name);
-                    var LrecordExitEnglish = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_En_Name == CR_Mas_Sup_Model_En_Name);
-                    var LrecordExitFrench = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Fr_Name == CR_Mas_Sup_Model_Fr_Name);
+                    var LrecordExitArabe = db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Code != cR_Mas_Sup_Model.CR_Mas_Sup_Model_Code &&
+                                                                   m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Code != cR_Mas_Sup_Model.CR_Mas_Sup_Model_Code &&
+                                                                     m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Code != cR_Mas_Sup_Model.CR_Mas_Sup_Model_Code &&
+                                                                    m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name);
 
                     if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name != null &&
                         cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name != null && !LrecordExitArabe && !LrecordExitEnglish && !LrecordExitFrench &&
@@ -259,11 +302,11 @@ namespace RentCar.Controllers
                     else
                     {
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name == null)
-                            ViewBag.LRExistAr = "عفوا إسم الطراز بالعربي إجباري";
+                            ViewBag.LRExistAr = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name == null)
-                            ViewBag.LRExistEn = "عفوا إسم الطراز بالإنجليزي إجباري";
+                            ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name == null)
-                            ViewBag.LRExistFr = "عفوا إسم الطراز بالفرنسي إجباري";
+                            ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
                         if (LrecordExitArabe)
                             ViewBag.LRExistAr = "عفوا هذا الطراز موجود";
                         if (LrecordExitEnglish)
@@ -282,9 +325,7 @@ namespace RentCar.Controllers
             if (delete == "Delete" || delete == "حذف")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "D";
-                db.CR_Mas_Sup_Model.Attach(cR_Mas_Sup_Model);
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -292,27 +333,21 @@ namespace RentCar.Controllers
             if (delete == "Activate" || delete == "إسترجاع")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
-                db.CR_Mas_Sup_Model.Attach(cR_Mas_Sup_Model);
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تعطيل" || hold == "hold")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "H";
-                db.CR_Mas_Sup_Model.Attach(cR_Mas_Sup_Model);
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             if (hold == "تنشيط" || hold == "Activate")
             {
                 cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status = "A";
-                db.CR_Mas_Sup_Model.Attach(cR_Mas_Sup_Model);
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Status).IsModified = true;
-                db.Entry(cR_Mas_Sup_Model).Property(b => b.CR_Mas_Sup_Model_Reasons).IsModified = true;
+                db.Entry(cR_Mas_Sup_Model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -328,7 +363,7 @@ namespace RentCar.Controllers
                  cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "Deleted" ||
                  cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "0"))
             {
-                ViewBag.stat = "تفعيل";
+                ViewBag.stat = "إسترجاع";
                 ViewBag.h = "تعطيل";
             }
             if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Status == "H" ||

@@ -710,13 +710,13 @@ pre {
 
 @media (min-width:1200px) {
     .container {
-        max-width: 100%
+        max-width: 1170px
     }
 }
 
 @media (min-width: 1400px) {
     .container {
-        max-width: 100%;
+        max-width: 1200px;
     }
 }
 
@@ -1857,7 +1857,7 @@ pre {
     }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0,0,0,.05)
+    background-color: rgba(5,157,250,.05)
 }
 
 .table-hover tbody tr:hover {

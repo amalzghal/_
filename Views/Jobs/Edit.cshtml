@@ -1,0 +1,248 @@
+﻿@model RentCar.Models.CR_Mas_Sup_Jobs
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #save-btn {
+        margin-right: 10px;
+        background-color: #5bc0de !important;
+        width: 80px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    #bttn {
+        float: right;
+        width: 80px;
+        background-color: #5bc0de !important;
+        margin-left: 20px;
+    }
+
+    #btn-confirm {
+        float: right;
+        width: 80px;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        margin-right: 30px;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    .hidden {
+        display: none
+    }
+
+    .text-danger {
+        font-size: 12px;
+        margin-right: 160px;
+        font-family: 'Times New Roman';
+    }
+
+    .a {
+        float: right;
+        background-color: #5bc0de;
+        width: 80px;
+        height: 25px;
+        padding-top: 5px;
+        padding-right: 10px;
+        font-size: 12px;
+        font-family: times new roman;
+    }
+
+    .texterr {
+        font-family: 'Times New Roman' !important;
+        font-size: 14px !important;
+        color: red !important;
+        margin-right: 50% !important;
+        height: 40px;
+    }
+
+    #asterisk {
+        color: red;
+        float: right;
+        font-size: 15px !important;
+        margin-right: 112px;
+        margin-top: 5px;
+        position: absolute;
+        font-family: 'Times New Roman';
+    }
+</style>
+<div class="corp_content">
+    <div class="title_corp"> المهن / تعديل</div>
+    <div class="subtitle_corp"> تمكن هذه الصفحة المستخدم من التعديل على المهنة</div>
+    <div class="hr_60"></div>
+    <div class="hr_80"></div>
+    <div class="corp_page">
+        <div class="page_content">
+            <div class="text-danger" id="Message" style="margin-Top: 10px; margin-right: 300px;">@TempData["TempModif"]</div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal" style="height:50%;">
+                    <div class="col-md-6 offset-md-6">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Code, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Jobs_Code, new { @class = "input_form col-md-6", style = "float:right;width:30%", @readonly = "readonly" })
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Ar_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Jobs_Ar_Name, new { @class = "input_form col-md-6", id = "RtextAr", maxlength = "20", autocomplete = "off", style = "margin-left:-65px;width:250px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistAr</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_En_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Jobs_En_Name, new { @class = "input_form col-md-6", id = "RtextEn", maxlength = "20", autocomplete = "off", style = "margin-left:-65px;width:250px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistEn</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Fr_Name, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Jobs_Fr_Name, new { @class = "input_form col-md-6", id = "RtextFr", maxlength = "20", autocomplete = "off", style = "margin-left:-65px;width:250px;" })
+                        <div id="asterisk">*</div>
+                        <div class="texterr">@ViewBag.LRExistFr</div>
+                    </div>
+                    <div class="col-md-6 offset-md-6 m-t-1">
+                        @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Reasons, new { @class = "label_form col-md-6", style = "float:right" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Jobs_Reasons, new { @class = "input_form col-md-6", maxlength = "100", autocomplete = "off", style = "margin-left:-415px;width:600px;" })
+                    </div>
+
+                    @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Status, new { @class = "Hidden" })
+                    @Html.EditorFor(model => model.CR_Mas_Sup_Jobs_Status, new { htmlAttributes = new { @Value = ViewBag.delete, @class = "Hidden" } })
+
+                    @Html.LabelFor(model => model.CR_Mas_Sup_Jobs_Group_Code, "المجموعة", new { @class = "Hidden" })
+                    @Html.DropDownList("CR_Mas_Sup_Jobs_Group_Code", null, new { @class = "Hidden" })
+
+                    <div style="margin-top:50px;">
+                        <div>
+                            @if (ViewBag.delete == "D")
+                            {
+                                if (RentCar.Controllers.AccountController.ST_1603_undelete)
+                                {
+                                    <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;" />
+                                }
+                                else
+                                {
+                                    <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                }
+                            }
+                            else
+                            {
+                                if (ViewBag.delete == "H")
+                                {
+                                    if (RentCar.Controllers.AccountController.ST_1603_hold && RentCar.Controllers.AccountController.ST_1603_unhold)
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;" />
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                }
+                                else
+                                {
+                                    if (RentCar.Controllers.AccountController.ST_1603_update)
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="save" value="حفظ" class="submit_btn" style="float: right;margin-right:29px;margin-top:85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                    if (RentCar.Controllers.AccountController.ST_1603_hold)
+                                    {
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="hold" class="submit_btn" value="@ViewBag.h" style=" margin-right: 20px; margin-top: 85px;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                    if (RentCar.Controllers.AccountController.ST_1603_delete)
+                                    {
+                                        <input type="button" name="delete" class="submit_btn" id="btn-confirm" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;" />
+                                    }
+                                    else
+                                    {
+                                        <input type="button" name="delete" class="submit_btn" value="@ViewBag.stat" style="margin-right: 20px; margin-top: 85px; background-color: #F3B161;cursor:no-drop;" onclick="javascript:return false;" disabled />
+                                    }
+                                }
+                            }
+                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal" style="margin-top:17%;">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel" style=" margin-right: 10%;">تأكيد</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            @if (ViewBag.delete == "D")
+                                            {
+                                                <input type="submit" name="delete" class="submit_btn" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#5cb85c;" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" name="delete" class="submit_btn" value="@ViewBag.stat" id="modal-btn-si" style="float:right;width:80px;height:40px;font:bold 14px Tahoma;margin-left:10px;color:white;background-color:#d9534f;" />
+                                            }
+                                            <button type="button" class="btn btn-primary" id="modal-btn-no" style="float: left;width: 80px;height: 40px;font: bold 14px Tahoma">إلغاء</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var modalConfirm = function (callback) {
+
+                                    $("#btn-confirm").on("click", function () {
+                                        $("#mi-modal").modal('show');
+                                    });
+                                    $("#modal-btn-si").on("click", function () {
+                                        callback(true);
+                                        $("#mi-modal").modal('hide');
+                                    });
+                                    $("#modal-btn-no").on("click", function () {
+                                        callback(false);
+                                        $("#mi-modal").modal('hide');
+                                    });
+                                };
+                                modalConfirm(function (confirm) {
+                                    if (confirm) {
+                                        //Acciones si el usuario confirma
+                                        $("#form1").submit();
+                                    } else {
+                                        //Acciones si el usuario no confirma
+                                        $("#result").html("canceled");
+                                    }
+                                });
+                            </script>
+                            <div class="col-md-6" style="margin-top:85px">
+                                <a href="/Jobs/Index/" class="btn" style="color:white;background-color:#F3B161;width:80px!important;padding-right:27px;border-radius:unset;height:30px;padding-top:5px;float:left;font-size:15px!important;font-family:'Times New Roman';">انهاء</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 3000); });
+                </script>
+                <script>
+                    var isreadonly = @ViewData["ReadOnly"];
+                    $(document).ready(function(){
+                        if(isreadonly)
+                        {
+                            $('#RtextAr').attr('readonly', 'readonly');
+                            $('#RtextEn').attr('readonly', 'readonly');
+                            $('#RtextFr').attr('readonly', 'readonly');
+                        }
+                    })
+                </script>
+            }
+        </div>
+    </div>
+</div>

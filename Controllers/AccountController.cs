@@ -454,10 +454,6 @@ namespace RentCar.Controllers
         ////////End sub Validation///////
 
         // end Authentification varaibles
-
-
-
-
         // GET: Account
         public ActionResult Index()
         {
@@ -473,28 +469,110 @@ namespace RentCar.Controllers
 
         [ActionName("Login")]
         [HttpPost]
-        public ActionResult Login_Post(string LogEnter,string txtusername, string txtpassword)
+        public ActionResult Login_Post(string LogEnter,string txtusername, string txtpassword,string lang)
         {
-            if (LogEnter == "الدخول")
+            if (!string.IsNullOrEmpty(lang) && lang == "عربي")
             {
-                var q = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == txtusername && user.CR_Mas_User_Information_PassWord == txtpassword && user.CR_Mas_User_Information_Status=="A");
-                if (q != null)
+                HomeController.Language = "1";
+            }
+
+            if (!string.IsNullOrEmpty(lang) && lang == "English")
+            {
+                HomeController.Language = "2";
+                
+            }
+            if (!string.IsNullOrEmpty(lang) && lang == "Français")
+            {
+                HomeController.Language = "3";
+            }
+            if(HomeController.Language=="1")
+            {
+                if (LogEnter == "الدخول")
                 {
-                    UserLogin = q.CR_Mas_User_Information_Code;
-                    UserName = q.CR_Mas_User_Information_Ar_Name;
+                    if (txtusername != "" && txtpassword != "")
+                    {
+                        var q = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == txtusername && user.CR_Mas_User_Information_PassWord == txtpassword && user.CR_Mas_User_Information_Status == "A");
+                        if (q != null)
+                        {
+                            UserLogin = q.CR_Mas_User_Information_Code;
+                            UserName = q.CR_Mas_User_Information_Ar_Name;
 
-                    Init();
-                    Get_Authority();
-                    Session["Hello"] = "....مرحبا " + UserName ;
+                            Init();
+                            Get_Authority();
+                            Session["Hello"] = "مرحبا ...." + UserName;
+                            Session["UserId"] = UserLogin;
+                            return RedirectToAction("index", "home");
+                        }
+                        else
+                        {
+                            //////ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم";
+                            //////ViewBag.PassError = "الرجاء التأكد من كلمة السر";
 
-                    return RedirectToAction("index", "home");
+                            ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم و  كلمة السر";
+                        }
+                    }
+                    else if (txtusername == "" && txtpassword != "")
+                    {
+                        ViewBag.Login = "الرجاء إدخال إسم المستخدم";
+                        ViewBag.Password = "";
+                    }
+                    else if (txtpassword == "" && txtusername != "")
+                    {
+                        ViewBag.Login = "";
+                        ViewBag.Password = "الرجاء إدخال كلمة السر ";
+                    }
+                    else
+                    {
+                        ViewBag.Login = "الرجاء إدخال إسم المستخدم";
+                        ViewBag.Password = "الرجاء إدخال كلمة السر ";
+                    }
+
                 }
-                else
+                
+            }
+            if (HomeController.Language == "3")
+            {
+                if (LogEnter == "الدخول")
                 {
-                    //////ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم";
-                    //////ViewBag.PassError = "الرجاء التأكد من كلمة السر";
+                    if (txtusername != "" && txtpassword != "")
+                    {
+                        var q = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == txtusername && user.CR_Mas_User_Information_PassWord == txtpassword && user.CR_Mas_User_Information_Status == "A");
+                        if (q != null)
+                        {
+                            UserLogin = q.CR_Mas_User_Information_Code;
+                            UserName = q.CR_Mas_User_Information_Ar_Name;
 
-                    ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم و  كلمة السر";
+                            Init();
+                            Get_Authority();
+                            Session["Hello"] = "Bienvenu ...." + UserName;
+                            Session["UserId"] = UserLogin;
+                            return RedirectToAction("index", "home");
+                        }
+                        else
+                        {
+                            //////ViewBag.LoginError = "الرجاء التأكد من إسم المستخدم";
+                            //////ViewBag.PassError = "الرجاء التأكد من كلمة السر";
+
+                            ViewBag.LoginError = "Veuillez vérifier le nom de l'utilisateur et le mot de passe";
+                        }
+
+                    }
+                    else if (txtusername == "" && txtpassword != "")
+                    {
+                        ViewBag.Login = "Veuillez saisir le nom de l'utilisateur";
+                        ViewBag.Password = "";
+                    }
+                    else if (txtpassword == "" && txtusername != "")
+                    {
+                        ViewBag.Login = "";
+                        ViewBag.Password = "Veuillez saisir le mot de passe";
+                    }
+                    else
+                    {
+                        ViewBag.Login = "Veuillez saisir le nom de l'utilisateur";
+                        ViewBag.Password = "Veuillez saisir le mot de passe";
+                    }
+
                 }
             }
             return View();
@@ -519,8 +597,6 @@ namespace RentCar.Controllers
             //        MT_1001 = true;
             //    }
             //}
-
-
             var Lrecord = db.CR_Mas_User_Main_Validation
                                .Where(t => t.CR_Mas_User_Main_Validation_Code.Contains(UserLogin));
 
@@ -530,115 +606,92 @@ namespace RentCar.Controllers
                 {
                     MT_1004 = true;
                     continue;
-                }
-              
-
+                }           
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1005" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1005 = true;
                     continue;
-                }
-               
-
+                }              
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1006" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1006 = true;
                     continue;
-                }
-               
-
+                }              
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1007" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1007 = true;
                     continue;
-                }
-               
-
+                }              
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1008" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1008 = true;
                     continue;
-                }
-               
-
+                }              
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1009" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1009 = true;
                     continue;
-                }
-               
+                }             
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1010" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1010 = true;
                     continue;
-                }
-               
+                }             
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1011" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1011 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1101" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1101 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1102" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1102 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1103" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1103 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1104" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1104 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1201" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1201 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1202" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1202 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1203" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1203 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1204" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1204 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1205" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1205 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1301" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1301 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1302" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1302 = true;
@@ -649,97 +702,81 @@ namespace RentCar.Controllers
                     MT_1303 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1304" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1304 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1401" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1401 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1402" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1402 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1501" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1501 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1502" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1502 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1503" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1503 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1504" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1504 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1505" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1505 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1506" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1506 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1507" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1507 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1508" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1508 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1509" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1509 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1601" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1601 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1602" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1602 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1603" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1603 = true;
                     continue;
                 }
-
                 if (record.CR_Mas_User_Main_Validation_Tasks_Code == "1604" && record.CR_Mas_User_Main_Validation1 == true)
                 {
                     MT_1604 = true;
@@ -805,8 +842,6 @@ namespace RentCar.Controllers
                     MT_1904 = true;
                     continue;
                 }
-
-
                 //List<CR_Mas_User_Main_Validation> MainVal = (from r in db.CR_Mas_User_Main_Validation
                 //                                             where r.CR_Mas_User_Main_Validation_Code == UserLogin && r.CR_Mas_User_Main_Validation1 == true
                 //                                             select new CR_Mas_User_Main_Validation
@@ -838,14 +873,7 @@ namespace RentCar.Controllers
                 //        continue;
                 //    }
                 //}
-
-
-
-
             }
-
-
-
             var query = db.CR_Mas_User_Information.FirstOrDefault(user => user.CR_Mas_User_Information_Code == UserLogin).CR_Mas_User_Main_Validation.Select(x => x.CR_Mas_Sys_Tasks).ToList();
 
             foreach (var q in query)
@@ -866,9 +894,7 @@ namespace RentCar.Controllers
                         }
 
                     }
-                }
-
-                
+                }                
                 if (q.CR_Mas_Sys_Tasks_Code == "1005")
                 {
                     if (MT_1005 == true)
@@ -884,8 +910,7 @@ namespace RentCar.Controllers
                         }
                     }
                 }
-
-                
+               
                 if (q.CR_Mas_Sys_Tasks_Code == "1006")
                 {
                     if (MT_1006 == true)
@@ -900,9 +925,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }            
                 if (q.CR_Mas_Sys_Tasks_Code == "1007")
                 {
                     if (MT_1007 == true)
@@ -917,9 +940,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }               
                 if (q.CR_Mas_Sys_Tasks_Code == "1008")
                 {
                     if (MT_1008 == true)
@@ -935,8 +956,6 @@ namespace RentCar.Controllers
                         }
                     }
                 }
-
-                
                 if (q.CR_Mas_Sys_Tasks_Code == "1009")
                 {
                     if (MT_1009 == true)
@@ -951,9 +970,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }               
                 if (q.CR_Mas_Sys_Tasks_Code == "1010")
                 {
                     if (MT_1010 == true)
@@ -968,9 +985,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }               
                 if (q.CR_Mas_Sys_Tasks_Code == "1011")
                 {
                     if (MT_1011 == true)
@@ -985,9 +1000,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }           
                 if (q.CR_Mas_Sys_Tasks_Code == "1101")
                 {
                     if (MT_1101 == true)
@@ -1013,9 +1026,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }         
                 if (q.CR_Mas_Sys_Tasks_Code == "1102")
                 {
                     if (MT_1102 == true)
@@ -1041,9 +1052,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }               
                 if (q.CR_Mas_Sys_Tasks_Code == "1103")
                 {
                     if (MT_1103 == true)
@@ -1069,9 +1078,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }               
                 if (q.CR_Mas_Sys_Tasks_Code == "1104")
                 {
                     if (MT_1104 == true)
@@ -1097,9 +1104,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }              
                 if (q.CR_Mas_Sys_Tasks_Code == "1201")
                 {
                     if (MT_1201 == true)
@@ -1181,9 +1186,7 @@ namespace RentCar.Controllers
                             continue;
                         }
                     }
-                }
-
-                
+                }              
                 if (q.CR_Mas_Sys_Tasks_Code == "1204")
                 {
                     if (MT_1204 == true)

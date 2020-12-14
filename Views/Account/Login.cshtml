@@ -7,365 +7,554 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Rent Car</title>
-    <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(Duration=0.3)" />
-    <link type="text/css" rel="stylesheet" href="~/css/min/richfaces1814.css?v=200930164155" />
+@if (RentCar.Controllers.HomeController.Language == "1")
+{
+    <head runat="server">
+        <title>Rent Car</title>
+        <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(Duration=0.3)" />
+        <link type="text/css" rel="stylesheet" href="~/css/min/richfaces1814.css?v=200930164155" />
 
-    <link type="image/x-icon" rel="shortcut icon" href="images/w.png" />
-   
+        <link type="image/x-icon" rel="shortcut icon" href="images/w.png" />
 
+        <link href="~/css/min/style.css" rel="stylesheet" />
+        <link href="~/css/min/style.ar1814.css" rel="stylesheet" />
+        <link href="~/css/min/style1814.css" rel="stylesheet" />
 
-    <link href="~/css/min/style.css" rel="stylesheet" />
-    <link href="~/css/min/style.ar1814.css" rel="stylesheet" />
-    <link href="~/css/min/style1814.css" rel="stylesheet" />
+        <style type="text/css">
+            .part {
+                height: 2%;
+            }
 
+            .container {
+                height: 240px;
+            }
 
+            .MainTable {
+                background-image: url('../../images/RentCar/BackGround.png');
+            }
 
-    <style type="text/css">
-        div#errorPanel, div#showErrorPanel {
-            width: 698px;
-            position: relative;
-        }
+            #logo {
+                position: absolute;
+                margin-top: 30px;
+                z-index: 1;
+                width: 350px;
+                height: 310px;
+                margin-top: 150px;
+                margin-right: 320px;
+            }
 
-        div#errorPanel {
-            z-index: 999;
-            margin: 0px 0px;
-            padding: 0px 0px 10px 0px;
-            font: bold 13px tahoma;
-        }
+            #lbltitle {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 50px;
+                color: #4a80b4;
+            }
 
-        div#showErrorPanel {
-            text-align: center;
-            z-index: 99;
-        }
+            input[type=text], input[type=password] {
+                margin-right: 23%;
+                /*margin-top: 8%;*/
+                width: 45%;
+                border-radius: 10px;
+                height: 15%;
+                padding: 12px 20px;
+                border: 2px solid #fbb03b !important;
+                /*-webkit-transition: 0.5s;*/
+                /*transition: 0.5s;*/
+                outline: none;
+                font-size: 16px;
+            }
 
-        div.errorPanelContainer {
-            position: fixed;
-            bottom: 0;
-            z-index: 99999;
-            margin: 0 260px;
-            background: #FFBABA;
-            border: 1px solid;
-        }
+            input[type=submit] {
+                margin-right: 37%;
+                /*margin-top: 8%;*/
+                width: 25%;
+                height: 10%;
+                padding: 12px 20px;
+                border-radius: 6px;
+                font-family: 'Times New Roman';
+                font-size: 20px;
+                background-color: #79acd7 !important;
+                color: #1B1464;
+                transition-duration: 0.4s;
+            }
 
-        div.warningPanelContainer {
-            position: fixed;
-            bottom: 0;
-            z-index: 99999;
-            margin: 0 260px;
-            background: #BDE5F8;
-            border: 1px solid;
-            color: #00529B;
-        }
+                input[type=submit]:hover {
+                    background-color: #EDA63C !important;
+                    color: white;
+                }
+        </style>
 
-        div.successPanelContainer {
-            border: 1px solid;
-            position: fixed;
-            bottom: 0;
-            z-index: 99999;
-            margin: 0 260px;
-            background: #DFF2BF;
-        }
-    </style>
-
-
-</head>
-<body class="mainBody" dir="rtl">
-    <form id="form1" runat="server" method="post">
-        <div>
-            
-
-            <div id="freezeBody" class="freeze" style="display: none"></div>
-
-            <table class="mainTable" style="height: 100%; margin: 0 auto; background: #e7e7e745;" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <div class="containerar" style="background: #e7e7e717;">
-                            <div class="header">
-
-                                <div style="position: relative; top: 20px; right: 20px;">
-                                    <span class="logo-alinma-bank"></span>
-                                </div>
-
-                                <div style="position: relative; top: 20px; left: 20px;">
-                                    <span class="logo-alinma-internet"></span>
-                                    <div style="position: absolute; top: 100px; left: 240px; width: 40px; height: 24px; background: #91785B;">
-                                        <div>
-                                            <input type="hidden" name="j_id40" value="j_id40" />
-                                            <a id="j_id40:langCmndLnk" href="@Url.Action("login", "Account")" tabindex="1724" class="switchLang" >English</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="messagesIdar">
-                                    <span id="transactionNumberOutput"><span style="color: #f4f2f0;"></span></span>
-                                </div>
-                                <span id="_viewRoot:status">
-                                    <span id="_viewRoot:status.start" style="display: none">
-                                       
-                                    </span>
-
-                                    <span id="_viewRoot:status.stop"></span>
-                                </span>
-                            </div>
-
-                            <div class="sidebar1ar">
-                                <div class="firstcolblue">
-                                    <span id="loginBodyId">
-
-                                        <div id="AccordionContainer" class="AccordionContainer" style="height: 420px; position: relative; border: none;">
-                                            <div style="padding: 0px; margin: 0px">
-
-
-                                                <div id="headLevel1" class="AccordionTitle">
-                                                    <span class="vm-icon vm-login"></span>
-                                                    <label class="menuHeaderLabelar">
-                                                        <span class="menuHeaderLinkar">
-                                                            تسجيل الدخول
-                                                        </span>
-                                                    </label>
-
-                                                </div>
-
-                                            </div>
-                                            <div id="Accordion1Content" class="AccordionContentLogin" style="margin: 0px 20px; width: 180px; display: block;">
-                                                <div id="loginForm">
-                                                    <input type="hidden" name="loginForm" value="loginForm" />
-                                                    <div class="rich-panel paddingPanel" id="loginForm:loginPanel" style="background-color: #dededeb0 !important; padding: 10px 10px 10px 10px !important;">
-                                                        <div class="rich-panel-body " id="loginForm:loginPanel_body">
-                                                            <table id="loginForm:loginFormGrid" cellpadding="0" cellspacing="0">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span class="displayLabelInput">
-                                                                                <table cellpadding="0" cellspacing="0">
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <label>اسم المستخدم</label><label style="color: #FF0000;">*</label>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <span class="paddingPanel">
-
-
-                                                                                                    <input type="text" name="txtusername" class="inputTextBlockar login-input" autocomplete="off">
-
-                                                                                                </span>
-                                                                                                @*<span>
-                                                        <label style="color: red;">@ViewBag.LoginError</label>
-                                                    </span>*@
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        @*<tr>
-                                                <td>
-                                                    <div id="loginForm:userIdInput:validationDiv" style="display: none">
-
-                                                    </div>
-                                                </td>
-                                            </tr>*@
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span class="displayLabelInput">
-                                                                                <table cellpadding="0" cellspacing="0">
-
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <label>كلمة المرور</label><label style="color: #FF0000;">*</label>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <span class="paddingPanel">
-
-                                                                                                <input type="text" name="txtpassword" class="inputTextBlockar login-input" autocomplete="off">
-
-                                                                                            </span>
-                                                                                            @*<span>
-                                                    <label style="color: red;">@ViewBag.PassError</label>
-                                                </span>*@
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    @*<tr>
-                                            <td>
-                                                <div id="loginForm:userPasswordInput:validationDiv" style="display: none">
-                                                    <ul class="ulErrorMessagear">
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>*@
-
-                                                                                </table>
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    @*<tr>
+    </head>
+    <body class="mainBody" dir="rtl">
+        <form id="form" runat="server" method="post">
+            <div class="container">
+                <table class="MainTable" style="position:relative;top:20px;right:200px;">
+                    <tbody>
+                        <tr>
                             <td>
-                                <input id="loginForm:JSFViewRootBalancer" type="text" name="loginForm:JSFViewRootBalancer" onkeyup="try{ updateDir(this);}catch(ex){}" style="display: none" />
+                                <div style="height:10px;"> </div>
+                                <hr style="height:1.5px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                <div style="height:5px;"> </div>
                             </td>
-                        </tr>*@
-                                                                    <tr>
-                                                                        <td>
-                                                                            <span style="height: 10px">
-                                                                                @*<input type="submit" id="BtnLogin" value="الدخول" name="الدخول" onclick="@("window.location.href='" + @Url.Action("index","home") + "'") ;" />*@
-                                                                                <input type="submit" value="الدخول" name="LogEnter" />
-                                                                            </span>
-                                                                        </td>
-                                                                    </tr>
+                        </tr>
 
-                                                                </tbody>
-                                                            </table>
-                                                            @*<span id="loginForm:restoreLoginMessagesCaller"></span>*@
+                        <tr>
+                            <img id="logo" src="~/images/RentCar/Logo.png" />
+                            <td id="parent" style="background-color: rgba(252, 244, 233,0.5); height:550px;z-index: -1;">
+
+                                <div style="height:5px;">
+                                    <div>
+
+                                        <table style="height:400px;margin-top:80px;margin-right:115px;width:900px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="position:static;top:20px;right:0px; width:450px;">
+
+                                                        <div style="height:200px;"></div>
+                                                        <div style="height:140px;text-align:center;"></div>
+                                                        <div style="height:50px;">
+                                                            <span style="font-family:'Times New Roman', Times, serif;font-size:28px;color:#245277">النظام الالي لادارة شركات تأجير السيارات</span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td id="child" style="width:450px;background-color: white;border-radius:15px;box-shadow:5px 5px 10px #b5b5b5;">
+                                                        <div>
+                                                            <div style="margin-top:20px;width:100%;text-align:center;">
+                                                                <label id="lbltitle">تسجيل الدخول</label>
+                                                            </div>
+
+                                                            <div style="height:90px;">
+                                                                <input type="text" name="txtusername" id="txtuserlogin" placeholder="إسم المستخدم" style="margin-top:8%;" autocomplete="off" />
+
+                                                            </div>
+
+                                                            <script>
+                                                                window.onload = function () {
+                                                                    var txtBox = document.getElementById("txtuserlogin");
+                                                                    if (txtBox != null) {
+                                                                        txtBox.focus();
+                                                                    }
+                                                                };
+
+
+                                                            </script>
+                                                            <div style="height:25px;margin-top:-10px; margin-right:105px;"><span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Login</span></div>
+                                                            <div>
+                                                                <input type="password" name="txtpassword" placeholder="كلمة السر" />
+                                                            </div>
+                                                            <div style="height:40px;margin-top:3px; margin-right:105px;">
+                                                                <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Password</span>
+                                                                <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.LoginError</span>
+                                                            </div>
+
+                                                            <div>
+                                                                <input type="submit" name="LogEnter" value="الدخول" />
+                                                            </div>
+                                                            <div>
+                                                                <input type="submit" name="lang" value="English" style="margin-top:3%;" @*onclick="location.href='@Url.Action("Login", "Account")'*@ />
+                                                            </div>
 
 
 
                                                         </div>
-                                                    </div>
-                                                    <div style="margin-right: 10px;">
-                                                        <label style="color: red;">@ViewBag.LoginError</label>
-                                                    </div>
-                                                </div>
+                                                    </td>
 
 
 
-                                            </div>
-                                            @*<div id="secondForm" style="padding: 0px; margin: 0px">
-                                                <input type="hidden" name="secondForm" value="secondForm" />
-
-                                                <div id="headLevel2" class="AccordionTitle">
-                                                    <span class="vm-icon vm-forget"></span>
-                                                    <label class="menuHeaderLabelar">
-                                                        <a href="#" onkeydown="return enableSpace(event,this)" tabindex="20" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.forms['secondForm'],{'secondForm:j_id70':'secondForm:j_id70'},'');}return false" class="menuHeaderLinkar">&#1606;&#1587;&#1610;&#1578; &#1603;&#1604;&#1605;&#1577; &#1575;&#1604;&#1605;&#1585;&#1608;&#1585;</a>
-                                                    </label>
-                                                </div>
-                                              
-
-                                            </div>*@
-                                        </div>
-
-
-                                    </span>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            </td>
 
-                            <!-- end .sidebar1 -->
+                        </tr>
 
-                            <div class="contentar" style="background: #e7e7e745;">
+                        <tr>
+                            <td>
+                                <div style="height:5px;"> </div>
+                                <hr style="height:2px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                <div style="height:12px;"> </div>
+                                <div style="background-color: #FFCE94; height:100px;"> </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </body>
+    }
 
-                                <div @*class="backgroundar"*@>
-                                </div>
-                                <span id="pageBodyPanel">
 
-                                    <div class="loginBodyar marginRightar" style="margin-left:4%;">
-                                        <div id="bodyBoxStop" class="loginBodyBoxHead">
-                                            <span class="login-body-box-icon login-body-stop"></span>
-                                            <div class="ar">وزارة النقل</div>
-                                        </div>
-                                        <div class="loginBodyText">
-                                            <div >
-                                                <a class="twitter-timeline" href="https://twitter.com/Saudi_TGA" data-tweet-limit="1"></a>
-                                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                            </div>
+
+
+
+
+
+
+
+
+
+    @*******************************Page in english*********************@
+    @if (RentCar.Controllers.HomeController.Language == "2")
+    {
+        <head runat="server">
+            <title>Rent Car</title>
+            <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(Duration=0.3)" />
+            <link type="text/css" rel="stylesheet" href="~/css/min/richfaces1814.css?v=200930164155" />
+
+            <link type="image/x-icon" rel="shortcut icon" href="images/w.png" />
+
+            <link href="~/css/min/style.css" rel="stylesheet" />
+            <link href="~/css/min/style.ar1814.css" rel="stylesheet" />
+            <link href="~/css/min/style1814.css" rel="stylesheet" />
+
+            <style type="text/css">
+                .part {
+                    height: 2%;
+                }
+
+                .container {
+                    height: 240px;
+                }
+
+                .MainTable {
+                    background-image: url('../../images/RentCar/BackGround.png');
+                }
+
+                #logo {
+                    position: absolute;
+                    margin-top: 30px;
+                    z-index: 1;
+                    width: 350px;
+                    height: 310px;
+                    margin-top: 150px;
+                    margin-right: 320px;
+                }
+
+                #lbltitle {
+                    font-family: 'Times New Roman', Times, serif;
+                    font-size: 50px;
+                    color: #4a80b4;
+                }
+
+                input[type=text], input[type=password] {
+                    margin-right: 23%;
+                    /*margin-top: 8%;*/
+                    width: 45%;
+                    border-radius: 10px;
+                    height: 15%;
+                    padding: 12px 20px;
+                    border: 2px solid #fbb03b !important;
+                    /*-webkit-transition: 0.5s;*/
+                    /*transition: 0.5s;*/
+                    outline: none;
+                    font-size: 16px;
+                }
+
+                input[type=submit] {
+                    margin-right: 37%;
+                    /*margin-top: 8%;*/
+                    width: 25%;
+                    height: 10%;
+                    padding: 12px 20px;
+                    border-radius: 6px;
+                    font-family: 'Times New Roman';
+                    font-size: 20px;
+                    background-color: #79acd7 !important;
+                    color: #1B1464;
+                    transition-duration: 0.4s;
+                }
+
+                    input[type=submit]:hover {
+                        background-color: #EDA63C !important;
+                        color: white;
+                    }
+            </style>
+
+        </head>
+        <body class="mainBody" dir="rtl">
+            <form id="form" runat="server" method="post">
+                <div class="container">
+                    <table class="MainTable" style="position:relative;top:20px;right:200px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="height:10px;"> </div>
+                                    <hr style="height:1.5px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                    <div style="height:5px;"> </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <img id="logo" src="~/images/RentCar/Logo.png" />
+                                <td id="parent" style="background-color: rgba(252, 244, 233,0.5); height:550px;z-index: -1;">
+
+                                    <div style="height:5px;">
+                                        <div>
+
+                                            <table style="height:400px;margin-top:80px;margin-right:115px;width:900px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="position:static;top:20px;right:0px; width:450px;">
+
+                                                            <div style="height:200px;"></div>
+                                                            <div style="height:140px;text-align:center;"></div>
+                                                            <div style="height:50px;">
+                                                                <span style="font-family:'Times New Roman', Times, serif;font-size:28px;color:#245277">النظام الالي لادارة شركات تأجير السيارات</span>
+                                                            </div>
+                                                        </td>
+
+                                                        <td id="child" style="width:450px;background-color: white;border-radius:15px;box-shadow:5px 5px 10px #b5b5b5;">
+                                                            <div>
+                                                                <div style="margin-top:20px;width:100%;text-align:center;">
+                                                                    <label id="lbltitle">تسجيل الدخول</label>
+                                                                </div>
+
+                                                                <div style="height:90px;">
+                                                                    <input type="text" name="txtusername" id="txtuserlogin" placeholder="إسم المستخدم" style="margin-top:8%;" autocomplete="off" />
+
+                                                                </div>
+
+                                                                <script>
+                                                                    window.onload = function () {
+                                                                        var txtBox = document.getElementById("txtuserlogin");
+                                                                        if (txtBox != null) {
+                                                                            txtBox.focus();
+                                                                        }
+                                                                    };
+
+
+                                                                </script>
+                                                                <div style="height:25px;margin-top:-10px; margin-right:105px;"><span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Login</span></div>
+                                                                <div style="height:86px;">
+                                                                    <input type="password" name="txtpassword" placeholder="كلمة السر" />
+                                                                </div>
+                                                                <div style="height:0px;margin-top:3px; margin-right:105px;">
+                                                                    <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Password</span>
+                                                                    <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.LoginError</span>
+                                                                </div>
+
+                                                                <div>
+                                                                    <input type="submit" name="LogEnter" value="الدخول" />
+                                                                </div>
+                                                                <div>
+                                                                    <input type="submit" name="lang" value="Français" style="margin-top:3%;" @*onclick="location.href='@Url.Action("Login", "Account")'*@ />
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                    <div class="loginBodyar marginRightar">
-                                        <div id="bodyBoxSure" class="loginBodyBoxHead">
-                                            <span class="login-body-box-icon login-body-sure"></span>
-                                            <div class="ar">هيئة النقل السعودية</div>
-                                        </div>
-                                        <div class="loginBodyText">
-                                            <div>
-                                                <a class="twitter-timeline" href="https://twitter.com/Saudi_TGA" data-tweet-limit="1"></a>
-                                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                </td>
 
-                                </span>
-                            </div>
-                            <!-- end .content -->
-                        </div>
-                        <!-- end .container -->
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 0px 20px;" valign="bottom">
+                            </tr>
 
-                        <div id="errorPanelContainer" class="errorPanelContainer" style="display: none; height: auto">
-                            <div id="errorPanel" style="background-position: 98% center;">
-                                <table cellpadding="0" cellspacing="0">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="#" onclick="closeBlindDownButton({duration:0.8}); ">
-                                                    <div id="imgErrSucc" class="icon-error"></div>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <span id="validationMessagesId">
-                                                    <table cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <table>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <label style="display: none"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-
-                                                    <input id="hiddenMenueLevel" type="hidden" name="hiddenMenueLevel" value="-1" /><input id="hiddenMenueSubLevel" type="hidden" name="hiddenMenueSubLevel" value="-1" />
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-
-                        <div style="height: 25px">
-
-                            <div style="text-align:center;width:100%;font-weight:bold;">جميع الحقوق محفوظة</div>
-
-
-                        </div>
-
-                    </td>
-                </tr>
-            </table>
-
-            <!-- Warning panel -->
-
-
-            <div class="rich-panel " id="timeOutPanel" style="display: none;">
-                <div class="rich-panel-body " id="timeOutPanel_body">
-                    <script type="text/javascript">
-
-                    </script>
+                            <tr>
+                                <td>
+                                    <div style="height:5px;"> </div>
+                                    <hr style="height:2px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                    <div style="height:12px;"> </div>
+                                    <div style="background-color: #FFCE94; height:100px;"> </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+            </form>
+        </body>
+    }
 
-            <div id="javaScriptLogDiv" class="javaScriptLogDiv" style="position: fixed; bottom: 5px; left: 1px; direction: ltr; background-color: lightblue;" ondblclick="toggleLog()">
-                <p onclick="toggleLog()">JS LOG</p>
-                <ul id="javaScriptLog" style="display: none"></ul>
-            </div>
 
-        </div>
-    </form>
-</body>
+
+
+
+
+
+    @*******************************Page in French*********************@
+    @if (RentCar.Controllers.HomeController.Language == "3")
+    {
+        <head runat="server">
+            <title>Rent Car</title>
+            <meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(Duration=0.3)" />
+            <link type="text/css" rel="stylesheet" href="~/css/min/richfaces1814.css?v=200930164155" />
+
+            <link type="image/x-icon" rel="shortcut icon" href="images/w.png" />
+
+            <link href="~/css/min/style.css" rel="stylesheet" />
+            <link href="~/css/min/style.ar1814.css" rel="stylesheet" />
+            <link href="~/css/min/style1814.css" rel="stylesheet" />
+
+            <style type="text/css">
+                .part {
+                    height: 2%;
+                }
+
+                .container {
+                    height: 240px;
+                }
+
+                .MainTable {
+                    background-image: url('../../images/RentCar/BackGround.png');
+                }
+
+                #logo {
+                    position: absolute;
+                    margin-top: 30px;
+                    z-index: 1;
+                    width: 350px;
+                    height: 310px;
+                    margin-top: 120px;
+                    margin-left: 100px;
+                }
+
+                #lbltitle {
+                    font-family: 'Times New Roman', Times, serif;
+                    font-size: 40px;
+                    color: #4a80b4;
+                    margin-top: 20px;
+                }
+
+                input[type=text], input[type=password] {
+                    margin-left: 23%;
+                    /*margin-top: 8%;*/
+                    width: 45%;
+                    border-radius: 10px;
+                    height: 15%;
+                    padding: 12px 20px;
+                    border: 2px solid #fbb03b !important;
+                    /*-webkit-transition: 0.5s;*/
+                    /*transition: 0.5s;*/
+                    outline: none;
+                    font-size: 16px;
+                }
+
+                input[type=submit] {
+                    margin-left: 37%;
+                    /*margin-top: 8%;*/
+                    width: 25%;
+                    height: 10%;
+                    padding: 12px 20px;
+                    border-radius: 6px;
+                    font-family: 'Times New Roman';
+                    font-size: 20px;
+                    background-color: #79acd7 !important;
+                    color: #1B1464;
+                    transition-duration: 0.4s;
+                }
+
+                    input[type=submit]:hover {
+                        background-color: #EDA63C !important;
+                        color: white;
+                    }
+            </style>
+
+        </head>
+        <body class="mainBody" dir="ltr">
+            <form id="form3" runat="server" method="post">
+                <div class="container">
+                    <table class="MainTable" style="position:relative;top:20px;left:200px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="height:10px;"> </div>
+                                    <hr style="height:1.5px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                    <div style="height:5px;"> </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td id="parent" style="background-color: rgba(252, 244, 233,0.5); height:550px;z-index: -1;">
+                                    <div style="position:relative;float:right;width:550px;height:550px;">
+
+
+
+
+                                        <div id="child" style="width:450px;margin-right:100px;margin-top:100px;background-color: white;border-radius:15px;box-shadow:5px 5px 10px #b5b5b5;height:380px;">
+                                            <div>
+                                                <div style="margin-top: 20px; width: 100%; text-align: center;">
+                                                    <label id="lbltitle">S'identifier</label>
+                                                </div>
+
+                                                <div style="height:90px;">
+                                                    <input type="text" name="txtusername" id="txtuserlogin" placeholder="Nom d'utilisateur" style="margin-top:8%;" autocomplete="off" />
+
+                                                </div>
+
+                                                <script>
+                                                    window.onload = function () {
+                                                        var txtBox = document.getElementById("txtuserlogin");
+                                                        if (txtBox != null) {
+                                                            txtBox.focus();
+                                                        }
+                                                    };
+
+
+                                                </script>
+                                                <div style="height:25px;margin-top:-10px; margin-left:105px;"><span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Login</span></div>
+                                                <div>
+                                                    <input type="password" name="txtpassword" placeholder="Mot de passe" />
+                                                </div>
+                                                <div style="height:40px;margin-top:3px; margin-left:105px;">
+                                                    <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.Password</span>
+                                                    <span style="font-size:15px;font-family:'Times New Roman';color:red;">@ViewBag.LoginError</span>
+                                                </div>
+
+                                                <div>
+                                                    <input type="submit" name="LogEnter" value="Entrer" />
+                                                </div>
+                                                <div>
+                                                    <input type="submit" name="lang" value="عربي" style="margin-top:3%;" @*onclick="location.href='@Url.Action("Login", "Account")'*@ />
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                    <div style="position:relative;float:right;width:550px;height:550px;">
+                                        <div style="height:450px;"><img id="logo" src="~/images/RentCar/Logo.png" /></div>
+                                        <div style="height:100px;">
+                                            <span style="font-family:'Times New Roman', Times, serif;font-size:20px;color:#245277;align-content:center;width:550px;float:left">Système automatisé de gestion des sociétés de location de voitures</span>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div style="height:5px;"> </div>
+                                    <hr style="height:2px;border-width:0;color:#e0af69;background-color:#e0af69;width:1130px;">
+                                    <div style="height:12px;"> </div>
+                                    <div style="background-color: #FFCE94; height:100px;"> </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </body>
+    }
+
+
+
+
+
+
+
+
+
 </html>
