@@ -88,8 +88,8 @@
     }
 </style>
 <div class="corp_content">
-    <div class="title_corp"> العضوية / عرض البيانات </div>
-    <div class="subtitle_corp"> تعرض هذه الصفحة بيانات العضوية و تمكن المسنخدم من البحث عن العضوية أو إظافة عضوية جديدة</div>
+    <div class="title_corp"> العضويات / عرض البيانات </div>
+    <div class="subtitle_corp"> تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -138,19 +138,19 @@
                                         <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">إسم الفئة</th>
+                                            <th style="width:15%;" onclick="sortTable(1)">العضوية</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_En_Name)</th>
+                                            <th style="width:15%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_En_Name)</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "3")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Fr_Name)</th>
+                                            <th style="width:15%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Fr_Name)</th>
                                         }
-                                        <th style="width:15%;" onclick="sortTable(2)">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
-                                        <th style="width:10%;" onclick="sortTable(3)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Status)</th>
-                                        <th style="width:45%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Reasons)</th>
+                                        <th style="width:10%;" onclick="sortTable(2)">المجموعة@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
+                                        <th style="width:8%;" onclick="sortTable(3)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Status)</th>
+                                        <th style="width:57%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Membership_Reasons)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">

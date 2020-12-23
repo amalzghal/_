@@ -84,12 +84,8 @@
     }
 </style>
 <div class="corp_content">
-    <div class="title_corp">
-        الماركات / عرض البيانات
-    </div>
-    <div class="subtitle_corp">
-            .تمكنك الصفحة من البحث و إضافة سجل جديدي وتعديل بيانات سجل
-    </div>
+    <div class="title_corp"> الماركات / عرض البيانات</div>
+    <div class="subtitle_corp">.تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -142,21 +138,21 @@
                             <table class="table table-bordered table-striped " id="myTable">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
+                                        <th style="width:8%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                            <th style="width:30%;" onclick="sortTable(1)"> الماركة</th>
+                                            <th style="width:10%;" onclick="sortTable(1)"> الماركة</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
-                                            <th style="width:30%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
+                                            <th style="width:10%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_En_Name)</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "3")
                                         {
-                                            <th style="width:30%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
+                                            <th style="width:10%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Fr_Name)</th>
                                         }
-                                        <th style="width:10%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
-                                        <th style="width:50%;">المرجع</th>
+                                        <th style="width:8%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Brand_Status)</th>
+                                        <th style="width:74%;">المرجع</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">
@@ -194,7 +190,7 @@
                                                         </a>
                                                     </td>
                                                 }
-                                                <td align="center" style="padding-right:10x;">
+                                                <td align="center" style="padding-right:10px;">
                                                     @*<a href="~/Brand/edit/@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Code)">@Html.DisplayFor(modelItem => item.CR_Mas_Sup_Brand_Status)</a>*@
                                                     @if (item.CR_Mas_Sup_Brand_Status == "A")
                                                     {

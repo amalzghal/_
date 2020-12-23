@@ -14,11 +14,11 @@ namespace RentCar.Models
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_Nationalities_Group_Code { get; set; }
         public string CR_Mas_Sup_Nationalities_Country_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "الجنسية عربي")]
         public string CR_Mas_Sup_Nationalities_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "الجنسية إنجليزي")]
         public string CR_Mas_Sup_Nationalities_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "الجنسية فرنسي")]
         public string CR_Mas_Sup_Nationalities_Fr_Name { get; set; }
         [Display(Name = "رقم العداد")]
         public Nullable<int> CR_Mas_Sup_Nationalities_Counter { get; set; }

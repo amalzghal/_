@@ -167,15 +167,15 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CR_Mas_Sup_Model_Code, CR_Mas_Sup_Model_Group_Code, CR_Mas_Sup_Model_Brand_Code, CR_Mas_Sup_Model_Ar_Name, " +
         "CR_Mas_Sup_Model_En_Name, CR_Mas_Sup_Model_Fr_Name, CR_Mas_Sup_Model_Counter, CR_Mas_Sup_Model_Status, CR_Mas_Sup_Model_Reasons")] CR_Mas_Sup_Model 
-         cR_Mas_Sup_Model, string CR_Mas_Sup_Model_Ar_Name, string CR_Mas_Sup_Model_Fr_Name, string CR_Mas_Sup_Model_En_Name)
+         cR_Mas_Sup_Model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var LrecordExitArabe = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Ar_Name == CR_Mas_Sup_Model_Ar_Name);
-                    var LrecordExitEnglish = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_En_Name == CR_Mas_Sup_Model_En_Name);
-                    var LrecordExitFrench = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Fr_Name == CR_Mas_Sup_Model_Fr_Name);
+                    var LrecordExitArabe = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Model.Any(Lr => Lr.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name);
 
 
                     if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name != null &&
@@ -201,18 +201,30 @@ namespace RentCar.Controllers
                             ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name == null)
                             ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
-                        if (LrecordExitArabe)
-                            ViewBag.LRExistAr = "عفوا هذا الطراز موجود";
-                        if (LrecordExitEnglish)
-                            ViewBag.LRExistEn = "عفوا هذا الطراز موجود";
-                        if (LrecordExitFrench)
-                            ViewBag.LRExistFr = "عفوا هذا الطراز موجود";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل (محذوف)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل (محذوف)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل (محذوف)";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "الحد الأدنى ٣ حروف";
                     }
                 }
             }
@@ -307,18 +319,30 @@ namespace RentCar.Controllers
                             ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name == null)
                             ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
-                        if (LrecordExitArabe)
-                            ViewBag.LRExistAr = "عفوا هذا الطراز موجود";
-                        if (LrecordExitEnglish)
-                            ViewBag.LRExistEn = "عفوا هذا الطراز موجود";
-                        if (LrecordExitFrench)
-                            ViewBag.LRExistFr = "عفوا هذا الطراز موجود";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "A" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "H" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل (معطل)";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_Ar_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الطراز مسجل من قبل (محذوف)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_En_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name))
+                            ViewBag.LRExistEn = "عفوا الطراز مسجل من قبل (محذوف)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Model.Any(m => m.CR_Mas_Sup_Model_Status == "D" && m.CR_Mas_Sup_Model_Fr_Name == cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الطراز مسجل من قبل (محذوف)";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name != null && cR_Mas_Sup_Model.CR_Mas_Sup_Model_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "الحد الأدنى ٣ حروف";
                     }
                 }
             }         

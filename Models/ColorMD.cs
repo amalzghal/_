@@ -12,11 +12,11 @@ namespace RentCar.Models
         public string CR_Mas_Sup_Color_Code { get; set; }
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_Color_Group_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "اللون عربي")]
         public string CR_Mas_Sup_Color_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "اللون إنجليزي")]
         public string CR_Mas_Sup_Color_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "اللون فرنسي")]
         public string CR_Mas_Sup_Color_Fr_Name { get; set; }
         [Display(Name = "الحالة")]
         public string CR_Mas_Sup_Color_Status { get; set; }

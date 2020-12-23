@@ -13,11 +13,11 @@ namespace RentCar.Models
         [Required(ErrorMessage = "الرقم السري إجباري")]
         [Display(Name = "الرقم السري")]
         public string CR_Mas_User_Information_PassWord { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "المستخدم عربي")]
         public string CR_Mas_User_Information_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "المستخدم إنجليزي")]
         public string CR_Mas_User_Information_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "المستخدم فرنسي")]
         public string CR_Mas_User_Information_Fr_Name { get; set; }
         [Required(ErrorMessage = "رقم الهاتف إجباري")]
         [Display(Name = "رقم الهاتف")]

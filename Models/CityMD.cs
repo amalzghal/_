@@ -13,11 +13,11 @@ namespace RentCar.Models
         public string CR_Mas_Sup_City_Code { get; set; }
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_City_Group_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "المدينة عربي")]
         public string CR_Mas_Sup_City_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "المدينة إنجليزي")]
         public string CR_Mas_Sup_City_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "المدينة فرنسي")]
         public string CR_Mas_Sup_City_Fr_Name { get; set; }
         [Display(Name = "الحالة")]
         public string CR_Mas_Sup_City_Status { get; set; }

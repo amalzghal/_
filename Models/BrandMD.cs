@@ -10,11 +10,11 @@ namespace RentCar.Models
     {
         [Display(Name ="الرمز")]
         public string CR_Mas_Sup_Brand_Code { get; set; }
-        [Display(Name= "الإسم بالعربي")]
+        [Display(Name= "الماركة عربي")]
         public string CR_Mas_Sup_Brand_Ar_Name { get; set; }
-        [Display(Name= "الإسم بالإنجليزي")]
+        [Display(Name= "الماركة إنجليزي")]
         public string CR_Mas_Sup_Brand_En_Name { get; set; }
-        [Display(Name= "الإسم بالفرنسي")]
+        [Display(Name= "الماركة فرنسي")]
         public string CR_Mas_Sup_Brand_Fr_Name { get; set; }  
         [Display(Name="الحالة")]
         public string CR_Mas_Sup_Brand_Status { get; set; }

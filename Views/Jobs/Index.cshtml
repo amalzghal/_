@@ -90,7 +90,7 @@
 </style>
 <div class="corp_content">
     <div class="title_corp"> المهن / عرض البيانات </div>
-    <div class="subtitle_corp"> تعرض هذه الصفحة بيانات المهن و تمكن المسنخدم من البحث عن المهن أو إظافة مهنة جديدة</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -136,21 +136,21 @@
                             <table class="table table-bordered table-striped " id="myTable">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Code)</th>
+                                        <th style="width:7%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                            <th style="width:25%;" onclick="sortTable(1)">إسم المهنة</th>
+                                            <th style="width:10%;" onclick="sortTable(1)">المهنة</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
-                                            <th style="width:25%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_En_Name)</th>
+                                            <th style="width:10%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_En_Name)</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "3")
                                         {
-                                            <th style="width:25%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Fr_Name)</th>
+                                            <th style="width:10%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Fr_Name)</th>
                                         }
-                                        <th style="width:10%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Status)</th>
-                                        <th style="width:45%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Reasons)</th>
+                                        <th style="width:8%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Status)</th>
+                                        <th style="width:65%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Jobs_Reasons)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">

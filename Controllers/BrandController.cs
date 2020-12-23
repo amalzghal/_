@@ -161,16 +161,15 @@ namespace RentCar.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CR_Mas_Sup_Brand_Code, CR_Mas_Sup_Brand_Ar_Name, CR_Mas_Sup_Brand_En_Name, " +
-        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand, 
-        string CR_Mas_Sup_Brand_Ar_Name, string CR_Mas_Sup_Brand_Fr_Name, string CR_Mas_Sup_Brand_En_Name)
+        "CR_Mas_Sup_Brand_Fr_Name, CR_Mas_Sup_Brand_Status, CR_Mas_Sup_Brand_Reasons")] CR_Mas_Sup_Brand cR_Mas_Sup_Brand)
         {
             try
             {
                 if (ModelState.IsValid)
                 {                  
-                    var LrecordExitArabe = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Ar_Name == CR_Mas_Sup_Brand_Ar_Name);
-                    var LrecordExitEnglish = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_En_Name == CR_Mas_Sup_Brand_En_Name);
-                    var LrecordExitFrench = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Fr_Name == CR_Mas_Sup_Brand_Fr_Name);
+                    var LrecordExitArabe = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name);
+                    var LrecordExitEnglish = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name);
+                    var LrecordExitFrench = db.CR_Mas_Sup_Brand.Any(Lr => Lr.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name);
                     
 
                     if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null &&
@@ -195,18 +194,30 @@ namespace RentCar.Controllers
                             ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name == null)
                             ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
-                        if (LrecordExitArabe)
-                            ViewBag.LRExistAr = "عفوا هذه الماركة موجودة";
-                        if (LrecordExitEnglish)
-                            ViewBag.LRExistEn = "عفوا هذه الماركة موجودة";
-                        if (LrecordExitFrench)
-                            ViewBag.LRExistFr = "عفوا هذه الماركة موجودة";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل (محذوفة)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل (محذوفة)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل (محذوفة)";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "الحد الأدنى ٣ حروف";
                     }     
                 }
             }
@@ -245,6 +256,7 @@ namespace RentCar.Controllers
                 {
                     ViewBag.stat = "حذف";
                     ViewBag.h = "تعطيل";
+                    ViewData["ReadOnly"] = "false";
                 }
                 if ((cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "D" || 
                     cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status == "Deleted" || 
@@ -266,6 +278,7 @@ namespace RentCar.Controllers
                 {
                     ViewBag.h = "تعطيل";
                     ViewBag.stat = "حذف";
+                    ViewData["ReadOnly"] = "false";
                 }
                 ViewBag.delete = cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Status;            
             }
@@ -312,18 +325,30 @@ namespace RentCar.Controllers
                             ViewBag.LRExistEn = "الرجاء إدخال بيانات الحقل";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name == null)
                             ViewBag.LRExistFr = "الرجاء إدخال بيانات الحقل";
-                        if (LrecordExitArabe)
-                            ViewBag.LRExistAr = "عفوا هذه الماركة موجودة";
-                        if (LrecordExitEnglish)
-                            ViewBag.LRExistEn = "عفوا هذه الماركة موجودة";
-                        if (LrecordExitFrench)
-                            ViewBag.LRExistFr = "عفوا هذه الماركة موجودة";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "A" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "H" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل (معطلة)";
+                        if (LrecordExitArabe && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_Ar_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name))
+                            ViewBag.LRExistAr = "عفوا الماركة مسجلة من قبل (محذوفة)";
+                        if (LrecordExitEnglish && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_En_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name))
+                            ViewBag.LRExistEn = "عفوا الماركة مسجلة من قبل (محذوفة)";
+                        if (LrecordExitFrench && db.CR_Mas_Sup_Brand.Any(b => b.CR_Mas_Sup_Brand_Status == "D" && b.CR_Mas_Sup_Brand_Fr_Name == cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name))
+                            ViewBag.LRExistFr = "عفوا الماركة مسجلة من قبل (محذوفة)";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Ar_Name.Length < 3)
-                            ViewBag.LRExistAr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistAr = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_En_Name.Length < 3)
-                            ViewBag.LRExistEn = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistEn = "الحد الأدنى ٣ حروف";
                         if (cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name != null && cR_Mas_Sup_Brand.CR_Mas_Sup_Brand_Fr_Name.Length < 3)
-                            ViewBag.LRExistFr = "عفوا الاسم يحتوي على ما بين 3 و 30 حرفًا";
+                            ViewBag.LRExistFr = "الحد الأدنى ٣ حروف";
                     }
                 }
             }

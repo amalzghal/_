@@ -10,15 +10,15 @@ namespace RentCar.Models
     {
         [Display(Name ="الرمز")]
         public string CR_Mas_Sup_Car_Specifications_Code { get; set; }
-        [Display(Name= "الإسم بالعربي")]
+        [Display(Name= "المواصفة عربي")]
         public string CR_Mas_Sup_Car_Specifications_Ar_Name { get; set; }
-        [Display(Name= "الإسم بالإنجليزي")]
+        [Display(Name= "المواصفة إنجليزي")]
         public string CR_Mas_Sup_Car_Specifications_En_Name { get; set; }
-        [Display(Name= "الإسم بالفرنسي")]
+        [Display(Name= "المواصفة فرنسي")]
         public string CR_Mas_Sup_Car_Specifications_Fr_Name { get; set; }        
         [Display(Name="الحالة")]
         public string CR_Mas_Sup_Car_Specifications_Status { get; set; }
-        [Display(Name="السبب")]
+        [Display(Name= "المرجع")]
         public string CR_Mas_Sup_Car_Specifications_Reasons { get; set; }
     }
 }

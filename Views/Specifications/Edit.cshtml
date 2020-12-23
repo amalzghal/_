@@ -67,11 +67,20 @@
         position: absolute;
         font-family: 'Times New Roman';
     }
-    
+    .title_corp {
+        font-family: 'Times New Roman';
+        font-size: 25px;
+    }
+
+    .subtitle_corp {
+        padding-top: 3px !important;
+        font-family: 'Times New Roman' !important;
+        color: #083555;
+    }
 </style>
 <div class="corp_content">
-    <div class="title_corp"> المواصفات / تعديل</div>
-    <div class="subtitle_corp"> تمكن هذه الصفحة المستخدم من التعديل على المواصفة</div>
+    <div class="title_corp"> المواصفات /  تعديل البيانات</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من تعديل بيانات المواصفة</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -88,19 +97,19 @@
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
                         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Ar_Name, new { @class = "label_form col-md-6", style = "float:right" })
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Ar_Name, new { @class = "input_form col-md-6", id = "RtextAr", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Ar_Name, new { @class = "input_form col-md-6", onkeyup = "movetoNext('CR_Mas_Sup_Car_Specifications_En_Name')", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistAr</div>
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
                         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_En_Name, new { @class = "label_form col-md-6", style = "float:right" })
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_En_Name, new { @class = "input_form col-md-6", id = "RtextEn", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_En_Name, new { @class = "input_form col-md-6", onkeyup = "movetoNext('CR_Mas_Sup_Car_Specifications_Fr_Name')", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistEn</div>
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
                         @Html.LabelFor(model => model.CR_Mas_Sup_Car_Specifications_Fr_Name, new { @class = "label_form col-md-6", style = "float:right" })
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Fr_Name, new { @class = "input_form col-md-6", id = "RtextFr", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Car_Specifications_Fr_Name, new { @class = "input_form col-md-6", onkeyup = "movetoNext('CR_Mas_Sup_Car_Specifications_Reasons')", maxlength = "200", autocomplete = "off", style = "margin-left:-265px;width:450px;" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistFr</div>
                     </div>
@@ -227,19 +236,35 @@
                         </div>
                     </div>
                 </div>
-                <script type="text/javascript">
-                    $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 3000); });
-                </script>
+                if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn == null && @ViewBag.LRExistFr == null)
+                { <script>document.getElementById('CR_Mas_Sup_Car_Specifications_Ar_Name').focus()</script> }
+                else if (@ViewBag.LRExistAr != null)
+                { <script>document.getElementById('CR_Mas_Sup_Car_Specifications_Ar_Name').focus()</script> }
+                else if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn != null)
+                { <script>document.getElementById('CR_Mas_Sup_Car_Specifications_En_Name').focus()</script> }
+                else if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn == null && @ViewBag.LRExistFr != null)
+                { <script>document.getElementById('CR_Mas_Sup_Car_Specifications_Fr_Name').focus()</script> }
+                else if (@ViewBag.LRExistAr != null && @ViewBag.LRExistEn != null && @ViewBag.LRExistFr != null)
+                { <script>document.getElementById('CR_Mas_Sup_Car_Specifications_Ar_Name').focus()</script> }
+
+                @*<script type="text/javascript">
+                    $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 4000); });
+                </script>*@
                 <script>
                     var isreadonly = @ViewData["ReadOnly"];
                     $(document).ready(function(){
                         if(isreadonly)
                         {
-                            $('#RtextAr').attr('readonly', 'readonly');
-                            $('#RtextEn').attr('readonly', 'readonly');
-                            $('#RtextFr').attr('readonly', 'readonly');
+                            $('#CR_Mas_Sup_Car_Specifications_Ar_Name').attr('readonly', 'readonly');
+                            $('#CR_Mas_Sup_Car_Specifications_En_Name').attr('readonly', 'readonly');
+                            $('#CR_Mas_Sup_Car_Specifications_Fr_Name').attr('readonly', 'readonly');
                         }
                     })
+                    function movetoNext(nextFieldID) {
+                        if (event.keyCode === 13) {
+                            document.getElementById(nextFieldID).focus();
+                        }
+                    };
                 </script>
             }
         </div>

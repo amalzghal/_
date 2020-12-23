@@ -2,84 +2,95 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    #save-btn {
+        margin-right: 10px;
+        background-color: #5bc0de !important;
+        width: 80px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    #bttn {
+        float: right;
+        width: 80px;
+        background-color: #5bc0de !important;
+        margin-left: 20px;
+    }
+
+    #btn-confirm {
+        float: right;
+        width: 80px;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        margin-right: 30px;
+        font-size: 16px;
+        font-family: 'Times New Roman';
+    }
+
+    .hidden {
+        display: none
+    }
+
+    .text-danger {
+        font-size: 12px;
+        margin-right: 160px;
+        font-family: 'Times New Roman';
+    }
+
+    .a {
+        float: right;
+        background-color: #5bc0de;
+        width: 80px;
+        height: 25px;
+        padding-top: 5px;
+        padding-right: 10px;
+        font-size: 12px;
+        font-family: times new roman;
+    }
+
+    .texterr {
+        font-family: 'Times New Roman' !important;
+        font-size: 14px !important;
+        color: red !important;
+        margin-right: 50% !important;
+        height: 40px;
+    }
+
+    #asterisk {
+        color: red;
+        float: right;
+        font-size: 15px !important;
+        margin-right: 112px;
+        margin-top: 5px;
+        position: absolute;
+    }
+
+    .corp_content {
+        height: 525px !important;
+    }
+    
+    .title_corp {
+        font-family: 'Times New Roman';
+        font-size: 25px;
+    }
+
+    .subtitle_corp {
+        padding-top: 3px !important;
+        font-family: 'Times New Roman' !important;
+        color: #083555;
+    }
+</style>
 <div class="corp_content">
-    <div class="title_corp"> الماركة / تعديل</div>
-    <div class="subtitle_corp"> تمكن هذه الصفحة المستخدم من التعديل على الماركة</div>
+    <div class="title_corp"> الماركات / تعديل البيانات</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من تعديل بيانات الماركة</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
-    <div class="text-danger" id="Message" style="margin-Top: 10px; margin-right: 300px;">@TempData["TempModif"]</div>
+    @*<div class="text-danger" id="Message" style="margin-Top: 10px; margin-right: 300px;">@TempData["TempModif"]</div>*@
     <div class="corp_page">
         <div class="page_content">
-            <style>
-                #save-btn {
-                    margin-right: 10px;
-                    background-color: #5bc0de !important;
-                    width: 80px;
-                    margin-left: 20px;
-                    margin-bottom: 10px;
-                }
-
-                #bttn {
-                    float: right;
-                    width: 80px;
-                    background-color: #5bc0de !important;
-                    margin-left: 20px;
-                }
-
-                #btn-confirm {
-                    float: right;
-                    width: 80px;
-                    margin-left: 20px;
-                }
-
-                .lbl {
-                    margin-right: 30px;
-                    font-size: 16px;
-                    font-family: 'Times New Roman';
-                }
-
-                .hidden {
-                    display: none
-                }
-
-                .text-danger {
-                    font-size: 12px;
-                    margin-right: 160px;
-                    font-family: 'Times New Roman';
-                }
-
-                .a {
-                    float: right;
-                    background-color: #5bc0de;
-                    width: 80px;
-                    height: 25px;
-                    padding-top: 5px;
-                    padding-right: 10px;
-                    font-size: 12px;
-                    font-family: times new roman;
-                }
-
-                .corp_content {
-                    height: 525px !important;
-                }
-
-                #asterisk {
-                    color: red;
-                    float: right;
-                    font-size: 15px !important;
-                    margin-right: 112px;
-                    margin-top: 5px;
-                    position: absolute;
-                }
-
-                .texterr {
-                    font-family: 'Times New Roman' !important;
-                    font-size: 14px !important;
-                    color: red !important;
-                    margin-right: 50% !important;
-                    height: 40px;
-                }
-            </style>
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -89,19 +100,19 @@
                         @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Code, new { @class = "input_form col-md-6", style = "float:right;width:20%", @readonly = "readonly" })
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "input_form col-md-6", id = "RtextAr", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "input_form col-md-6", Onclick = "movetoNext('CR_Mas_Sup_Brand_En_Name')", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
                         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Ar_Name, new { @class = "label_form col-md-6" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistAr</div>
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "input_form col-md-6", id = "RtextEn", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "input_form col-md-6", Onclick = "movetoNext('CR_Mas_Sup_Brand_Fr_Name')", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
                         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_En_Name, new { @class = "label_form col-md-6" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistEn</div>
                     </div>
                     <div class="col-md-6 offset-md-6 m-t-1">
-                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "input_form col-md-6", id = "RtextFr", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
+                        @Html.TextBoxFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "input_form col-md-6", Onclick = "movetoNext('CR_Mas_Sup_Brand_Reasons')", maxlength = "30", autocomplete = "off", style = "width: 250px;margin-left: -65px!important;" })
                         @Html.LabelFor(model => model.CR_Mas_Sup_Brand_Fr_Name, new { @class = "label_form col-md-6" })
                         <div id="asterisk">*</div>
                         <div class="texterr">@ViewBag.LRExistFr</div>
@@ -230,21 +241,48 @@
                         </div>
                     </div>
                 </div>
-                <script type="text/javascript">
-                    $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 3000); });
-                </script>
+                if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn == null && @ViewBag.LRExistFr == null)
+                {
+                    <script>document.getElementById('CR_Mas_Sup_Brand_Ar_Name').focus()</script>
+ }
+                else if (@ViewBag.LRExistAr != null)
+                {
+                    <script>document.getElementById('CR_Mas_Sup_Brand_Ar_Name').focus()</script>
+ }
+                else if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn != null)
+                {
+                    <script>document.getElementById('CR_Mas_Sup_Brand_En_Name').focus()</script>
+ }
+                else if (@ViewBag.LRExistAr == null && @ViewBag.LRExistEn == null && @ViewBag.LRExistFr != null)
+                {
+                    <script>document.getElementById('CR_Mas_Sup_Brand_Fr_Name').focus()</script>
+ }
+                else if (@ViewBag.LRExistAr != null && @ViewBag.LRExistEn != null && @ViewBag.LRExistFr != null)
+                {
+                    <script>document.getElementById('CR_Mas_Sup_Brand_Ar_Name').focus()</script>
+ }
+
+                @*<script type="text/javascript">
+                $(document).ready(function () { setTimeout(function () { $("#Message").fadeOut(); }, 4000); });
+            </script>*@
                 <script>
                     var isreadonly = @ViewData["ReadOnly"];
-                    $(document).ready(function(){
-                        if(isreadonly)
-                        {
-                            $('#RtextAr').attr('readonly', 'readonly');
-                            $('#RtextEn').attr('readonly', 'readonly');
-                            $('#RtextFr').attr('readonly', 'readonly');
+                    $(document).ready(function () {
+                        if (isreadonly) {
+                            $('#CR_Mas_Sup_Brand_Ar_Name').attr('readonly', 'readonly');
+                            $('#CR_Mas_Sup_Brand_En_Name').attr('readonly', 'readonly');
+                            $('#CR_Mas_Sup_Brand_Fr_Name').attr('readonly', 'readonly');
                         }
-                    })
+                    });
                 </script>
-            }
+                <script>
+                    function movetoNext(nextFieldID) {
+                        if (event.keyCode == 13) {
+                            document.getElementById(nextFieldID).focus();
+                        }
+                    };
+                </script>
+                    }
         </div>
     </div>
 </div>

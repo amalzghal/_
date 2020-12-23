@@ -88,7 +88,7 @@
 </style>
 <div class="corp_content">
     <div class="title_corp"> الشاشات و المهام / عرض البيانات </div>
-    <div class="subtitle_corp"> تعرض هذه الصفحة بيانات الشاشات و المهام و تمكن المسنخدم من البحث عن الشاشات و المهام أو إظافة شاشة جديدة</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -134,10 +134,10 @@
                             <table class="table table-bordered table-striped " id="myTable">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Code)</th>
+                                        <th style="width:7%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                    <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Ar_Name)</th>
+                                    <th style="width:20%;" onclick="sortTable(1)">الشاشة</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
@@ -148,8 +148,8 @@
                                             <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Fr_Name)</th>
                                         }
                                         <th style="width:15%;">النظام@*@Html.DisplayNameFor(model => model.CR_Mas_Sup_Group.CR_Mas_Sup_Group_Ar_Name)*@</th>
-                                        <th style="width:10%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Status)</th>
-                                        <th style="width:45%;">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Reasons)</th>
+                                        <th style="width:8%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Status)</th>
+                                        <th style="width:50%;">@Html.DisplayNameFor(model => model.CR_Mas_Sys_Tasks_Reasons)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">

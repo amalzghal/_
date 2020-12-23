@@ -91,7 +91,7 @@
 </style>
 <div class="corp_content">
     <div class="title_corp">المواصفات / عرض البيانات</div>
-    <div class="subtitle_corp"> تعرض هذه الصفحة بيانات المواصفات و تمكن المسنخدم من البحث عن المواصفات أو إظافة مواصفات جديدة</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -137,10 +137,10 @@
                             <table class="table table-bordered table-striped " id="myTable">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Code)</th>
+                                        <th style="width:7%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                            <th style="width:30%;" onclick="sortTable(1)">إسم المواصفة</th>
+                                            <th style="width:30%;" onclick="sortTable(1)">المواصفة</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
@@ -150,8 +150,8 @@
                                         {
                                             <th style="width:30%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Fr_Name)</th>
                                         }
-                                        <th style="width:10%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Status)</th>
-                                        <th style="width:50%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons)</th>
+                                        <th style="width:8%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Status)</th>
+                                        <th style="width:55%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Specifications_Reasons)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">

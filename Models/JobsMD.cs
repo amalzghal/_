@@ -12,11 +12,11 @@ namespace RentCar.Models
         public string CR_Mas_Sup_Jobs_Code { get; set; }
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_Jobs_Group_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "المهنة عربي")]
         public string CR_Mas_Sup_Jobs_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "المهنة إنجليزي")]
         public string CR_Mas_Sup_Jobs_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "المهنة فرنسي")]
         public string CR_Mas_Sup_Jobs_Fr_Name { get; set; }
         [Display(Name = "الحالة")]
         public string CR_Mas_Sup_Jobs_Status { get; set; }

@@ -84,7 +84,7 @@
 </style>
 <div class="corp_content">
     <div class="title_corp"> المميزات / عرض البيانات </div>
-    <div class="subtitle_corp"> تعرض هذه الصفحة بيانات المميزات و تمكن المسنخدم من البحث عن المميزات أو إظافة مميزات جديدة</div>
+    <div class="subtitle_corp"> تمكنك الصفحة من البحث و إضافة سجل جديد و تعديل بيانات سجل</div>
     <div class="hr_60"></div>
     <div class="hr_80"></div>
     <div class="corp_page">
@@ -130,21 +130,21 @@
                             <table class="table table-bordered table-striped " id="myTable">
                                 <thead>
                                     <tr>
-                                        <th style="width:10%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Code)</th>
+                                        <th style="width:6%;" onclick="sortTable(0)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Code)</th>
                                         @if (RentCar.Controllers.HomeController.Language == "1")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">إسم الميزة</th>
+                                            <th style="width:18%;" onclick="sortTable(1)">الميزة</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "2")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_En_Name)</th>
+                                            <th style="width:18%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_En_Name)</th>
                                         }
                                         @if (RentCar.Controllers.HomeController.Language == "3")
                                         {
-                                            <th style="width:20%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Fr_Name)</th>
+                                            <th style="width:18%;" onclick="sortTable(1)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Fr_Name)</th>
                                         }
-                                        <th style="width:10%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Status)</th>
-                                        <th style="width:60%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Reasons)</th>
+                                        <th style="width:8%;" onclick="sortTable(2)">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Status)</th>
+                                        <th style="width:68%;">@Html.DisplayNameFor(model => model.CR_Mas_Sup_Car_Features_Reasons)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl">

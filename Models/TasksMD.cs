@@ -13,11 +13,11 @@ namespace RentCar.Models
         public string CR_Mas_Sys_Tasks_Code { get; set; }
         [Display(Name = "النظام")]
         public string CR_Mas_Sys_System_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "الشاشة عربي")]
         public string CR_Mas_Sys_Tasks_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "الشاشة إنجليزي")]
         public string CR_Mas_Sys_Tasks_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "الشاشة فرنسي")]
         public string CR_Mas_Sys_Tasks_Fr_Name { get; set; }
         [Display(Name = "الحالة")]
         public string CR_Mas_Sys_Tasks_Status { get; set; }

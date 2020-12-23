@@ -12,11 +12,11 @@ namespace RentCar.Models
         public string CR_Mas_Sup_Category_Car_Code { get; set; }
         [Display(Name = "المجموعة")]
         public string CR_Mas_Sup_Category_Car_Group_Code { get; set; }
-        [Display(Name = "الإسم بالعربي")]
+        [Display(Name = "الفئة عربي")]
         public string CR_Mas_Sup_Category_Car_Ar_Name { get; set; }
-        [Display(Name = "الإسم بالإنجليزي")]
+        [Display(Name = "الفئة إنجليزي")]
         public string CR_Mas_Sup_Category_Car_En_Name { get; set; }
-        [Display(Name = "الإسم بالفرنسي")]
+        [Display(Name = "الفئة فرنسي")]
         public string CR_Mas_Sup_Category_Car_Fr_Name { get; set; }
         [Display(Name = "الحالة")]
         public string CR_Mas_Sup_Category_Car_Status { get; set; }
